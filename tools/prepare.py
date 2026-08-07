@@ -45,7 +45,7 @@ TARGETS = {
 MARKER = "Tilbage til galleriet"
 
 BACK_LINK = (
-    '<a href="../index.html" aria-label="Tilbage til galleriet"'
+    '<a href="../gallery/" aria-label="Tilbage til galleriet"'
     ' style="position:fixed;left:16px;bottom:16px;z-index:2147483647;display:inline-flex;'
     "align-items:center;box-sizing:border-box;margin:0;padding:9px 14px;border-radius:999px;"
     "background:#052975;color:#8ff8ff;"

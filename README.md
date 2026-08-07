@@ -1,126 +1,156 @@
 # Continia Expense Management — redesign
 
-Designgalleri for redesignet af Continia Expense Management. Tre interaktive
-designreferencer bygget i Claude Design: det fælles design system, mobilappen
-til medarbejderen og desktopportalen til godkenderen.
+Redesignet af Continia Expense Management, vist som et **kørende produkt**
+frem for et designgalleri. Samme URL viser portalen på desktop og appen på
+mobil, og navigationen er designets egen.
 
-**→ [Åbn galleriet](https://anchcontinia.github.io/continia-expense-redesign/)**
+**→ [Åbn produktet](https://anchcontinia.github.io/continia-expense-redesign/)**
+· [Galleri](https://anchcontinia.github.io/continia-expense-redesign/gallery/)
+· [Design system](https://anchcontinia.github.io/continia-expense-redesign/design-system/expense-design-system.html)
 
 > Designfilerne er **referencer, ikke produktionskode**. Se
 > [HANDOFF.md](HANDOFF.md) for tokens og implementeringsnoter, og
-> [PROJECT_RULES.md](PROJECT_RULES.md) for de visuelle regler der gælder på
-> alle flader.
+> [PROJECT_RULES.md](PROJECT_RULES.md) for de visuelle regler.
 
 ---
 
-## Skærmoversigt
+## Sådan opfører forsiden sig
 
-### Design system — [`design-system/expense-design-system.html`](design-system/expense-design-system.html)
+| Viewport | Flade | Noter |
+| --- | --- | --- |
+| ≥ 1024px | Desktopportalen | Fuldskærm, ingen browserramme. Portalens egen sidebar skifter skærm. |
+| 768–1023px | Desktopportalen | Med `min-width: 1280px` og vandret scroll — se gulvet nedenfor. |
+| < 768px | Mobilappen | Fuldskærm uden telefonramme. Appens egen bundlinje skifter skærm. |
 
-Viewport 1440 × 1000. Tokens og primitives som begge flader deler.
+Fladen vælges med `matchMedia`, ikke user-agent. Krydser viewporten
+breakpointet, skifter fladen, men skærmen kortlægges over — står du på
+portalens Mileage, lander du på appens Mileage, ikke på forsiden.
 
-| Sektion | Sektion |
-| --- | --- |
-| Color | DataTable |
-| Typography | Navigation |
-| Space, radius, elevation | Empty, loading, error |
-| Buttons | Modal, sheet, toast |
-| Forms | Icons |
-| Expense primitives | |
+### URL'er
 
-### Mobil — [`mobile/expense-mobile.html`](mobile/expense-mobile.html)
+Hashen afspejler altid den skærm der vises, og opdateres også når du
+navigerer med designets egen navigation. Browserens tilbage-knap virker.
 
-iPhone 390 × 844, medarbejderens flade. 11 skærme i én fil, vælg dem i
-sidepanelet til venstre.
+```
+#/portal/sign-in            #/app/login
+#/portal/approval-queue     #/app/my-expenses
+#/portal/approval-view      #/app/history
+#/portal/all-expenses       #/app/per-diem
+#/portal/mileage            #/app/scan-receipt
+#/portal/card-transactions  #/app/scan-result
+#/portal/reporting          #/app/new-expense
+#/portal/setup              #/app/mileage
+                            #/app/expense-report
+                            #/app/expense-detail
+                            #/app/receipt-inbox
+```
 
-| Skærm | Noter |
-| --- | --- |
-| Login | |
-| My expenses | 2 varianter (list-led / summary-led) |
-| History | |
-| Per diem | |
-| Scan receipt | |
-| Scan result | |
-| New expense | 2 varianter (single screen / wizard) |
-| Mileage | Rigtigt Leaflet/OSM-kort via `mileage-map.html` |
-| Expense report | |
-| Expense detail | 2 tilstande |
-| Receipt inbox | |
-
-Sidepanelet skifter også **datatilstand**: Normal, Loading, Empty, Error, Offline.
-
-### Desktop — [`desktop/expense-portal.html`](desktop/expense-portal.html)
-
-1440 × 900, godkenderens og controllerens flade. 8 skærme i én fil.
-
-| Skærm | Noter |
-| --- | --- |
-| Sign in | 40/60-split, Microsoft 365 først |
-| Approval queue | 8 poster, bulk-handlinger |
-| Approval view | Kvittering og data side om side |
-| All expenses | |
-| Mileage | |
-| Card transactions | 3 poster til afstemning |
-| Reporting | |
-| Setup | |
-
-Sidepanelet skifter **densitet** (Comfortable / Compact) og datatilstand.
+Deep links virker ved direkte indlæsning. Peger en hash på den anden flade
+end viewporten tilsiger, oversættes den — `#/portal/mileage` på en telefon
+bliver til `#/app/mileage`.
 
 ---
 
-## Sådan hænger filerne sammen
+## Hvordan det virker
 
-Designfilerne er **ikke** selvstændige — de deler en runtime og et
-tokenlag via relative stier. Derfor ligger afhængighederne i roden og
-HTML-filerne et niveau nede:
+Det vigtigste at vide før du retter noget: **designfilerne indeholder ikke
+artboards.** Hver fil er én React-komponent med en state-maskine, hvor
+`state.screen` afgør hvilken skærm der renderes. Skærmene findes ikke som
+HTML på disken — de opstår først når runtime'en (`support.js`) kører
+templaten sammen med logikklassen.
+
+Produktets egen navigation er allerede wired til den samme state: portalens
+sidebar (`nav: [...]` med `go: this.go(id)`) og appens bundlinje
+(`goHome`, `goHistory`, `goReceipts`, `goMileage`, `goReport`).
+
+Skallen i `assets/shell.js` gør tre ting:
+
+1. **Vælger flade** ud fra viewporten og indlæser designfilen i en
+   fuldskærms-`<iframe>`.
+2. **Injicerer chromeless-CSS** i iframen, som skjuler prototype-panelet,
+   skærmtitlen, noterne og enhedsrammen, og lader designet fylde viewporten.
+   Det sker med `!important` i et stylesheet — ikke inline styles, for React
+   gen-skriver `style`-attributten ved hver re-render.
+3. **Binder `state.screen` til URL'en** i begge retninger. Komponenten findes
+   ved at gå ned gennem React-fibertræet efter den ene instans hvis logik har
+   `screen`; derefter styres skærmen med `logic.setState({screen})`, og
+   `setState` ombrydes så designets egne navigationsklik opdaterer hashen.
+
+**Designfilerne er ikke ændret** ud over det tilbage-link til galleriet, der
+blev indsat i forrige omgang. Al tilpasning ligger i skallen.
+
+### Skalering
+
+Designene er tegnet i fast bredde (390×844 og 1440×984), men indholdet er
+bygget i flexbox og `fr`-kolonner — der er **nul `@media`-regler** og næsten
+ingen hardkodede bredder. Fastbredden kom udelukkende fra enhedsrammen. Når
+rammen fjernes, flyder layoutet af sig selv. Ingen CSS er skrevet om.
+
+**Portalens gulv:** under ca. 1200px kolliderer tabelkolonnerne — `1.5fr` og
+`1.7fr` bliver for smalle, og Employee- og Expense-teksten overlapper.
+Verificeret brudt ved 1024px, ren ved 1280px. Derfor `min-width: 1280px` og
+vandret scroll frem for et brækket layout.
+
+Mobilappen flyder frit fra ~320px og opefter.
+
+### App-følelse på mobil
+
+`manifest.json` (standalone, navy `#052975`, Continia-ikon i 192/512/maskable),
+`apple-mobile-web-app-capable`, `black-translucent` statuslinje,
+`viewport-fit=cover` med `env(safe-area-inset-*)`, `overscroll-behavior: none`,
+og — kun på mobilfladen — slået tekstmarkering, tap-highlight og
+dobbelt-tap-zoom fra.
+
+Enhedens dynamic island, statuslinje og home-indikator ligger i
+`ios-frame.jsx`, ikke i designet. De skjules, så styresystemets rigtige
+udgaver kan overtage. Designet reserverer allerede plads til dem.
+
+---
+
+## Struktur
 
 ```
 /
-├── index.html                      galleri
+├── index.html                      produktskal — vælger flade og router
+├── manifest.json
+├── assets/
+│   ├── shell.js                    fladevalg, chromeless, routing
+│   ├── shell.css
+│   └── icons/                      192 / 512 / maskable / apple-touch
+├── gallery/index.html              det oprindelige galleri
 ├── design-system/
 │   └── expense-design-system.html
-├── mobile/
-│   └── expense-mobile.html
-├── desktop/
-│   └── expense-portal.html
-├── support.js                      Claude Design-runtime (alle tre filer)
-├── image-slot.js                   billed-placeholder (mobil + desktop)
-├── ios-frame.jsx                   iPhone-chrome (mobil)
-├── browser-window.jsx              browser-chrome (desktop)
-├── mileage-map.html                Leaflet-kort, iframe i mobilens Mileage
+├── mobile/expense-mobile.html      11 skærme
+├── desktop/expense-portal.html     8 skærme
+├── support.js                      Claude Design-runtime
+├── image-slot.js  ios-frame.jsx  browser-window.jsx
+├── mileage-map.html                Leaflet-kort, iframe i appens Mileage
 ├── _ds/                            Contina 3.0: tokens, CSS, Alliance No.2
-├── assets/                         brand-logoer + brand-clouds-video
-├── rename-map.json                 original → nyt filnavn
-├── .nojekyll                       så GitHub Pages ikke skjuler _ds/
-├── HANDOFF.md                      tokens og implementeringsnoter
-└── PROJECT_RULES.md                bandlyste visuelle mønstre
+├── tools/prepare.py                klargør en frisk eksport (idempotent)
+├── .nojekyll                       ellers springer Pages `_ds/` over
+├── HANDOFF.md  PROJECT_RULES.md
+└── rename-map.json
 ```
 
-`.nojekyll` er **påkrævet**: uden den springer GitHub Pages `_ds/` over,
-fordi mappenavnet starter med underscore — og så mister alle tre filer
-tokens og fonte.
+`.nojekyll` er påkrævet: uden den ignorerer GitHub Pages `_ds/`, fordi
+mappenavnet starter med underscore.
 
 ### Eksterne afhængigheder
 
-To ting hentes fra nettet og virker ikke offline:
-
 | Hvad | Hvorfra | Bruges af |
 | --- | --- | --- |
-| Font Awesome kit `c11880975e` | `kit.fontawesome.com` | alle tre filer (ikoner) |
+| Font Awesome kit `c11880975e` | `kit.fontawesome.com` | alle tre designfiler |
 | Leaflet 1.9.4 | `unpkg.com` | `mileage-map.html` |
-
-Font Awesome-kits kan være låst til bestemte domæner. Mangler ikonerne på
-det publicerede site, skal `*.github.io` tilføjes under kittets tilladte
-domæner i Font Awesome-kontoen.
+| Inter | `fonts.googleapis.com` | skallen og galleriet |
 
 ---
 
 ## Opdateringsprocedure
 
-Når der kommer en ny eksport fra Claude Design:
+Ny eksport fra Claude Design:
 
-1. **Pak eksporten ud** et sted uden for repoet.
-2. **Kopiér de tre HTML-filer ind** under deres nye navne:
+1. Pak ud uden for repoet.
+2. Kopiér de tre HTML-filer ind under deres nye navne:
 
    ```sh
    cp "Expense Design System.dc.html" design-system/expense-design-system.html
@@ -128,70 +158,65 @@ Når der kommer en ny eksport fra Claude Design:
    cp "Expense Portal.dc.html"        desktop/expense-portal.html
    ```
 
-3. **Opdatér de delte filer**, hvis de er ændret i eksporten:
-   `support.js`, `image-slot.js`, `ios-frame.jsx`, `browser-window.jsx`,
-   `mileage-map.html`, `_ds/`, `assets/`.
-
-4. **Ret stierne igen.** En frisk eksport bruger stier der antager at alt
-   ligger i samme mappe. Kør scriptet:
+3. Opdatér de delte filer hvis de er ændret: `support.js`, `image-slot.js`,
+   `ios-frame.jsx`, `browser-window.jsx`, `mileage-map.html`, `_ds/`, `assets/`.
+4. Ret stier og genindsæt tilbage-linket:
 
    ```sh
-   python3 tools/prepare.py
+   python3 tools/prepare.py       # idempotent
    ```
 
-   Det gør præcis to ting pr. fil — sætter `../` foran hver relativ
-   afhængighed, og indsætter tilbage-linket lige efter `<body>`. Det er
-   idempotent, så det er harmløst at køre igen.
-
-5. **Verificér lokalt** i undermappe-kontekst, som GitHub Pages serverer:
+5. Verificér lokalt i undermappe-kontekst, som Pages serverer:
 
    ```sh
-   ln -sfn "$PWD" /tmp/serve/continia-expense-redesign
+   mkdir -p /tmp/serve && ln -sfn "$PWD" /tmp/serve/continia-expense-redesign
    cd /tmp/serve && python3 -m http.server 8000
-   # åbn http://localhost:8000/continia-expense-redesign/index.html
+   # http://localhost:8000/continia-expense-redesign/
    ```
 
-   Tjek at alle tre kort viser et levende preview, at hver fil åbner, og at
-   "← Galleri" fører tilbage.
+6. Commit og push til `main`. Pages deployer selv.
 
-6. **Opdatér `rename-map.json`** og datoen i `index.html`-footeren, hvis
-   noget er skiftet navn eller kommet til.
+### Hvad der kan brække ved en ny eksport
 
-7. Commit og push til `main`. Pages deployer selv.
+Skallen læner sig op ad tre ting i designfilerne. Ændrer eksporten dem, skal
+`assets/shell.js` rettes:
 
-### Hvis en skærm er kommet til eller forsvundet
+| Antagelse | Hvor | Symptom hvis den brydes |
+| --- | --- | --- |
+| `state.screen` findes med de kendte nøgler | `SURFACES[*].screens` | Ruter falder tilbage til forsiden |
+| DOM-strukturen `#dc-root > .sc-host > div > {aside, div}` | `chromelessCSS()` | Prototype-panel eller noter dukker op |
+| `[data-om-starter="ios-frame"]` / `"browser-window"` med chrome som 1., 2. og 4. barn | `chromelessCSS()` | Statuslinje eller browserramme bliver stående |
 
-Skærmlisterne står tre steder og skal følges: kortene i `index.html`
-(`<ul class="screens">`), tabellerne i denne README, og `screens`-tallene
-i `rename-map.json`.
-
-### Hvis previewet i galleriet er forskubbet
-
-Kortene viser et **beskåret** udsnit af designfilen — netop det område hvor
-telefonen eller browservinduet står. Udsnittet er hardcodet i
-`index.html` på hver `.shot`:
-
-```html
-<div class="shot" data-w="390" data-h="844" data-ox="332" data-oy="88">
-```
-
-`data-w`/`data-h` er udsnittets størrelse, `data-ox`/`data-oy` dets øverste
-venstre hjørne inde i filen, og `data-fw`/`data-fh` på `<iframe>` er den
-viewport filen renderes i. Flytter en ny eksport sidepanelet eller
-overskriften, ændrer offsettet sig. Mål det rigtige med:
+Tjek altid begge flader og et par ruter efter en opdatering. Dukker
+prototype-panelet op, er det DOM-strukturen der har flyttet sig — dump den
+med:
 
 ```js
-document.querySelector('[data-om-starter="ios-frame"]').getBoundingClientRect()
-// desktop: [data-om-starter="browser-window"]
+document.querySelector('[data-om-starter="ios-frame"]')
 ```
 
-Nuværende værdier: mobil `332, 88` (390 × 844), desktop `332, 32`
-(1440 × 900 af et 1440 × 984 vindue), design system `0, 0`.
+og sammenlign forældrekæden med den der står kommenteret i `shell.js`.
+
+### Nye skærme
+
+Tilføj slug → `state.screen` i `SURFACES` i `assets/shell.js`, og en post i
+`EQUIVALENT` for begge flader så viewport-skift stadig bevarer konteksten.
+Opdatér desuden kortene i `gallery/index.html` og tabellerne her.
 
 ---
+
+## Kendte forbehold
+
+- **Mobilens login** kunne ikke nås fra produkt-UI'et i designet — der er
+  ingen `signOut`, og appens initial state er `home`. Appen åbner nu på
+  login, fordi skærmens tre CTA'er allerede kaldte `goHome`. Der er stadig
+  ingen vej *tilbage* til login uden at redigere hashen.
+- **Portalens `approve`-skærm** har ingen post i sidebaren; i designet nås den
+  ved at åbne en række i godkendelseskøen. Deep linket virker.
+- Font Awesome-kittet er verificeret ikke domænelåst — ikonerne renderer på
+  `github.io`.
 
 ## Lokalt kildemateriale
 
 `_source/` og `design_handoff_expense_management/` er git-ignoreret. De
-indeholder den rå eksport, Figma-screenshots og uploads — det ligger stadig
-lokalt, det skal blot ikke publiceres.
+indeholder den rå eksport, Figma-screenshots og uploads.

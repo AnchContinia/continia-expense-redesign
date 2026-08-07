@@ -1,0 +1,183 @@
+/* Continia Expense Management — produktskal.
+   Rammen om designfilerne. Rører ikke designet selv; alt herinde handler om
+   at få fladen til at fylde viewporten og opføre sig som en app. */
+
+:root {
+  --navy: #052975;
+  --navy-deep: #031a4d;
+  --cyan: #8ff8ff;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--navy-deep);
+  /* Skal ikke føles som en webside: ingen gummi-scroll, ingen pull-to-refresh. */
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ── Fladen ─────────────────────────────────────────────────── */
+
+#surface {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #eef1f6;
+  /* Skjult indtil chromeless-CSS er injiceret og skærmen er sat — ellers
+     ville prototype-panelet og telefonrammen blinke forbi. */
+  visibility: hidden;
+}
+
+body[data-ready='1'] #surface { visibility: visible; }
+
+/* Desktop-fladen har et gulv: under ~1200px kolliderer tabelkolonnerne.
+   Vi lader den scrolle vandret i stedet for at lade layoutet brække. */
+body[data-surface='portal'] { overflow-x: auto; overflow-y: hidden; }
+
+body[data-surface='portal'] #surface { min-width: 1280px; }
+
+/* ── Splash ─────────────────────────────────────────────────── */
+
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: var(--navy);
+  transition: opacity 260ms ease;
+}
+
+#splash img { width: 68px; height: auto; opacity: 0.96; }
+
+#splash .bar {
+  width: 132px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(143, 248, 255, 0.22);
+  overflow: hidden;
+}
+
+#splash .bar i {
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: var(--cyan);
+  animation: slide 1.15s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(330%); }
+}
+
+body[data-ready='1'] #splash {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Diskret udgang til galleri og design system ─────────────── */
+
+#exit {
+  position: fixed;
+  z-index: 20;
+  right: calc(10px + env(safe-area-inset-right));
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(5, 41, 117, 0.30);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  opacity: 0.30;
+  transition: opacity 160ms ease, background 160ms ease;
+}
+
+#exit:hover, #exit:focus-within { opacity: 1; background: rgba(5, 41, 117, 0.9); }
+
+#exit a {
+  display: block;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+#exit a:hover, #exit a:focus-visible {
+  background: rgba(143, 248, 255, 0.18);
+  color: var(--cyan);
+  outline: none;
+}
+
+/* Sammenklappet til én prik indtil man rører den — den må ikke
+   forstyrre illusionen af et rigtigt produkt. */
+#exit .label { display: none; }
+#exit:hover .label, #exit:focus-within .label { display: block; }
+
+#exit .dot {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  /* På mobil ligger bundnavigationen i vejen — flyt udgangen op i hjørnet. */
+  #exit {
+    top: calc(6px + env(safe-area-inset-top));
+    bottom: auto;
+    opacity: 0.22;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #splash, #splash .bar i { transition: none; animation: none; }
+}
+
+/* ── Fejltilstand ───────────────────────────────────────────── */
+
+#fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+  background: var(--navy);
+}
+
+body[data-error='1'] #fallback { display: flex; }
+body[data-error='1'] #splash { display: none; }
+
+#fallback h1 { font-size: 19px; font-weight: 600; margin: 0; }
+#fallback p  { font-size: 14px; color: rgba(255,255,255,0.7); margin: 0; max-width: 46ch; }
+#fallback a  { color: var(--cyan); font-size: 14px; }
