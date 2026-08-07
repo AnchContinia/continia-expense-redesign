@@ -1,0 +1,60 @@
+{
+  "note": "Omdøbning af Claude Design-eksporter til URL-venlige navne. Regler: fjern '.dc', mellemrum -> bindestreg, lowercase, æ/ø/å -> ae/oe/aa.",
+  "source": "design_handoff_expense_management",
+  "generated": "2026-08-07",
+  "files": [
+    {
+      "original": "Expense Design System.dc.html",
+      "new": "design-system/expense-design-system.html",
+      "kind": "design-system",
+      "title": "Expense Management design system",
+      "viewport": "1440 x 1000",
+      "bytes_original": 104454,
+      "screens": 11
+    },
+    {
+      "original": "Expense Mobile.dc.html",
+      "new": "mobile/expense-mobile.html",
+      "kind": "mobile",
+      "title": "Expense Mobile",
+      "viewport": "390 x 844",
+      "bytes_original": 161355,
+      "screens": 11
+    },
+    {
+      "original": "Expense Portal.dc.html",
+      "new": "desktop/expense-portal.html",
+      "kind": "desktop",
+      "title": "Expense Portal",
+      "viewport": "1440 x 900",
+      "bytes_original": 127322,
+      "screens": 8
+    }
+  ],
+  "unchanged": [
+    {
+      "path": "mileage-map.html",
+      "reason": "Allerede URL-venligt. Ikke en skærm — indlejres som iframe i mobilens Mileage-skærm."
+    },
+    {
+      "path": "support.js",
+      "reason": "Runtime for Claude Design-templates. Delt af alle tre designfiler."
+    },
+    { "path": "image-slot.js",      "reason": "Billed-placeholder. Delt af mobil og desktop." },
+    { "path": "ios-frame.jsx",      "reason": "iPhone-chrome. Bruges af mobil." },
+    { "path": "browser-window.jsx", "reason": "Browser-chrome. Bruges af desktop." },
+    { "path": "_ds/",               "reason": "Contina 3.0 design system: tokens, CSS, bundle, Alliance No.2-fonte." },
+    { "path": "assets/",            "reason": "Brand-logoer og brand-clouds-video." }
+  ],
+  "renamed_folders": [
+    {
+      "original": "Assets",
+      "new": "_source",
+      "reason": "Kolliderede med den lowercase 'assets/'-mappe som designfilerne refererer til. macOS' filsystem er case-insensitivt, GitHub er ikke — begge kunne ikke ligge side om side."
+    }
+  ],
+  "edits_applied_to_design_files": [
+    "Sti-præfiks: './' og bare stier -> '../' (support.js, image-slot.js, ios-frame.jsx, browser-window.jsx, mileage-map.html, _ds/, assets/), fordi HTML-filerne nu ligger et niveau nede.",
+    "Tilbage-navigation: ét <a>-element med inline styles indsat umiddelbart efter <body>. Intet andet er ændret."
+  ]
+}

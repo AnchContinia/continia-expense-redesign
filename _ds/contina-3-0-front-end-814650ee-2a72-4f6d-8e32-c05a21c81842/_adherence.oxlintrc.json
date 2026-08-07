@@ -1,0 +1,432 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "assets/**",
+              "components/brand/**",
+              "components/buttons/**",
+              "components/data-display/**",
+              "components/forms/**",
+              "components/navigation/**",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Alliance No\\.2))/i]",
+        "message": "Font not provided by the design system. Available: Alliance No.2."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|caps|block|icon|iconRight|href|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, caps, block, icon, iconRight, href, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|purple|innovation|white|ghost-dark)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'purple' | 'innovation' | 'white' | 'ghost-dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|hover|icon|eyebrow|title|children|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: variant, hover, icon, eyebrow, title, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|flat|tint|brand)$/]",
+        "message": "<Card> variant must be one of 'default' | 'flat' | 'tint' | 'brand'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Checkbox'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|type|key|ref|className|style|children)$/]",
+        "message": "<Checkbox> doesn't accept that prop. Declared props: label, type."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Checkbox'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:checkbox|radio)$/]",
+        "message": "<Checkbox> type must be one of 'checkbox' | 'radio'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|hint|icon|required|invalid|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, hint, icon, required, invalid."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Logo'] > JSXAttribute > JSXIdentifier[name!=/^(?:color|markOnly|height|key|ref|className|style|children)$/]",
+        "message": "<Logo> doesn't accept that prop. Declared props: color, markOnly, height."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopupWindow'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|variant|children|key|ref|className|style|children)$/]",
+        "message": "<PopupWindow> doesn't accept that prop. Declared props: title, variant, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopupWindow'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|innovation)$/]",
+        "message": "<PopupWindow> variant must be one of 'default' | 'innovation'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='LinkItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|href|icon|menu|opticalScale|key|ref|className|style|children)$/]",
+        "message": "<LinkItem> doesn't accept that prop. Declared props: label, href, icon, menu, opticalScale."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SiteHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:activeItem|ctaLabel|onCta|ctaHref|sticky|links|key|ref|className|style|children)$/]",
+        "message": "<SiteHeader> doesn't accept that prop. Declared props: activeItem, ctaLabel, onCta, ctaHref, sticky, links."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatPanel'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|label|variant|icon|key|ref|className|style|children)$/]",
+        "message": "<StatPanel> doesn't accept that prop. Declared props: value, label, variant, icon."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatPanel'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:default|light|green|purple)$/]",
+        "message": "<StatPanel> variant must be one of 'default' | 'light' | 'green' | 'purple'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusChip'] > JSXAttribute > JSXIdentifier[name!=/^(?:status|wide|children|key|ref|className|style|children)$/]",
+        "message": "<StatusChip> doesn't accept that prop. Declared props: status, wide, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatusChip'] > JSXAttribute[name.name='status'] > Literal[value!=/^(?:neutral|info|warning|success)$/]",
+        "message": "<StatusChip> status must be one of 'neutral' | 'info' | 'warning' | 'success'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|dot|children|key|ref|className|style|children)$/]",
+        "message": "<Tag> doesn't accept that prop. Declared props: variant, dot, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:neutral|brand|solid|innovation|success|warning|feature)$/]",
+        "message": "<Tag> variant must be one of 'neutral' | 'brand' | 'solid' | 'innovation' | 'success' | 'warning' | 'feature'."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Checkbox": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "Logo": {
+        "replaces": []
+      },
+      "PopupWindow": {
+        "replaces": []
+      },
+      "LinkItem": {
+        "replaces": []
+      },
+      "SiteHeader": {
+        "replaces": []
+      },
+      "StatPanel": {
+        "replaces": []
+      },
+      "StatusChip": {
+        "replaces": []
+      },
+      "Tag": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--border-width",
+      "--border-width-strong",
+      "--c-ink",
+      "--c-innovation-blue",
+      "--c-innovation-blue-20",
+      "--c-innovation-blue-50",
+      "--c-light-blue",
+      "--c-light-yellow",
+      "--c-performance-purple",
+      "--c-performance-purple-15",
+      "--c-performance-purple-50",
+      "--c-slate-100",
+      "--c-slate-300",
+      "--c-slate-50",
+      "--c-slate-500",
+      "--c-slate-700",
+      "--c-smart-green",
+      "--c-smart-green-30",
+      "--c-smart-green-50",
+      "--c-tech-blue",
+      "--c-tech-blue-10",
+      "--c-tech-blue-20",
+      "--c-tech-blue-50",
+      "--c-tech-blue-85",
+      "--c-white",
+      "--color-accent",
+      "--color-bg",
+      "--color-bg-brand",
+      "--color-bg-brand-deep",
+      "--color-bg-subtle",
+      "--color-border",
+      "--color-border-strong",
+      "--color-feature",
+      "--color-feature-bg",
+      "--color-focus-ring",
+      "--color-info",
+      "--color-info-bg",
+      "--color-info-fg",
+      "--color-neutral-fg",
+      "--color-primary",
+      "--color-primary-active",
+      "--color-primary-hover",
+      "--color-success",
+      "--color-success-bg",
+      "--color-success-fg",
+      "--color-surface",
+      "--color-surface-alt",
+      "--color-surface-card",
+      "--color-text",
+      "--color-text-brand",
+      "--color-text-link",
+      "--color-text-muted",
+      "--color-text-on-brand",
+      "--color-text-subtle",
+      "--color-warning",
+      "--color-warning-bg",
+      "--color-warning-fg",
+      "--container-max",
+      "--container-narrow",
+      "--container-wide",
+      "--dur-base",
+      "--dur-fast",
+      "--dur-slow",
+      "--ease-in",
+      "--ease-out",
+      "--ease-standard",
+      "--font-body",
+      "--font-display",
+      "--font-sans",
+      "--fs-body",
+      "--fs-body-sm",
+      "--fs-caption",
+      "--fs-display-l",
+      "--fs-display-xl",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-h4",
+      "--fs-lead",
+      "--fs-overline",
+      "--fw-bold",
+      "--fw-light",
+      "--fw-medium",
+      "--fw-regular",
+      "--fw-semibold",
+      "--grad-brand",
+      "--grad-brand-soft",
+      "--grad-green-inno",
+      "--grad-inno-yellow",
+      "--grad-tech-green",
+      "--layout-content-max",
+      "--layout-page-pad",
+      "--lh-body",
+      "--lh-heading",
+      "--lh-relaxed",
+      "--lh-snug",
+      "--lh-tight",
+      "--ls-normal",
+      "--ls-overline",
+      "--ls-snug",
+      "--ls-tight",
+      "--ls-wide",
+      "--radius-2xl",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-pill",
+      "--radius-quarter",
+      "--radius-sm",
+      "--radius-xl",
+      "--radius-xs",
+      "--shadow-focus",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-popup",
+      "--shadow-sm",
+      "--shadow-xs",
+      "--space-0",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9"
+    ],
+    "tokenKinds": {
+      "--c-tech-blue": "color",
+      "--c-innovation-blue": "color",
+      "--c-light-blue": "color",
+      "--c-light-yellow": "color",
+      "--c-smart-green": "color",
+      "--c-performance-purple": "color",
+      "--c-tech-blue-85": "color",
+      "--c-tech-blue-50": "color",
+      "--c-tech-blue-20": "color",
+      "--c-tech-blue-10": "color",
+      "--c-innovation-blue-50": "color",
+      "--c-innovation-blue-20": "color",
+      "--c-smart-green-50": "color",
+      "--c-smart-green-30": "color",
+      "--c-performance-purple-50": "color",
+      "--c-performance-purple-15": "color",
+      "--c-white": "color",
+      "--c-ink": "color",
+      "--c-slate-700": "color",
+      "--c-slate-500": "color",
+      "--c-slate-300": "color",
+      "--c-slate-100": "color",
+      "--c-slate-50": "color",
+      "--grad-brand": "color",
+      "--grad-brand-soft": "color",
+      "--grad-green-inno": "color",
+      "--grad-tech-green": "color",
+      "--grad-inno-yellow": "color",
+      "--color-bg": "color",
+      "--color-bg-subtle": "color",
+      "--color-bg-brand": "color",
+      "--color-bg-brand-deep": "color",
+      "--color-surface": "color",
+      "--color-surface-alt": "color",
+      "--color-surface-card": "color",
+      "--color-text": "font",
+      "--color-text-muted": "font",
+      "--color-text-subtle": "font",
+      "--color-text-on-brand": "font",
+      "--color-text-brand": "font",
+      "--color-text-link": "font",
+      "--color-border": "color",
+      "--color-border-strong": "color",
+      "--color-focus-ring": "color",
+      "--color-primary": "color",
+      "--color-primary-hover": "color",
+      "--color-primary-active": "color",
+      "--color-accent": "color",
+      "--color-success": "color",
+      "--color-success-bg": "color",
+      "--color-info": "color",
+      "--color-info-bg": "color",
+      "--color-warning": "color",
+      "--color-warning-bg": "color",
+      "--color-feature": "color",
+      "--color-feature-bg": "color",
+      "--color-neutral-fg": "color",
+      "--color-info-fg": "color",
+      "--color-warning-fg": "color",
+      "--color-success-fg": "color",
+      "--font-sans": "font",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--fw-light": "font",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fw-semibold": "font",
+      "--fw-bold": "font",
+      "--fs-display-xl": "font",
+      "--fs-display-l": "font",
+      "--fs-h1": "font",
+      "--fs-h2": "font",
+      "--fs-h3": "font",
+      "--fs-h4": "font",
+      "--fs-lead": "font",
+      "--fs-body": "font",
+      "--fs-body-sm": "font",
+      "--fs-caption": "font",
+      "--fs-overline": "font",
+      "--lh-tight": "other",
+      "--lh-snug": "other",
+      "--lh-heading": "other",
+      "--lh-body": "other",
+      "--lh-relaxed": "other",
+      "--ls-tight": "other",
+      "--ls-snug": "other",
+      "--ls-normal": "other",
+      "--ls-wide": "other",
+      "--ls-overline": "other",
+      "--space-0": "spacing",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--radius-xs": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-2xl": "radius",
+      "--radius-pill": "radius",
+      "--radius-quarter": "radius",
+      "--shadow-xs": "shadow",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-popup": "shadow",
+      "--shadow-focus": "shadow",
+      "--border-width": "other",
+      "--border-width-strong": "other",
+      "--layout-content-max": "spacing",
+      "--layout-page-pad": "spacing",
+      "--container-max": "color",
+      "--container-wide": "color",
+      "--container-narrow": "spacing",
+      "--ease-standard": "other",
+      "--ease-out": "other",
+      "--ease-in": "other",
+      "--dur-fast": "other",
+      "--dur-base": "other",
+      "--dur-slow": "other"
+    },
+    "fontFamilies": [
+      "Alliance No.2"
+    ]
+  }
+}

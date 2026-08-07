@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<a href="../index.html" aria-label="Tilbage til galleriet" style="position:fixed;left:16px;bottom:16px;z-index:2147483647;display:inline-flex;align-items:center;box-sizing:border-box;margin:0;padding:9px 14px;border-radius:999px;background:#052975;color:#8ff8ff;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;font-style:normal;line-height:1;letter-spacing:0;text-decoration:none;text-transform:none;text-align:left;border:1px solid rgba(143,248,255,0.35);box-shadow:0 4px 14px rgba(5,41,117,0.35);white-space:nowrap;opacity:0.94;">&#8592;&#160;Galleri</a>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/fonts.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/typography.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/spacing.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/styles.css">
+<script src="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/_ds_bundle.js"></script>
+<script src="https://kit.fontawesome.com/c11880975e.js" crossorigin="anonymous"></script>
+<style>
+  :root {
+    /* PROPOSED ADDITIONS — expense product layer */
+    --color-danger: var(--c-performance-purple);
+    --color-danger-bg: var(--c-performance-purple-15);
+    --color-danger-fg: #7a318d;
+    --space-1-5: 6px;
+    --space-2-5: 10px;
+    --font-num: var(--font-sans);
+  }
+  body { margin: 0; background: var(--c-slate-50); color: var(--color-text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a:not([class]) { color: var(--c-tech-blue); text-decoration: none; }
+  a:not([class]):hover { color: #0a317f; text-decoration: underline; }
+  @keyframes shimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+</style>
+</helmet>
+
+<div style="max-width: 1360px; margin: 0 auto; padding: 0 28px 128px;">
+
+  <header style="padding: 72px 0 48px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+    <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-tech-blue);">Contina 3.0 &middot; product layer</span>
+    <h1 style="margin: 0; font-size: 56px; line-height: 1.05; letter-spacing: -0.02em; font-weight: 700; color: var(--c-tech-blue); max-width: 20ch;">Expense Management design system</h1>
+    <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--c-slate-700); max-width: 62ch;">Contina 3.0 covers marketing surfaces. This layer adds what a data-dense finance product needs: an approval status scale, tables, receipts, money, and the states that were missing entirely &mdash; empty, loading, error. Nothing here invents a new visual language; every addition is built from existing tokens.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px;">
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--color-border); border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-circle-check" style="color: var(--c-smart-green);"></i>Alliance No.2</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--color-border); border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-circle-check" style="color: var(--c-smart-green);"></i>WCAG AA on all pairs</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--color-border); border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-circle-check" style="color: var(--c-smart-green);"></i>44px min touch target</span>
+    </div>
+  </header>
+
+  <!-- ═══ COLOR ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Color</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">Tech Blue dominates. Accents carry meaning, never decoration.</span>
+    </div>
+
+    <h3 style="margin: 0 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Brand</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 36px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-tech-blue);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Tech Blue</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#052975 &middot; --c-tech-blue</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-innovation-blue);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Innovation Blue</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#8FF8FF &middot; accents, focus</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-light-blue);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Light Blue</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#DEF5FF &middot; surfaces, info</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-smart-green);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Smart Green</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#5F9E8D &middot; approved</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-light-yellow); border-bottom: 1px solid var(--color-border);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Light Yellow</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#FFF7E3 &middot; waiting</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+        <div style="height: 96px; background: var(--c-performance-purple);"></div>
+        <div style="padding: 14px 16px;"><div style="font-size: 14px; font-weight: 600;">Performance Purple</div><div style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">#983EAE &middot; rejected, errors</div></div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; padding: 18px 22px; margin-bottom: 36px; display: flex; gap: 14px; align-items: flex-start;">
+      <i class="fa-light fa-triangle-exclamation" style="color: var(--color-danger); font-size: 20px; margin-top: 2px;"></i>
+      <div>
+        <div style="font-size: 15px; font-weight: 600; color: var(--color-danger-fg); margin-bottom: 4px;">No new colour &mdash; Performance Purple carries "stop"</div>
+        <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-700); max-width: 78ch;">Rejection, over-policy amounts, failed OCR and validation errors need a colour that reads as "stop" rather than "caution". Rather than introduce a red the brand doesn't have, <strong>Performance Purple #983EAE</strong> takes that job &mdash; it is already in the palette, already reserved for product differentiation, and sits beside navy without fighting it. Reserved for this meaning in the product: never decorative, never a large fill.</div>
+      </div>
+    </div>
+
+    <h3 style="margin: 0 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Approval status scale</h3>
+    <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.6; color: var(--c-slate-700); max-width: 78ch;">Six states, one colour each, identical on mobile and desktop. Colour is never the only signal &mdash; every chip carries a label, and every chip carries an icon in dense contexts. Posted is the only filled chip: it reads as locked.</p>
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 20px;">
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); padding: 14px 22px; border-bottom: 1px solid var(--color-border); background: var(--c-slate-50);">
+        <span>Chip</span><span>Means</span><span>Token</span><span>Who acts</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--color-border); font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-slate-100); color: var(--color-neutral-fg); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-pen-line"></i>DRAFT</span></span>
+        <span style="color: var(--c-slate-700);">Created, not yet submitted</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">neutral</span>
+        <span style="color: var(--c-slate-700);">Employee</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--color-border); font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-clock"></i>PENDING</span></span>
+        <span style="color: var(--c-slate-700);">Waiting in an approver's queue</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">warning</span>
+        <span style="color: var(--c-slate-700);">Manager &rarr; Controller</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--color-border); font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-light-blue); color: var(--color-info-fg); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-circle-pause"></i>ON HOLD</span></span>
+        <span style="color: var(--c-slate-700);">Parked by an approver pending information</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">info</span>
+        <span style="color: var(--c-slate-700);">Approver</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--color-border); font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-check"></i>APPROVED</span></span>
+        <span style="color: var(--c-slate-700);">Cleared all approval steps, awaiting posting</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">success</span>
+        <span style="color: var(--c-slate-700);">Business Central</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--color-border); font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--color-danger-bg); color: var(--color-danger-fg); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-xmark"></i>REJECTED</span></span>
+        <span style="color: var(--c-slate-700);">Sent back with a reason &mdash; reason is mandatory</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">danger</span>
+        <span style="color: var(--c-slate-700);">Employee re-submits</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 190px 1fr 130px 1fr; gap: 0; align-items: center; padding: 16px 22px; font-size: 14px;">
+        <span><span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: 999px;"><i class="fa-light fa-lock"></i>POSTED</span></span>
+        <span style="color: var(--c-slate-700);">Posted in Business Central. Read-only.</span>
+        <span style="font-size: 12px; color: var(--c-slate-500);">posted</span>
+        <span style="color: var(--c-slate-700);">Nobody</span>
+      </div>
+    </div>
+
+    <h3 style="margin: 36px 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Neutrals &amp; surfaces</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-ink);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Ink</div><div style="color: var(--c-slate-500);">#0A1838</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-slate-700);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Slate 700</div><div style="color: var(--c-slate-500);">Body</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-slate-500);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Slate 500</div><div style="color: var(--c-slate-500);">Labels</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-slate-300);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Slate 300</div><div style="color: var(--c-slate-500);">Disabled</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-slate-100);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Slate 100</div><div style="color: var(--c-slate-500);">Fills</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--c-slate-50);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Slate 50</div><div style="color: var(--c-slate-500);">App canvas</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: #fff; border-bottom: 1px solid var(--color-border);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">White</div><div style="color: var(--c-slate-500);">Cards</div></div></div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;"><div style="height: 56px; background: var(--color-border);"></div><div style="padding: 10px 12px; font-size: 12px;"><div style="font-weight: 600;">Border</div><div style="color: var(--c-slate-500);">#DDE3EE</div></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ TYPE ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Typography</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">Alliance No.2. Fixed sizes in product UI &mdash; no fluid clamps inside an app frame.</span>
+    </div>
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 8px 28px;">
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 34px; font-weight: 700; letter-spacing: -0.02em; color: var(--c-tech-blue);">Page title</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">34 / 40 &middot; Bold</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 24px; font-weight: 700; letter-spacing: -0.01em;">Section heading</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">24 / 32 &middot; Bold</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 18px; font-weight: 600;">Card &amp; row title</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">18 / 24 &middot; SemiBold</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 15px; font-weight: 400; color: var(--c-slate-700);">Body &mdash; the readable default for descriptions and help text.</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">15 / 24 &middot; Regular</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 13px; font-weight: 400; color: var(--c-slate-700);">Table cell &amp; secondary body</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">13 / 20 &middot; Regular</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 12px; font-weight: 400; color: var(--c-slate-500);">Caption, timestamp, field label</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">12 / 16 &middot; Regular</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--color-border);">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Overline &middot; column header</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">11 &middot; Bold &middot; 0.15em</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; padding: 20px 0;">
+        <span style="font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; color: var(--c-tech-blue);">1.598,93 DKK</span>
+        <span style="font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">Money &middot; tabular-nums always</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SPACING / RADIUS / ELEVATION ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Space, radius, elevation</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">Two dense steps added for table rows: 6 and 10.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 20px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 24px;">
+        <h3 style="margin: 0 0 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Spacing</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">4</span><div style="height: 12px; width: 4px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">6 <span style="color: var(--color-danger); font-weight: 700;">+</span></span><div style="height: 12px; width: 6px; background: var(--color-danger); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">8</span><div style="height: 12px; width: 8px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">10 <span style="color: var(--color-danger); font-weight: 700;">+</span></span><div style="height: 12px; width: 10px; background: var(--color-danger); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">12</span><div style="height: 12px; width: 12px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">16</span><div style="height: 12px; width: 16px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">24</span><div style="height: 12px; width: 24px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">32</span><div style="height: 12px; width: 32px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">48</span><div style="height: 12px; width: 48px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><span style="width: 56px; font-size: 12px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">64</span><div style="height: 12px; width: 64px; background: var(--c-tech-blue); border-radius: 2px;"></div></div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 24px;">
+        <h3 style="margin: 0 0 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Radius</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 4px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">4 &mdash; chips in tables</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 8px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">8 &mdash; thumbnails</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 12px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">12 &mdash; inputs</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 16px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">16 &mdash; cards, tables</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 24px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">24 &mdash; sheets, modals</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 64px; height: 64px; flex-shrink: 0; background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 999px;"></div><span style="font-size: 13px; color: var(--c-slate-700);">pill &mdash; buttons, chips</span></div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 24px;">
+        <h3 style="margin: 0 0 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Elevation</h3>
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 52px; height: 34px; background: #fff; border-radius: 8px; box-shadow: var(--shadow-xs);"></div><span style="font-size: 13px; color: var(--c-slate-700);">xs &mdash; table row hover</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 52px; height: 34px; background: #fff; border-radius: 8px; box-shadow: var(--shadow-sm);"></div><span style="font-size: 13px; color: var(--c-slate-700);">sm &mdash; cards at rest</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 52px; height: 34px; background: #fff; border-radius: 8px; box-shadow: var(--shadow-md);"></div><span style="font-size: 13px; color: var(--c-slate-700);">md &mdash; sticky bars</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 52px; height: 34px; background: #fff; border-radius: 8px; box-shadow: var(--shadow-lg);"></div><span style="font-size: 13px; color: var(--c-slate-700);">lg &mdash; modals, sheets</span></div>
+          <div style="display: flex; align-items: center; gap: 14px;"><div style="width: 52px; height: 34px; background: #fff; border-radius: 8px; box-shadow: var(--shadow-focus); border: 1.5px solid var(--c-tech-blue);"></div><span style="font-size: 13px; color: var(--c-slate-700);">focus ring</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BUTTONS ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Buttons</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">From the bundle, unchanged. One destructive variant added.</span>
+    </div>
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px; display: flex; flex-direction: column; gap: 24px;">
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 14px;">On light</div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="primary" size="md" hint-size="150px,44px">Approve</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="secondary" size="md" hint-size="150px,44px">Put on hold</x-import>
+          <button style="font-family: var(--font-sans); font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid var(--color-danger); background: transparent; color: var(--color-danger); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 200ms;" style-hover="background: var(--color-danger-bg);"><i class="fa-light fa-xmark"></i>Reject</button>
+          <button style="font-family: var(--font-sans); font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid transparent; background: var(--c-slate-100); color: var(--c-slate-500); cursor: not-allowed;">Post to BC</button>
+        </div>
+      </div>
+      <div style="background: var(--c-tech-blue); border-radius: 12px; padding: 24px;">
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 14px;">On Tech Blue</div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="innovation" size="md" hint-size="150px,44px">Submit expense</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="white" size="md" hint-size="150px,44px">Scan receipt</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="ghost-dark" size="md" hint-size="120px,44px">Cancel</x-import>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 14px;">Sizes &middot; mobile primary is always 52px tall, full width</div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="primary" size="sm" hint-size="110px,36px">Small</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="primary" size="md" hint-size="120px,44px">Medium</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="primary" size="lg" hint-size="130px,52px">Large</x-import>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 14px;">Icon button &middot; 44&times;44 minimum <span style="color: var(--color-danger);">NEW</span></div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+          <button style="width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--color-border); background: #fff; color: var(--c-tech-blue); font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" style-hover="border-color: var(--c-tech-blue); background: var(--c-light-blue);"><i class="fa-light fa-magnifying-glass"></i></button>
+          <button style="width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--color-border); background: #fff; color: var(--c-tech-blue); font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" style-hover="border-color: var(--c-tech-blue); background: var(--c-light-blue);"><i class="fa-light fa-sliders"></i></button>
+          <button style="width: 44px; height: 44px; border-radius: 999px; border: 1.5px solid var(--color-border); background: #fff; color: var(--c-tech-blue); font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" style-hover="border-color: var(--c-tech-blue); background: var(--c-light-blue);"><i class="fa-light fa-paperclip"></i></button>
+          <button style="width: 44px; height: 44px; border-radius: 999px; border: none; background: var(--c-tech-blue); color: #fff; font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;"><i class="fa-light fa-camera"></i></button>
+          <button style="width: 56px; height: 56px; border-radius: 999px; border: none; background: var(--c-tech-blue); color: #fff; font-size: 22px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg);"><i class="fa-light fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FORMS ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Forms</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">Errors always carry a message. Never a bare red box.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Input &middot; desktop</h3>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Input" label="Merchant" placeholder="e.g. Scandic Copenhagen" hint-size="100%,70px"></x-import>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-size: 13px; font-weight: 600; color: var(--color-text);">Search expenses</label>
+            <div style="position: relative; display: flex; align-items: center;">
+              <i class="fa-light fa-magnifying-glass" style="position: absolute; left: 14px; color: var(--color-text-muted); font-size: 16px; pointer-events: none;"></i>
+              <input placeholder="Name, merchant, amount" style="font-family: var(--font-sans); font-size: 15px; color: var(--color-text); background: #fff; width: 100%; box-sizing: border-box; border: 1.5px solid var(--color-border); border-radius: 12px; padding: 11px 14px 11px 42px;">
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-size: 13px; font-weight: 600; color: var(--color-text);">Expense type <span style="color: var(--color-danger);">*</span></label>
+            <div style="position: relative;">
+              <select style="font-family: var(--font-sans); font-size: 15px; width: 100%; padding: 11px 14px; border: 1.5px solid var(--color-border); border-radius: 12px; background: #fff; color: var(--color-text); appearance: none; cursor: pointer;">
+                <option>Transport</option><option>Hotel</option><option>Repræsentation</option><option>Kørsel</option>
+              </select>
+              <i class="fa-light fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--c-slate-500); pointer-events: none; font-size: 13px;"></i>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="font-size: 13px; font-weight: 600; color: var(--color-text);">Payment type <span style="color: var(--color-danger);">*</span></label>
+            <div style="position: relative;">
+              <select style="font-family: var(--font-sans); font-size: 15px; width: 100%; padding: 11px 14px; border: 1.5px solid var(--color-danger); border-radius: 12px; background: #fff; color: var(--c-slate-300); appearance: none; cursor: pointer;">
+                <option>Select payment type</option>
+              </select>
+              <i class="fa-light fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--c-slate-500); pointer-events: none; font-size: 13px;"></i>
+            </div>
+            <span style="font-size: 12px; color: var(--color-danger-fg); display: inline-flex; align-items: center; gap: 6px;"><i class="fa-light fa-circle-exclamation"></i>Required before this expense can be submitted</span>
+          </div>
+          <div style="display: flex; gap: 24px; padding-top: 4px;">
+            <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Checkbox" label="Billable to customer" hint-size="180px,24px"></x-import>
+            <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Checkbox" label="Personal expense" hint-size="150px,24px"></x-import>
+          </div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">FieldRow &middot; mobile <span style="color: var(--color-danger);">NEW</span></h3>
+        <p style="margin: 0 0 20px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">Replaces the old flat list where fields and actions looked identical. Label above value, 56px tall, chevron only when tappable.</p>
+        <div style="border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 56px; border-bottom: 1px solid var(--color-border); background: #fff;">
+            <i class="fa-light fa-calendar" style="color: var(--c-tech-blue); font-size: 18px; width: 22px; text-align: center;"></i>
+            <div style="flex: 1;"><div style="font-size: 12px; color: var(--c-slate-500);">Date</div><div style="font-size: 15px; font-weight: 500;">3 February 2026</div></div>
+            <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 14px;"></i>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 56px; border-bottom: 1px solid var(--color-border); background: #fff;">
+            <i class="fa-light fa-tag" style="color: var(--c-tech-blue); font-size: 18px; width: 22px; text-align: center;"></i>
+            <div style="flex: 1;"><div style="font-size: 12px; color: var(--c-slate-500);">Category</div><div style="font-size: 15px; font-weight: 500;">Hotel</div></div>
+            <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 14px;"></i>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 56px; border-bottom: 1px solid var(--color-border); background: #fff;">
+            <i class="fa-light fa-diagram-project" style="color: var(--c-tech-blue); font-size: 18px; width: 22px; text-align: center;"></i>
+            <div style="flex: 1;"><div style="font-size: 12px; color: var(--c-slate-500);">Project</div><div style="font-size: 15px; color: var(--c-slate-300);">Not set</div></div>
+            <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 14px;"></i>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px; min-height: 56px; background: var(--color-danger-bg);">
+            <i class="fa-light fa-note" style="color: var(--color-danger); font-size: 18px; width: 22px; text-align: center; margin-top: 2px;"></i>
+            <div style="flex: 1;"><div style="font-size: 12px; color: var(--color-danger-fg);">Description &middot; required</div><div style="font-size: 13px; color: var(--color-danger-fg); margin-top: 2px;">Add a business purpose before submitting</div></div>
+          </div>
+        </div>
+        <div style="margin-top: 20px; padding: 16px; background: var(--c-slate-50); border-radius: 12px;">
+          <div style="font-size: 12px; color: var(--c-slate-500); margin-bottom: 8px;">VAT is calculated, never entered</div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--c-slate-700); padding: 4px 0;"><span>Net</span><span style="font-variant-numeric: tabular-nums;">960,00 DKK</span></div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--c-slate-700); padding: 4px 0;"><span>VAT 25%</span><span style="font-variant-numeric: tabular-nums;">240,00 DKK</span></div>
+          <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--c-tech-blue); padding: 8px 0 0; margin-top: 6px; border-top: 1px solid var(--color-border);"><span>Total</span><span style="font-variant-numeric: tabular-nums;">1.200,00 DKK</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MONEY / RECEIPT / TIMELINE ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Expense primitives</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">The four components the product cannot exist without.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Money <span style="color: var(--color-danger);">NEW</span></h3>
+        <p style="margin: 0 0 22px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">Foreign currency and its converted value are one unit, never two disconnected columns.</p>
+        <div style="display: flex; flex-direction: column; gap: 22px;">
+          <div>
+            <div style="font-size: 30px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">1.598,93 <span style="font-size: 18px; font-weight: 600; color: var(--c-slate-500);">USD</span></div>
+            <div style="font-size: 13px; color: var(--c-slate-500); font-variant-numeric: tabular-nums; margin-top: 4px;">= 11.242,50 DKK &middot; rate 7,0313 &middot; 3 Feb</div>
+          </div>
+          <div style="height: 1px; background: var(--color-border);"></div>
+          <div>
+            <div style="font-size: 30px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">1.200,00 <span style="font-size: 18px; font-weight: 600; color: var(--c-slate-500);">DKK</span></div>
+            <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 4px;">Company currency</div>
+          </div>
+          <div style="height: 1px; background: var(--color-border);"></div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="font-size: 12px; color: var(--c-slate-500);">In tables &mdash; right aligned, tabular</div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; color: var(--c-slate-700);">Scandic Copenhagen</span><span style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">1.240,00 DKK</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; color: var(--c-slate-700);">DSB Billetsalg</span><span style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">398,00 DKK</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline;"><span style="font-size: 13px; color: var(--c-slate-700);">Over policy limit</span><span style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--color-danger);">2.850,00 DKK</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">ReceiptCard <span style="color: var(--color-danger);">NEW</span></h3>
+        <p style="margin: 0 0 22px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">Carries its OCR state. Replaces the grey "IMAGE PLACEHOLDER" tiles.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; gap: 14px; align-items: center; border: 1px solid var(--color-border); border-radius: 12px; padding: 12px;">
+            <div style="width: 52px; height: 66px; border-radius: 8px; background: linear-gradient(180deg, #fff 0%, #f2f5fa 100%); border: 1px solid var(--color-border); display: flex; flex-direction: column; gap: 3px; padding: 7px 6px; overflow: hidden;">
+              <div style="height: 3px; width: 60%; background: var(--c-slate-300); border-radius: 2px;"></div>
+              <div style="height: 2px; width: 100%; background: var(--c-slate-100); border-radius: 2px;"></div>
+              <div style="height: 2px; width: 85%; background: var(--c-slate-100); border-radius: 2px;"></div>
+              <div style="height: 2px; width: 95%; background: var(--c-slate-100); border-radius: 2px;"></div>
+              <div style="height: 3px; width: 45%; background: var(--c-tech-blue-50); border-radius: 2px; margin-top: auto;"></div>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Scandic_kvittering.jpg</div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px;">1,2 MB &middot; 3 Feb 2026</div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px;"><i class="fa-light fa-sparkles"></i>READ</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center; border: 1px solid var(--c-tech-blue-20); border-radius: 12px; padding: 12px; background: var(--c-light-blue);">
+            <div style="width: 52px; height: 66px; border-radius: 8px; background: #fff; border: 1px solid var(--c-tech-blue-20); position: relative; overflow: hidden;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(143,248,255,0.9), transparent); background-size: 200px 100%; animation: shimmer 1.4s linear infinite;"></div>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 14px; font-weight: 600;">IMG_4412.heic</div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px;">Reading amount and date…</div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--color-info-fg); font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px;"><i class="fa-light fa-spinner"></i>SCANNING</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center; border: 1px solid var(--color-danger); border-radius: 12px; padding: 12px; background: var(--color-danger-bg);">
+            <div style="width: 52px; height: 66px; border-radius: 8px; background: #fff; border: 1px solid var(--color-danger); display: flex; align-items: center; justify-content: center;">
+              <i class="fa-light fa-image-slash" style="color: var(--color-danger); font-size: 18px;"></i>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 14px; font-weight: 600;">IMG_4413.heic</div>
+              <div style="font-size: 12px; color: var(--color-danger-fg); margin: 3px 0 7px;">Too blurry to read &mdash; enter manually or retake</div>
+              <span style="display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--color-danger-fg); font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px;"><i class="fa-light fa-triangle-exclamation"></i>UNREADABLE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">ApprovalTimeline <span style="color: var(--color-danger);">NEW</span></h3>
+        <p style="margin: 0 0 22px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">The chain, not a single state. Answers "where is my money" without asking anyone.</p>
+        <div style="display: flex; flex-direction: column;">
+          <div style="display: grid; grid-template-columns: 28px 1fr; gap: 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <div style="width: 28px; height: 28px; border-radius: 999px; background: var(--c-smart-green); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fa-light fa-check"></i></div>
+              <div style="width: 2px; flex: 1; background: var(--c-smart-green-50); min-height: 24px;"></div>
+            </div>
+            <div style="padding-bottom: 22px;">
+              <div style="font-size: 14px; font-weight: 600;">Submitted</div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">Mette Sørensen &middot; 3 Feb, 09:14</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 28px 1fr; gap: 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <div style="width: 28px; height: 28px; border-radius: 999px; background: var(--c-smart-green); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px;"><i class="fa-light fa-check"></i></div>
+              <div style="width: 2px; flex: 1; background: var(--c-slate-100); min-height: 24px;"></div>
+            </div>
+            <div style="padding-bottom: 22px;">
+              <div style="font-size: 14px; font-weight: 600;">Approved by manager</div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">Lars Bruun &middot; 3 Feb, 15:40</div>
+              <div style="font-size: 13px; color: var(--c-slate-700); margin-top: 8px; padding: 10px 12px; background: var(--c-slate-50); border-radius: 8px; line-height: 1.5;">"Fine — remember to attach the agenda next time."</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 28px 1fr; gap: 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <div style="width: 28px; height: 28px; border-radius: 999px; background: var(--c-light-yellow); border: 1.5px solid #d9b45c; color: var(--color-warning-fg); display: flex; align-items: center; justify-content: center; font-size: 11px;"><i class="fa-light fa-clock"></i></div>
+              <div style="width: 2px; flex: 1; background: var(--c-slate-100); min-height: 24px;"></div>
+            </div>
+            <div style="padding-bottom: 22px;">
+              <div style="font-size: 14px; font-weight: 600;">Controller review</div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">Anne Kjeldsen &middot; waiting since 3 Feb</div>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 28px 1fr; gap: 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <div style="width: 28px; height: 28px; border-radius: 999px; background: #fff; border: 1.5px dashed var(--c-slate-300); color: var(--c-slate-300); display: flex; align-items: center; justify-content: center; font-size: 11px;"><i class="fa-light fa-lock"></i></div>
+            </div>
+            <div>
+              <div style="font-size: 14px; font-weight: 600; color: var(--c-slate-300);">Posted in Business Central</div>
+              <div style="font-size: 12px; color: var(--c-slate-300); margin-top: 2px;">Not yet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <h3 style="margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Expense row &middot; mobile <span style="color: var(--color-danger);">NEW</span></h3>
+        <p style="margin: 0 0 22px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">Category icon, merchant, status, amount. 72px tall &mdash; comfortably above the 44px minimum.</p>
+        <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--color-border);">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-bed-front"></i></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Scandic Copenhagen</div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">PENDING</span>
+                <span style="font-size: 12px; color: var(--c-slate-500);">Hotel</span>
+              </div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">1.240,00</div>
+              <div style="font-size: 11px; color: var(--c-slate-500);">DKK &middot; 3 Feb</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--color-border);">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon"></i></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Aarhus &rarr; Silkeborg</div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-tech-blue); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">POSTED</span>
+                <span style="font-size: 12px; color: var(--c-slate-500);">Kørsel &middot; 43 km</span>
+              </div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">162,97</div>
+              <div style="font-size: 11px; color: var(--c-slate-500);">DKK &middot; 29 Jan</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; padding: 14px 16px;">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--color-danger-bg); display: flex; align-items: center; justify-content: center; color: var(--color-danger); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-utensils"></i></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Restaurant Kähler</div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--color-danger-bg); color: var(--color-danger-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">REJECTED</span>
+                <span style="font-size: 12px; color: var(--c-slate-500);">Repræsentation</span>
+              </div>
+            </div>
+            <div style="text-align: right; flex-shrink: 0;">
+              <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">2.850,00</div>
+              <div style="font-size: 11px; color: var(--c-slate-500);">DKK &middot; 22 Jan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TABLE ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">DataTable <span style="font-size: 13px; color: var(--color-danger); vertical-align: super;">NEW</span></h2>
+    </div>
+    <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--c-slate-700); max-width: 82ch;">The current portal shows 13 equally-weighted columns in ALL CAPS. Density is fine; undifferentiated density is not. Rules: one primary column carries weight, amounts are right-aligned and tabular, secondary facts become a second line rather than a column, day groups break the wall, and a footer holds the sum. Rows are 48px &mdash; tight but with 14px of vertical padding on each cell.</p>
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--color-border); flex-wrap: wrap;">
+        <div style="position: relative; flex: 1; min-width: 220px;">
+          <i class="fa-light fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--c-slate-500); font-size: 14px;"></i>
+          <input placeholder="Search name, merchant, amount" style="font-family: var(--font-sans); font-size: 14px; width: 100%; padding: 10px 14px 10px 40px; border: 1.5px solid var(--color-border); border-radius: 999px; background: #fff;">
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span style="display: inline-flex; align-items: center; gap: 7px; background: var(--c-tech-blue); color: #fff; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer;">All <span style="opacity: 0.7; font-variant-numeric: tabular-nums;">24</span></span>
+          <span style="display: inline-flex; align-items: center; gap: 7px; background: #fff; border: 1px solid var(--color-border); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer;">Pending <span style="color: var(--c-slate-500); font-variant-numeric: tabular-nums;">8</span></span>
+          <span style="display: inline-flex; align-items: center; gap: 7px; background: #fff; border: 1px solid var(--color-border); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer;">On hold <span style="color: var(--c-slate-500); font-variant-numeric: tabular-nums;">2</span></span>
+          <span style="display: inline-flex; align-items: center; gap: 7px; background: #fff; border: 1px solid var(--color-border); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; cursor: pointer;">Over policy <span style="color: var(--color-danger); font-variant-numeric: tabular-nums;">3</span></span>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 14px; padding: 12px 20px; background: var(--c-tech-blue); color: #fff;">
+        <i class="fa-light fa-square-check" style="font-size: 16px; color: var(--c-innovation-blue);"></i>
+        <span style="font-size: 13px; font-weight: 600;">3 selected &middot; <span style="font-variant-numeric: tabular-nums;">4.488,00 DKK</span></span>
+        <div style="margin-left: auto; display: flex; gap: 8px;">
+          <span style="background: var(--c-innovation-blue); color: var(--c-tech-blue); font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 999px; cursor: pointer;">APPROVE ALL</span>
+          <span style="background: transparent; border: 1px solid rgba(255,255,255,0.55); color: #fff; font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 999px; cursor: pointer;">PUT ON HOLD</span>
+          <span style="background: transparent; border: 1px solid rgba(255,255,255,0.55); color: #fff; font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 999px; cursor: pointer;">REJECT</span>
+        </div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="background: var(--c-slate-50);">
+              <th style="width: 44px; padding: 12px 20px; border-bottom: 1px solid var(--color-border);"><i class="fa-light fa-square" style="color: var(--c-slate-300);"></i></th>
+              <th style="text-align: left; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">Employee &amp; expense</th>
+              <th style="text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">Category</th>
+              <th style="text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">Project</th>
+              <th style="text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">Status</th>
+              <th style="text-align: right; padding: 12px 20px 12px 16px; border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="6" style="padding: 10px 20px; background: var(--c-slate-50); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); border-bottom: 1px solid var(--color-border);">Today &middot; 3 February</td></tr>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 14px 20px;"><i class="fa-light fa-square-check" style="color: var(--c-tech-blue); font-size: 15px;"></i></td>
+              <td style="padding: 14px 16px 14px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 32px; height: 32px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">MS</div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Mette Sørensen</div>
+                    <div style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Scandic Copenhagen &middot; 2 nights</div>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Hotel</td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">NORDIC-24</td>
+              <td style="padding: 14px 16px;"><span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">PENDING</span></td>
+              <td style="padding: 14px 20px 14px 16px; text-align: right;"><div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">1.240,00 DKK</div></td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 14px 20px;"><i class="fa-light fa-square-check" style="color: var(--c-tech-blue); font-size: 15px;"></i></td>
+              <td style="padding: 14px 16px 14px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 32px; height: 32px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">JH</div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Jonas Holm</div>
+                    <div style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">DSB Billetsalg &middot; Kbh–Odense</div>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Transport</td>
+              <td style="padding: 14px 16px; color: var(--c-slate-300);">—</td>
+              <td style="padding: 14px 16px;"><span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">PENDING</span></td>
+              <td style="padding: 14px 20px 14px 16px; text-align: right;"><div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">398,00 DKK</div></td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--color-border); background: #fbf7fd;">
+              <td style="padding: 14px 20px;"><i class="fa-light fa-square-check" style="color: var(--c-tech-blue); font-size: 15px;"></i></td>
+              <td style="padding: 14px 16px 14px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 32px; height: 32px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">MS</div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Mette Sørensen</div>
+                    <div style="font-size: 12px; color: var(--color-danger-fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;"><i class="fa-light fa-triangle-exclamation"></i> Restaurant Kähler &middot; over 1.500 kr. limit</div>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Repræsentation</td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">NORDIC-24</td>
+              <td style="padding: 14px 16px;"><span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">PENDING</span></td>
+              <td style="padding: 14px 20px 14px 16px; text-align: right;"><div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--color-danger);">2.850,00 DKK</div></td>
+            </tr>
+            <tr><td colspan="6" style="padding: 10px 20px; background: var(--c-slate-50); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); border-bottom: 1px solid var(--color-border);">Yesterday &middot; 2 February</td></tr>
+            <tr style="border-bottom: 1px solid var(--color-border);">
+              <td style="padding: 14px 20px;"><i class="fa-light fa-square" style="color: var(--c-slate-300); font-size: 15px;"></i></td>
+              <td style="padding: 14px 16px 14px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 32px; height: 32px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">AK</div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Anne Kjeldsen</div>
+                    <div style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Aarhus → Silkeborg &middot; 43 km</div>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Kørsel</td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Salg / Vest</td>
+              <td style="padding: 14px 16px;"><span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-light-blue); color: var(--color-info-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">ON HOLD</span></td>
+              <td style="padding: 14px 20px 14px 16px; text-align: right;"><div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">162,97 DKK</div></td>
+            </tr>
+            <tr>
+              <td style="padding: 14px 20px;"><i class="fa-light fa-square" style="color: var(--c-slate-300); font-size: 15px;"></i></td>
+              <td style="padding: 14px 16px 14px 0;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <div style="width: 32px; height: 32px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">JH</div>
+                  <div style="min-width: 0;">
+                    <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Jonas Holm</div>
+                    <div style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">Adobe Creative Cloud</div>
+                  </div>
+                </div>
+              </td>
+              <td style="padding: 14px 16px; color: var(--c-slate-700);">Software</td>
+              <td style="padding: 14px 16px; color: var(--c-slate-300);">—</td>
+              <td style="padding: 14px 16px;"><span style="display: inline-flex; align-items: center; gap: 5px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">APPROVED</span></td>
+              <td style="padding: 14px 20px 14px 16px; text-align: right;">
+                <div style="font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;">74,00 EUR</div>
+                <div style="font-size: 11px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">= 551,89 DKK</div>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr style="background: var(--c-slate-50); border-top: 1.5px solid var(--c-tech-blue-20);">
+              <td colspan="5" style="padding: 16px 20px; font-size: 13px; font-weight: 600; color: var(--c-slate-700);">5 of 24 expenses</td>
+              <td style="padding: 16px 20px; text-align: right; font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--c-tech-blue);">5.202,86 DKK</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Navigation <span style="font-size: 13px; color: var(--color-danger); vertical-align: super;">NEW</span></h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">SiteHeader is for marketing. Product needs its own shell.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 320px; gap: 20px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); overflow: hidden;">
+        <div style="padding: 20px 24px 0;"><h3 style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Desktop shell &mdash; sidebar + top bar</h3></div>
+        <div style="display: flex; margin: 20px; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; height: 348px;">
+          <div style="width: 220px; background: var(--c-tech-blue); padding: 18px 12px; display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 0 10px 18px;">
+              <div style="width: 22px; height: 22px; border-radius: 4px 0 0 0; background: var(--c-innovation-blue);"></div>
+              <span style="color: #fff; font-size: 14px; font-weight: 600;">Expense</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 8px; background: rgba(255,255,255,0.14); color: #fff; font-size: 13px; font-weight: 600;"><i class="fa-light fa-inbox" style="width: 18px; color: var(--c-innovation-blue);"></i>Approvals <span style="margin-left: auto; background: var(--c-innovation-blue); color: var(--c-tech-blue); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">8</span></div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 8px; color: rgba(255,255,255,0.78); font-size: 13px;"><i class="fa-light fa-list" style="width: 18px;"></i>All expenses</div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 8px; color: rgba(255,255,255,0.78); font-size: 13px;"><i class="fa-kit fa-credit-card-transactions-feature-module-expense-management-em-icon" style="width: 18px;"></i>Card transactions</div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 8px; color: rgba(255,255,255,0.78); font-size: 13px;"><i class="fa-light fa-chart-simple" style="width: 18px;"></i>Analytics</div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 8px; color: rgba(255,255,255,0.78); font-size: 13px;"><i class="fa-light fa-gear" style="width: 18px;"></i>Settings</div>
+            <div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px; border-top: 1px solid rgba(255,255,255,0.16);">
+              <div style="width: 28px; height: 28px; border-radius: 999px; background: var(--c-innovation-blue); color: var(--c-tech-blue); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">LB</div>
+              <div><div style="color: #fff; font-size: 12px; font-weight: 600;">Lars Bruun</div><div style="color: rgba(255,255,255,0.6); font-size: 11px;">Nordic A/S</div></div>
+            </div>
+          </div>
+          <div style="flex: 1; background: var(--c-slate-50);">
+            <div style="height: 56px; background: #fff; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; padding: 0 20px; gap: 16px;">
+              <span style="font-size: 17px; font-weight: 700; color: var(--c-tech-blue);">Approvals</span>
+              <span style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--c-slate-700);"><i class="fa-light fa-bell"></i></span>
+            </div>
+            <div style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+              <div style="height: 40px; background: #fff; border: 1px solid var(--color-border); border-radius: 8px;"></div>
+              <div style="height: 40px; background: #fff; border: 1px solid var(--color-border); border-radius: 8px;"></div>
+              <div style="height: 40px; background: #fff; border: 1px solid var(--color-border); border-radius: 8px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 20px 24px 24px;">
+        <h3 style="margin: 0 0 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Mobile tab bar</h3>
+        <p style="margin: 0 0 16px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">White, not grey. Active tab in Tech Blue with a full label &mdash; the old grey-on-grey bar failed contrast.</p>
+        <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;">
+          <div style="height: 60px; background: var(--c-slate-50);"></div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-top: 1px solid var(--color-border); padding: 10px 0 14px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-tech-blue);"><i class="fa-light fa-house" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 700;">Home</span></div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500);"><i class="fa-light fa-receipt" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Receipts</span></div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500);"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Mileage</span></div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500);"><i class="fa-light fa-folder-open" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Reports</span></div>
+          </div>
+        </div>
+        <h3 style="margin: 24px 0 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500);">Segmented control</h3>
+        <div style="display: inline-flex; background: var(--c-slate-100); border-radius: 999px; padding: 3px;">
+          <span style="padding: 9px 20px; border-radius: 999px; background: #fff; color: var(--c-tech-blue); font-size: 13px; font-weight: 700; box-shadow: var(--shadow-xs);">Open</span>
+          <span style="padding: 9px 20px; border-radius: 999px; color: var(--c-slate-500); font-size: 13px; font-weight: 600;">History</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ STATES ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Empty, loading, error <span style="font-size: 13px; color: var(--color-danger); vertical-align: super;">NEW</span></h2>
+    </div>
+    <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--c-slate-700); max-width: 82ch;">None of these exist in the current product. The approval queue at zero shows a blank canvas below the header; a failed sync shows nothing at all. Every list, every detail view and every scan gets all three.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;">
+        <div style="width: 76px; height: 76px; background: var(--c-light-blue); border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 30px;"><i class="fa-light fa-inbox"></i></div>
+        <div style="font-size: 18px; font-weight: 700; color: var(--c-tech-blue);">Queue is clear</div>
+        <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); max-width: 32ch;">Nothing waiting for your approval. Next batch of card transactions imports tonight.</div>
+        <div style="margin-top: 8px;"><x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="secondary" size="sm" hint-size="160px,38px">View all expenses</x-import></div>
+        <div style="font-size: 12px; color: var(--c-slate-300); margin-top: 4px;">Circular icon tile in a functional tint</div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 20px;">Loading &middot; skeleton</div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 7px;">
+              <div style="height: 12px; width: 62%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite;"></div>
+              <div style="height: 10px; width: 38%; border-radius: 4px; background: var(--c-slate-100);"></div>
+            </div>
+            <div style="width: 74px; height: 12px; border-radius: 4px; background: var(--c-slate-100);"></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.15s;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 7px;">
+              <div style="height: 12px; width: 48%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.15s;"></div>
+              <div style="height: 10px; width: 30%; border-radius: 4px; background: var(--c-slate-100);"></div>
+            </div>
+            <div style="width: 74px; height: 12px; border-radius: 4px; background: var(--c-slate-100);"></div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.3s;"></div>
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 7px;">
+              <div style="height: 12px; width: 70%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.3s;"></div>
+              <div style="height: 10px; width: 42%; border-radius: 4px; background: var(--c-slate-100);"></div>
+            </div>
+            <div style="width: 74px; height: 12px; border-radius: 4px; background: var(--c-slate-100);"></div>
+          </div>
+          <div style="font-size: 12px; color: var(--c-slate-500); text-align: center; padding-top: 6px;">Skeleton mirrors the real row &mdash; never a spinner in a list</div>
+        </div>
+      </div>
+      <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 48px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;">
+        <div style="width: 76px; height: 76px; background: var(--color-danger-bg); border-radius: 999px; display: flex; align-items: center; justify-content: center; color: var(--color-danger); font-size: 30px;"><i class="fa-light fa-cloud-slash"></i></div>
+        <div style="font-size: 18px; font-weight: 700; color: var(--color-danger-fg);">Can't reach Business Central</div>
+        <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); max-width: 34ch;">Your 3 drafts are saved on this device and will sync when the connection returns.</div>
+        <div style="margin-top: 8px; display: flex; gap: 10px;">
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="primary" size="sm" hint-size="110px,38px">Try again</x-import>
+          <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="secondary" size="sm" hint-size="130px,38px">Work offline</x-import>
+        </div>
+        <div style="font-size: 12px; color: var(--c-slate-300); margin-top: 4px;">Always says what happens to the user's data</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MODAL & TOAST ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Modal, sheet, toast <span style="font-size: 13px; color: var(--color-danger); vertical-align: super;">NEW</span></h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">PopupWindow's navy title bar is a marketing frame. Product dialogs drop it.</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div style="background: var(--c-tech-blue-10); border: 1px solid var(--color-border); border-radius: 16px; padding: 40px; display: flex; align-items: center; justify-content: center;">
+        <div style="background: #fff; border-radius: 24px; box-shadow: var(--shadow-lg); width: 100%; max-width: 400px; overflow: hidden;">
+          <div style="padding: 28px 28px 0;">
+            <div style="width: 48px; height: 48px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 18px;"><i class="fa-light fa-xmark"></i></div>
+            <h3 style="margin: 0 0 8px; font-size: 20px; font-weight: 700; color: var(--c-tech-blue);">Reject this expense?</h3>
+            <p style="margin: 0 0 20px; font-size: 14px; line-height: 1.6; color: var(--c-slate-700);">Mette Sørensen will be notified and can correct and resubmit. A reason is required.</p>
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px;">
+              <label style="font-size: 13px; font-weight: 600;">Reason <span style="color: var(--color-danger);">*</span></label>
+              <textarea rows="3" placeholder="Explain what needs to change" style="font-family: var(--font-sans); font-size: 14px; padding: 11px 14px; border: 1.5px solid var(--color-border); border-radius: 12px; resize: none;"></textarea>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; justify-content: flex-end; padding: 18px 28px; background: var(--c-slate-50); border-top: 1px solid var(--color-border);">
+            <x-import component-from-global-scope="ContiniaDesignSystem_354b58.Button" variant="secondary" size="md" hint-size="100px,44px">Cancel</x-import>
+            <button style="font-family: var(--font-sans); font-weight: 600; font-size: 15px; padding: 12px 22px; border-radius: 999px; border: none; background: var(--color-danger); color: #fff; cursor: pointer;">Reject expense</button>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 18px;">Toast</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px; background: var(--c-tech-blue); color: #fff; border-radius: 12px; padding: 14px 18px; box-shadow: var(--shadow-md);">
+              <i class="fa-light fa-circle-check" style="color: var(--c-innovation-blue); font-size: 18px;"></i>
+              <span style="font-size: 14px; font-weight: 600; flex: 1;">3 expenses approved</span>
+              <span style="font-size: 13px; font-weight: 700; color: var(--c-innovation-blue); cursor: pointer;">Undo</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; background: #fff; border: 1.5px solid var(--color-danger); border-radius: 12px; padding: 14px 18px; box-shadow: var(--shadow-md);">
+              <i class="fa-light fa-triangle-exclamation" style="color: var(--color-danger); font-size: 18px;"></i>
+              <span style="font-size: 14px; font-weight: 600; flex: 1; color: var(--color-danger-fg);">Couldn't save — no connection</span>
+              <span style="font-size: 13px; font-weight: 700; color: var(--color-danger); cursor: pointer;">Retry</span>
+            </div>
+          </div>
+        </div>
+        <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px; flex: 1;">
+          <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 8px;">Sheet &middot; mobile</div>
+          <p style="margin: 0 0 18px; font-size: 13px; line-height: 1.5; color: var(--c-slate-500);">Radius 24 on the top corners only, drag handle, 60&ndash;90% height. Used for pickers instead of full-screen pushes.</p>
+          <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; background: var(--c-slate-50);">
+            <div style="height: 40px;"></div>
+            <div style="background: #fff; border-radius: 24px 24px 0 0; padding: 12px 0 0; box-shadow: 0 -8px 24px rgba(5,41,117,0.10);">
+              <div style="width: 36px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 0 auto 14px;"></div>
+              <div style="padding: 0 18px 8px; font-size: 15px; font-weight: 700; color: var(--c-tech-blue);">Category</div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-top: 1px solid var(--color-border); font-size: 14px;"><i class="fa-light fa-train" style="color: var(--c-tech-blue); width: 20px;"></i>Transport</div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-top: 1px solid var(--color-border); font-size: 14px; background: var(--c-light-blue); font-weight: 600;"><i class="fa-light fa-bed-front" style="color: var(--c-tech-blue); width: 20px;"></i>Hotel<i class="fa-light fa-check" style="margin-left: auto; color: var(--c-tech-blue);"></i></div>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 13px 18px; border-top: 1px solid var(--color-border); font-size: 14px;"><i class="fa-light fa-utensils" style="color: var(--c-tech-blue); width: 20px;"></i>Repræsentation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ICONS ═══ -->
+  <section style="padding: 40px 0; border-top: 1px solid var(--color-border);">
+    <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;">
+      <h2 style="margin: 0; font-size: 30px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">Icons</h2>
+      <span style="font-size: 14px; color: var(--c-slate-500);">Font Awesome classic light. Continia's own kit icons take priority for modules.</span>
+    </div>
+    <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 28px;">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 20px;">Continia kit &mdash; use these, not generic equivalents</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; margin-bottom: 32px;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--c-slate-50); border-radius: 12px;"><i class="fa-kit fa-expense-management-solution-em-icon" style="font-size: 28px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500); text-align: center;">Expense Management</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--c-slate-50); border-radius: 12px;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 28px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500); text-align: center;">Mileage</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--c-slate-50); border-radius: 12px;"><i class="fa-kit fa-per-diem-feature-module-expense-management-em-briefcase-icon" style="font-size: 28px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500); text-align: center;">Per diem</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--c-slate-50); border-radius: 12px;"><i class="fa-kit fa-credit-card-transactions-feature-module-expense-management-em-icon" style="font-size: 28px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500); text-align: center;">Card transactions</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 10px; background: var(--c-slate-50); border-radius: 12px;"><i class="fa-kit fa-mouse-cursor" style="font-size: 28px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500); text-align: center;">Cursor motif</span></div>
+      </div>
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 20px;">Category &amp; action set</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 16px;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-train" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Transport</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-bed-front" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Hotel</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-utensils" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Repræsent.</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-plane" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Flight</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-laptop" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Software</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-camera" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Scan</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-receipt" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Receipt</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-circle-check" style="font-size: 22px; color: var(--c-smart-green);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Approve</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-circle-pause" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Hold</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-circle-xmark" style="font-size: 22px; color: var(--color-danger);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Reject</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-diagram-project" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Project</span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px;"><i class="fa-light fa-sitemap" style="font-size: 22px; color: var(--c-tech-blue);"></i><span style="font-size: 11px; color: var(--c-slate-500);">Department</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding: 48px 0 0; border-top: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+    <div style="font-size: 13px; color: var(--c-slate-500);">Contina 3.0 &mdash; Expense Management product layer &middot; 12 component additions, 0 new colours</div>
+    <div style="font-size: 13px; color: var(--c-slate-500);">Next: mobile screens &rarr; desktop portal</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}"></script>
+</body>
+</html>

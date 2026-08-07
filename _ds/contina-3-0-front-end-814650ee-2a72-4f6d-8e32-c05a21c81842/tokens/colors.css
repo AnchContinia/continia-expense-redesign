@@ -1,0 +1,96 @@
+/* ============================================================
+   Continia — Color tokens
+   Two primary brand colors + functional + accents.
+   "Size of square represents recommended use ratio" — Tech Blue
+   dominates, Innovation Blue & Light Blue support, accents sparingly.
+   ============================================================ */
+
+:root {
+  /* ---- Brand: primary ---------------------------------- */
+  --c-tech-blue: #052975;        /* MAIN — Pantone 280 C */
+  --c-innovation-blue: #8ff8ff;  /* SECONDARY — Pantone 310 C */
+  --c-light-blue: #def5ff;       /* primary functional — Pantone 290 C */
+
+  /* ---- Brand: accents (use sparingly) ------------------ */
+  --c-light-yellow: #fff7e3;     /* Pantone 7499 C */
+  --c-smart-green: #5f9e8d;      /* Pantone 624 C */
+  --c-performance-purple: #983eae; /* Pantone 7442 C */
+
+  /* ---- Tech Blue tint ramp (from brand % colors) ------- */
+  --c-tech-blue-85: #2a4989;
+  --c-tech-blue-50: #8193b9;
+  --c-tech-blue-20: #cdd4e3;
+  --c-tech-blue-10: #e7eaf1;
+
+  /* ---- Innovation Blue tints --------------------------- */
+  --c-innovation-blue-50: #c6fbff;
+  --c-innovation-blue-20: #e9feff;
+
+  /* ---- Accent tints ------------------------------------ */
+  --c-smart-green-50: #aecec5;
+  --c-smart-green-30: #cfe2dd;
+  --c-performance-purple-50: #e2c9ee;
+  --c-performance-purple-15: #f7effa;
+
+  /* ---- Neutrals ---------------------------------------- */
+  --c-white: #ffffff;
+  --c-ink: #0a1838;        /* near-black navy for body text */
+  --c-slate-700: #3a4a6b;
+  --c-slate-500: #6b7894;
+  --c-slate-300: #aab4c8;
+  --c-slate-100: #eef1f6;
+  --c-slate-50: #f6f8fb;
+
+  /* ---- Gradients --------------------------------------- */
+  /* RULE: gradients are DECORATION ONLY — large hero/panel backgrounds & accents.
+     NEVER use a gradient as the background of an icon tile, button or box/card.
+     Those always use a solid PRIMARY color (Tech Blue, Innovation Blue, Light Blue). */
+  --grad-brand: linear-gradient(135deg, var(--c-tech-blue) 0%, var(--c-innovation-blue) 100%);
+  --grad-brand-soft: linear-gradient(135deg, #0a317f 0%, #2a4989 100%); /* @kind color */
+  --grad-green-inno: linear-gradient(135deg, var(--c-smart-green) 0%, var(--c-innovation-blue) 100%);
+  --grad-tech-green: linear-gradient(135deg, var(--c-tech-blue) 0%, var(--c-smart-green) 100%);
+  --grad-inno-yellow: linear-gradient(135deg, var(--c-innovation-blue) 0%, var(--c-light-yellow) 100%);
+
+  /* ============================================================
+     Semantic aliases — reference these in components
+     ============================================================ */
+  --color-bg: var(--c-white);
+  --color-bg-subtle: var(--c-slate-50);
+  --color-bg-brand: var(--c-tech-blue);
+  --color-bg-brand-deep: #041e58;
+  --color-surface: var(--c-white);
+  --color-surface-alt: var(--c-light-blue);
+  --color-surface-card: var(--c-white);
+
+  --color-text: var(--c-ink);
+  --color-text-muted: var(--c-slate-500);
+  --color-text-subtle: var(--c-slate-300);
+  --color-text-on-brand: var(--c-white);
+  --color-text-brand: var(--c-tech-blue);
+  --color-text-link: var(--c-tech-blue);
+
+  --color-border: #dde3ee;
+  --color-border-strong: var(--c-tech-blue-20);
+  --color-focus-ring: var(--c-innovation-blue);
+
+  --color-primary: var(--c-tech-blue);
+  --color-primary-hover: #0a317f;
+  --color-primary-active: #041e58;
+  --color-accent: var(--c-innovation-blue);
+
+  /* semantic status (mapped onto brand accents) */
+  --color-success: var(--c-smart-green);
+  --color-success-bg: var(--c-smart-green-30);
+  --color-info: var(--c-tech-blue);
+  --color-info-bg: var(--c-light-blue);
+  --color-warning: #c79a2e;
+  --color-warning-bg: var(--c-light-yellow);
+  --color-feature: var(--c-performance-purple);
+  --color-feature-bg: var(--c-performance-purple-15);
+
+  /* status-chip foregrounds — text on the status bg tints (StatusChip) */
+  --color-neutral-fg: var(--c-slate-700);
+  --color-info-fg: var(--c-tech-blue);
+  --color-warning-fg: #8a6516;
+  --color-success-fg: #2f6455;
+}

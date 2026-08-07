@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mileage route — Aarhus to Silkeborg</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #e8eef4; }
+  #map { position: absolute; inset: 0; }
+  .leaflet-tile-pane { filter: saturate(0.62) brightness(1.04); }
+  .leaflet-control-attribution { font-size: 8px; background: rgba(255,255,255,0.72); }
+  .leaflet-container { background: #dfe7f0; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  // Rute 15 corridor, Aarhus C -> Silkeborg (Papirfabrikken)
+  var route = [
+    [56.1567, 10.2108], [56.1601, 10.1742], [56.1683, 10.1224], [56.1758, 10.0618],
+    [56.1799, 9.9948], [56.1782, 9.9302], [56.1703, 9.8604], [56.1679, 9.7702],
+    [56.1718, 9.6803], [56.1701, 9.6004], [56.1665, 9.5490]
+  ];
+
+  var map = L.map('map', {
+    zoomControl: false, attributionControl: true,
+    dragging: false, touchZoom: false, scrollWheelZoom: false,
+    doubleClickZoom: false, boxZoom: false, keyboard: false
+  });
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+  }).addTo(map);
+
+  L.polyline(route, { color: '#ffffff', weight: 9, opacity: 0.85, lineJoin: 'round' }).addTo(map);
+  L.polyline(route, { color: '#052975', weight: 4.5, opacity: 1, lineJoin: 'round' }).addTo(map);
+
+  L.circleMarker(route[0], {
+    radius: 7, color: '#052975', weight: 4, fillColor: '#ffffff', fillOpacity: 1
+  }).addTo(map);
+
+  L.marker(route[route.length - 1], {
+    icon: L.divIcon({
+      className: '',
+      html: '<div style="width:24px;height:24px;border-radius:999px;background:#052975;border:2px solid #fff;box-shadow:0 2px 6px rgba(5,41,117,0.4);display:flex;align-items:center;justify-content:center;"><div style="width:7px;height:7px;border-radius:999px;background:#8FF8FF;"></div></div>',
+      iconSize: [24, 24], iconAnchor: [12, 12]
+    })
+  }).addTo(map);
+
+  map.fitBounds(L.latLngBounds(route), { paddingTopLeft: [26, 26], paddingBottomRight: [26, 56] });
+</script>
+</body>
+</html>

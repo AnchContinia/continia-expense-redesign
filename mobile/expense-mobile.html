@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<a href="../index.html" aria-label="Tilbage til galleriet" style="position:fixed;left:16px;bottom:16px;z-index:2147483647;display:inline-flex;align-items:center;box-sizing:border-box;margin:0;padding:9px 14px;border-radius:999px;background:#052975;color:#8ff8ff;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;font-weight:600;font-style:normal;line-height:1;letter-spacing:0;text-decoration:none;text-transform:none;text-align:left;border:1px solid rgba(143,248,255,0.35);box-shadow:0 4px 14px rgba(5,41,117,0.35);white-space:nowrap;opacity:0.94;">&#8592;&#160;Galleri</a>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/fonts.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/colors.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/typography.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/tokens/spacing.css">
+<link rel="stylesheet" href="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/styles.css">
+<script src="../_ds/contina-3-0-front-end-814650ee-2a72-4f6d-8e32-c05a21c81842/_ds_bundle.js"></script>
+<script src="https://kit.fontawesome.com/c11880975e.js" crossorigin="anonymous"></script>
+<script src="../image-slot.js"></script>
+<style>
+  :root {
+    --color-danger: var(--c-performance-purple);
+    --color-danger-bg: var(--c-performance-purple-15);
+    --color-danger-fg: #7a318d;
+  }
+  body { margin: 0; background: var(--c-slate-100); font-family: var(--font-sans); color: var(--color-text); -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a:not([class]) { color: var(--c-tech-blue); text-decoration: none; }
+  a:not([class]):hover { color: #0a317f; }
+  @keyframes shimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+  @keyframes pulseFrame { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .rail-item { cursor: pointer; transition: background 160ms, color 160ms; }
+  .rail-item:hover { background: var(--c-light-blue); }
+  .tapz { cursor: pointer; transition: background 160ms; }
+  .tapz:active { background: var(--c-slate-50); }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+</style>
+</helmet>
+
+<div style="display: flex; gap: 32px; padding: 32px; align-items: flex-start; min-height: 100vh;">
+
+  <!-- ── control rail ── -->
+  <aside style="width: 268px; flex-shrink: 0; position: sticky; top: 32px; background: #fff; border: 1px solid var(--color-border); border-radius: 20px; box-shadow: var(--shadow-md); overflow: hidden;">
+    <div style="padding: 20px 20px 16px; background: var(--c-tech-blue);">
+      <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 6px;">Prototype</div>
+      <div style="font-size: 17px; font-weight: 700; color: #fff;">Expense Management</div>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">iOS &middot; 390 &times; 844 &middot; employee</div>
+    </div>
+    <div style="padding: 14px 12px;">
+      <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); padding: 6px 10px 8px;">Screens</div>
+      <sc-for list="{{ railScreens }}" as="r" hint-placeholder-count="9">
+        <div class="rail-item" onClick="{{ r.go }}" style="{{ r.style }}">
+          <i class="{{ r.icon }}" style="width: 18px; text-align: center; font-size: 14px;"></i>
+          <span style="flex: 1;">{{ r.label }}</span>
+          <sc-if value="{{ r.badge }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size: 10px; font-weight: 700; background: var(--c-light-blue); color: var(--c-tech-blue); padding: 2px 7px; border-radius: 999px;">{{ r.badge }}</span>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <div style="height: 1px; background: var(--color-border); margin: 14px 10px;"></div>
+      <div style="font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); padding: 0 10px 10px;">Data state</div>
+      <div style="display: flex; gap: 6px; padding: 0 10px 4px; flex-wrap: wrap;">
+        <sc-for list="{{ stateChips }}" as="s" hint-placeholder-count="4">
+          <span class="rail-item" onClick="{{ s.go }}" style="{{ s.style }}">{{ s.label }}</span>
+        </sc-for>
+      </div>
+      <div style="font-size: 11px; line-height: 1.5; color: var(--c-slate-500); padding: 12px 10px 4px;">{{ stateNote }}</div>
+    </div>
+  </aside>
+
+  <!-- ── phone ── -->
+  <div style="display: flex; flex-direction: column; gap: 18px; align-items: center;">
+    <div style="display: flex; align-items: center; gap: 12px; align-self: stretch;">
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">{{ screenTitle }}</span>
+      <div style="height: 1px; flex: 1; background: var(--color-border);"></div>
+      <sc-if value="{{ hasVariants }}" hint-placeholder-val="{{ false }}">
+        <div style="display: inline-flex; background: #fff; border: 1px solid var(--color-border); border-radius: 999px; padding: 3px;">
+          <sc-for list="{{ variantChips }}" as="v" hint-placeholder-count="2">
+            <span class="rail-item" onClick="{{ v.go }}" style="{{ v.style }}">{{ v.label }}</span>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+
+    <x-import component-from-global-scope="IOSDevice" from="../ios-frame.jsx" width="{{ phoneW }}" height="{{ phoneH }}" dark="{{ true }}" hint-size="390px,844px">
+
+      <!-- ═════════ LOGIN ═════════ -->
+      <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; background: var(--c-tech-blue); position: relative; overflow: hidden; display: flex; flex-direction: column;">
+
+          <div style="position: relative; flex: 1; min-height: 0;">
+            <video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+            <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.34) 0%, rgba(5,41,117,0.20) 34%, rgba(5,41,117,0.92) 100%); pointer-events: none;"></div>
+            <div style="position: absolute; left: 26px; right: 26px; bottom: 58px; pointer-events: none;">
+              <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-innovation-blue);">Built inside your Business Central</span>
+              <img src="../assets/em-logo-hourglass-white.png" alt="Expense Management" style="width: 84%; height: auto; display: block; margin-top: 16px;">
+              <div style="font-size: 18px; line-height: 1.45; color: rgba(255,255,255,0.86); margin-top: 18px; max-width: 22ch;">Photograph the receipt. The rest is already filled in.</div>
+            </div>
+          </div>
+
+          <div style="position: relative; margin-top: -26px; background: #fff; border-radius: 26px 26px 0 0; padding: 26px 24px 40px; box-shadow: 0 -14px 40px rgba(2,12,40,0.24); flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+              <div style="width: 42px; height: 42px; border-radius: 999px; background: var(--c-light-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0;">MS</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 17px; font-weight: 600; color: var(--c-tech-blue);">Welcome back, Mette</div>
+                <div style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Nordic Consulting A/S &middot; mette.s@nordic.dk</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="tapz" onClick="{{ goHome }}" style="height: 54px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 16px; font-weight: 600; box-shadow: var(--shadow-md);">
+                <i class="fa-light fa-face-viewfinder" style="font-size: 19px;"></i>Sign in with Face ID
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <div class="tapz" onClick="{{ goHome }}" style="flex: 1; height: 50px; border-radius: 999px; border: 1.5px solid var(--color-border); color: var(--c-slate-700); display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600;">
+                  <span style="display: grid; grid-template-columns: 7px 7px; grid-template-rows: 7px 7px; gap: 2px;"><span style="background: #f25022;"></span><span style="background: #7fba00;"></span><span style="background: #00a4ef;"></span><span style="background: #ffb900;"></span></span>
+                  Microsoft 365
+                </div>
+                <div class="tapz" onClick="{{ goHome }}" style="flex: 1; height: 50px; border-radius: 999px; border: 1.5px solid var(--color-border); color: var(--c-slate-700); display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600;">
+                  <i class="fa-light fa-envelope" style="font-size: 15px;"></i>Email
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 9px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--color-border);">
+              <i class="fa-light fa-shield-check" style="color: var(--c-smart-green); font-size: 14px;"></i>
+              <span style="font-size: 12px; color: var(--c-slate-500); flex: 1;">Single sign-on via your company tenant</span>
+              <span class="tapz" style="font-size: 12px; font-weight: 600; color: var(--c-tech-blue);">Help</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ HOME ═════════ -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+
+          <!-- header -->
+          <div style="background: var(--c-tech-blue); padding: 58px 20px 0; flex-shrink: 0; position: relative; overflow: hidden;">
+            <sc-if value="{{ isHomeB }}" hint-placeholder-val="{{ false }}">
+              <video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+              <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none;"></div>
+            </sc-if>
+            <div style="display: flex; align-items: center; gap: 12px; padding-bottom: 16px; position: relative;">
+              <div style="width: 38px; height: 38px; border-radius: 999px; background: var(--c-innovation-blue); color: var(--c-tech-blue); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;">MS</div>
+              <div style="flex: 1;">
+                <div style="font-size: 12px; color: rgba(255,255,255,0.65);">Nordic Consulting A/S</div>
+                <div style="font-size: 16px; font-weight: 600; color: #fff;">Mette Sørensen</div>
+              </div>
+              <div style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; position: relative;"><i class="fa-light fa-bell"></i><span style="position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 999px; background: var(--c-innovation-blue); border: 1.5px solid var(--c-tech-blue);"></span></div>
+            </div>
+
+            <sc-if value="{{ isHomeB }}" hint-placeholder-val="{{ false }}">
+              <div style="padding-bottom: 22px; position: relative;">
+                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 8px;">To be reimbursed</div>
+                <div style="font-size: 40px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;">4.488,00 <span style="font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.7);">DKK</span></div>
+                <div style="display: flex; gap: 8px; margin-top: 18px;">
+                  <div class="tapz" onClick="{{ goDetail }}" style="flex: 1; background: rgba(255,255,255,0.10); border-radius: 12px; padding: 11px 12px;">
+                    <div style="font-size: 19px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums;">3</div>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Pending</div>
+                  </div>
+                  <div class="tapz" onClick="{{ goCreate }}" style="flex: 1; background: rgba(255,255,255,0.10); border-radius: 12px; padding: 11px 12px;">
+                    <div style="font-size: 19px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums;">2</div>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.7);">Drafts</div>
+                  </div>
+                  <div class="tapz" onClick="{{ goRejected }}" style="flex: 1; background: rgba(152,62,174,0.34); border: 1px solid rgba(226,201,238,0.5); border-radius: 12px; padding: 11px 12px;">
+                    <div style="font-size: 19px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums;">1</div>
+                    <div style="font-size: 11px; color: rgba(255,255,255,0.85);">Rejected</div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isHomeA }}" hint-placeholder-val="{{ true }}">
+              <div style="display: flex; gap: 10px; padding-bottom: 18px; align-items: center;">
+                <div style="display: inline-flex; background: rgba(255,255,255,0.14); border-radius: 999px; padding: 3px; flex: 1;">
+                  <span class="tapz" style="flex: 1; text-align: center; padding: 9px 0; border-radius: 999px; background: #fff; color: var(--c-tech-blue); font-size: 13px; font-weight: 700;">Open</span>
+                  <span class="tapz" style="flex: 1; text-align: center; padding: 9px 0; border-radius: 999px; color: rgba(255,255,255,0.8); font-size: 13px; font-weight: 600;">History</span>
+                </div>
+                <div style="width: 40px; height: 40px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px;"><i class="fa-light fa-sliders"></i></div>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- scroll body -->
+          <div style="flex: 1; overflow: auto; padding-bottom: 92px;">
+
+            <sc-if value="{{ isOffline }}" hint-placeholder-val="{{ false }}">
+              <div style="margin: 14px 16px 0; background: var(--color-danger-bg); border: 1px solid var(--c-performance-purple-50); border-radius: 12px; padding: 13px 15px; display: flex; gap: 12px; align-items: flex-start;">
+                <i class="fa-light fa-cloud-slash" style="color: var(--color-danger); font-size: 17px; margin-top: 1px;"></i>
+                <div style="flex: 1;">
+                  <div style="font-size: 13px; font-weight: 700; color: var(--color-danger-fg);">No connection</div>
+                  <div style="font-size: 12px; line-height: 1.5; color: var(--c-slate-700); margin-top: 2px;">Showing what was last synced. Your 2 drafts are saved on this device.</div>
+                </div>
+                <span class="tapz" style="font-size: 12px; font-weight: 700; color: var(--color-danger); flex-shrink: 0;">Retry</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 20px 16px; display: flex; flex-direction: column; gap: 18px;">
+                <div style="height: 11px; width: 90px; border-radius: 4px; background: var(--c-slate-100);"></div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite;"></div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;"><div style="height: 13px; width: 68%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite;"></div><div style="height: 10px; width: 40%; border-radius: 4px; background: var(--c-slate-100);"></div></div>
+                  <div style="width: 62px; height: 13px; border-radius: 4px; background: var(--c-slate-100);"></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.12s;"></div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;"><div style="height: 13px; width: 52%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.12s;"></div><div style="height: 10px; width: 34%; border-radius: 4px; background: var(--c-slate-100);"></div></div>
+                  <div style="width: 62px; height: 13px; border-radius: 4px; background: var(--c-slate-100);"></div>
+                </div>
+                <div style="height: 11px; width: 70px; border-radius: 4px; background: var(--c-slate-100); margin-top: 6px;"></div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.24s;"></div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;"><div style="height: 13px; width: 74%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.24s;"></div><div style="height: 10px; width: 44%; border-radius: 4px; background: var(--c-slate-100);"></div></div>
+                  <div style="width: 62px; height: 13px; border-radius: 4px; background: var(--c-slate-100);"></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 14px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.36s;"></div>
+                  <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;"><div style="height: 13px; width: 60%; border-radius: 4px; background: linear-gradient(90deg, var(--c-slate-100) 0%, var(--c-light-blue) 50%, var(--c-slate-100) 100%); background-size: 300px 100%; animation: shimmer 1.4s linear infinite 0.36s;"></div><div style="height: 10px; width: 38%; border-radius: 4px; background: var(--c-slate-100);"></div></div>
+                  <div style="width: 62px; height: 13px; border-radius: 4px; background: var(--c-slate-100);"></div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 64px 34px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;">
+                <div style="width: 84px; height: 84px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 32px;"><i class="fa-light fa-receipt"></i></div>
+                <div style="font-size: 19px; font-weight: 700; color: var(--c-tech-blue);">Nothing open</div>
+                <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500);">Everything you've submitted is settled. Snap a receipt and it takes about ten seconds.</div>
+                <div class="tapz" onClick="{{ goScan }}" style="margin-top: 10px; height: 48px; padding: 0 26px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600;"><i class="fa-light fa-camera"></i>Scan a receipt</div>
+                <span class="tapz" onClick="{{ goHistory }}" style="font-size: 14px; font-weight: 600; color: var(--c-tech-blue); margin-top: 4px;">See history</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isErrorState }}" hint-placeholder-val="{{ false }}">
+              <div style="padding: 52px 34px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;">
+                <div style="width: 84px; height: 84px; border-radius: 999px; background: var(--color-danger-bg); display: flex; align-items: center; justify-content: center; color: var(--color-danger); font-size: 32px;"><i class="fa-light fa-cloud-slash"></i></div>
+                <div style="font-size: 19px; font-weight: 700; color: var(--color-danger-fg);">Can't reach Business Central</div>
+                <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500);">Nothing is lost. Your 2 drafts stay on this device and sync automatically when you're back online.</div>
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                  <div class="tapz" onClick="{{ setNormal }}" style="height: 48px; padding: 0 22px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: inline-flex; align-items: center; gap: 9px; font-size: 15px; font-weight: 600;"><i class="fa-light fa-rotate-right"></i>Try again</div>
+                  <div class="tapz" onClick="{{ goCreate }}" style="height: 48px; padding: 0 22px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: inline-flex; align-items: center; font-size: 15px; font-weight: 600;">Work offline</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isNormal }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ isHomeB }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 18px 16px 4px; display: flex; gap: 10px;">
+                  <div class="tapz" onClick="{{ goScan }}" style="flex: 1; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 9px; box-shadow: var(--shadow-xs);">
+                    <i class="fa-light fa-camera" style="font-size: 22px; color: var(--c-tech-blue);"></i>
+                    <span style="font-size: 12px; font-weight: 600;">Scan</span>
+                  </div>
+                  <div class="tapz" onClick="{{ goMileage }}" style="flex: 1; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 9px; box-shadow: var(--shadow-xs);">
+                    <i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 22px; color: var(--c-tech-blue);"></i>
+                    <span style="font-size: 12px; font-weight: 600;">Mileage</span>
+                  </div>
+                  <div class="tapz" style="flex: 1; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 9px; box-shadow: var(--shadow-xs);">
+                    <i class="fa-kit fa-per-diem-feature-module-expense-management-em-briefcase-icon" style="font-size: 22px; color: var(--c-tech-blue);"></i>
+                    <span style="font-size: 12px; font-weight: 600;">Per diem</span>
+                  </div>
+                  <div class="tapz" onClick="{{ goReport }}" style="flex: 1; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 12px; display: flex; flex-direction: column; align-items: center; gap: 9px; box-shadow: var(--shadow-xs);">
+                    <i class="fa-light fa-folder-open" style="font-size: 22px; color: var(--c-tech-blue);"></i>
+                    <span style="font-size: 12px; font-weight: 600;">Report</span>
+                  </div>
+                </div>
+                <div style="padding: 18px 16px 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Needs your attention</div>
+                <div class="tapz" onClick="{{ goRejected }}" style="margin: 0 16px; background: #fff; border: 1.5px solid var(--c-performance-purple-50); border-radius: 16px; padding: 16px; box-shadow: var(--shadow-sm);">
+                  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                    <div style="width: 34px; height: 34px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger); display: flex; align-items: center; justify-content: center; font-size: 15px;"><i class="fa-light fa-xmark"></i></div>
+                    <div style="flex: 1;"><div style="font-size: 15px; font-weight: 600;">Restaurant Kähler</div><div style="font-size: 12px; color: var(--c-slate-500);">Rejected by Lars Bruun &middot; 2 days ago</div></div>
+                    <div style="text-align: right;"><div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">2.850,00</div><div style="font-size: 11px; color: var(--c-slate-500);">DKK</div></div>
+                  </div>
+                  <div style="background: var(--color-danger-bg); border-radius: 10px; padding: 11px 13px; font-size: 13px; line-height: 1.5; color: var(--color-danger-fg);">"Over the 1.500 kr. limit for Repræsentation. Split it or attach the guest list."</div>
+                  <div style="display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--c-tech-blue);">Fix and resubmit <i class="fa-light fa-arrow-right" style="font-size: 11px;"></i></div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ isHomeA }}" hint-placeholder-val="{{ true }}">
+                <div style="margin: 16px 16px 0; background: var(--c-light-blue); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                  <div style="flex: 1;">
+                    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-tech-blue); opacity: 0.75;">Awaiting approval</div>
+                    <div style="font-size: 26px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; margin-top: 3px;">4.488,00 <span style="font-size: 15px; font-weight: 600;">DKK</span></div>
+                    <div style="font-size: 12px; color: var(--c-tech-blue); opacity: 0.8; margin-top: 2px;">3 expenses &middot; oldest 3 days</div>
+                  </div>
+                  <div class="tapz" onClick="{{ goReport }}" style="width: 44px; height: 44px; border-radius: 999px; background: #fff; color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 15px;"><i class="fa-light fa-arrow-right"></i></div>
+                </div>
+              </sc-if>
+
+              <div style="padding: 22px 16px 8px; display: flex; align-items: baseline; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Today</span>
+                <span style="font-size: 11px; color: var(--c-slate-300);">3 February</span>
+              </div>
+              <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+                <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--color-border);">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-bed-front"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Scandic Copenhagen</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                      <span style="background: var(--c-light-yellow); color: var(--color-warning-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">PENDING</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">Hotel</span>
+                    </div>
+                  </div>
+                  <div style="text-align: right; flex-shrink: 0;">
+                    <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">1.240,00</div>
+                    <div style="font-size: 11px; color: var(--c-slate-500);">DKK</div>
+                  </div>
+                </div>
+                <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-train"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">DSB Billetsalg</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                      <span style="background: var(--c-slate-100); color: var(--color-neutral-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">DRAFT</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">Transport &middot; no receipt</span>
+                    </div>
+                  </div>
+                  <div style="text-align: right; flex-shrink: 0;">
+                    <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">398,00</div>
+                    <div style="font-size: 11px; color: var(--c-slate-500);">DKK</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tapz" onClick="{{ toggleLastWeek }}" style="padding: 22px 16px 8px; display: flex; align-items: center; gap: 8px; min-height: 44px;">
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Last week</span>
+                <span style="font-size: 11px; color: var(--c-slate-300); font-variant-numeric: tabular-nums;">{{ lastWeekSummary }}</span>
+                <span style="flex: 1;"></span>
+                <i class="{{ lastWeekChevron }}" style="color: var(--c-slate-500); font-size: 12px;"></i>
+              </div>
+              <sc-if value="{{ lastWeekOpen }}" hint-placeholder-val="{{ true }}">
+              <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+                <div class="tapz" onClick="{{ goRejected }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--color-border);">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--color-danger-bg); display: flex; align-items: center; justify-content: center; color: var(--color-danger); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-utensils"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Restaurant Kähler</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                      <span style="background: var(--color-danger-bg); color: var(--color-danger-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">REJECTED</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">Repræsentation</span>
+                    </div>
+                  </div>
+                  <div style="text-align: right; flex-shrink: 0;">
+                    <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">2.850,00</div>
+                    <div style="font-size: 11px; color: var(--c-slate-500);">DKK</div>
+                  </div>
+                </div>
+                <div class="tapz" onClick="{{ goMileage }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--color-border);">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Aarhus &rarr; Silkeborg</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                      <span style="background: var(--c-tech-blue); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">POSTED</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">Kørsel &middot; 43 km</span>
+                    </div>
+                  </div>
+                  <div style="text-align: right; flex-shrink: 0;">
+                    <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">162,97</div>
+                    <div style="font-size: 11px; color: var(--c-slate-500);">DKK</div>
+                  </div>
+                </div>
+                <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px;">
+                  <div style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-laptop"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Adobe Creative Cloud</div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                      <span style="background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px;">APPROVED</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">Software</span>
+                    </div>
+                  </div>
+                  <div style="text-align: right; flex-shrink: 0;">
+                    <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">74,00</div>
+                    <div style="font-size: 11px; color: var(--c-slate-500);">EUR</div>
+                    <div style="font-size: 10px; color: var(--c-slate-300); font-variant-numeric: tabular-nums;">551,89 DKK</div>
+                  </div>
+                </div>
+              </div>
+              </sc-if>
+            </sc-if>
+          </div>
+
+          <!-- FAB + tab bar -->
+          <div style="position: absolute; bottom: 96px; right: 18px; z-index: 30;">
+            <div class="tapz" onClick="{{ openFab }}" style="width: 58px; height: 58px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 12px 28px rgba(5,41,117,0.34);"><i class="{{ fabIcon }}"></i></div>
+          </div>
+
+          <sc-if value="{{ fabOpen }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ closeFab }}" style="position: absolute; inset: 0; background: rgba(4,20,52,0.5); z-index: 40; display: flex; flex-direction: column; justify-content: flex-end;">
+              <div style="background: #fff; border-radius: 24px 24px 0 0; padding-bottom: 30px; animation: riseIn 280ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="width: 38px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 11px auto 16px;"></div>
+                <div style="padding: 0 20px 14px;">
+                  <div style="font-size: 19px; font-weight: 700; color: var(--c-tech-blue);">New</div>
+                  <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 3px;">Everything ends up in the same approval flow.</div>
+                </div>
+                <div style="border-top: 1px solid var(--color-border);">
+                  <sc-for list="{{ fabActions }}" as="a" hint-placeholder-count="4">
+                    <div class="tapz" onClick="{{ a.go }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 68px; border-bottom: 1px solid var(--color-border);">
+                      <div style="width: 42px; height: 42px; border-radius: 999px; background: var(--c-light-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;"><i class="{{ a.icon }}"></i></div>
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 15px; font-weight: 600;">{{ a.label }}</div>
+                        <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">{{ a.meta }}</div>
+                      </div>
+                      <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="padding: 16px 20px 0;">
+                  <div class="tapz" onClick="{{ closeFab }}" style="height: 50px; border-radius: 999px; border: 1.5px solid var(--color-border); color: var(--c-slate-700); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">Cancel</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+          <div style="flex-shrink: 0; background: #fff; border-top: 1px solid var(--color-border); display: grid; grid-template-columns: repeat(5, 1fr); padding: 10px 0 30px;">
+            <div class="tapz" onClick="{{ goHome }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-tech-blue); min-height: 48px; justify-content: center;"><i class="fa-light fa-house" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 700;">Home</span></div>
+            <div class="tapz" onClick="{{ goHistory }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-clock-rotate-left" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">History</span></div>
+            <div class="tapz" onClick="{{ goReceipts }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-receipt" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Receipts</span></div>
+            <div class="tapz" onClick="{{ goMileage }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Mileage</span></div>
+            <div class="tapz" onClick="{{ goReport }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-folder-open" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Reports</span></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ HISTORY ═════════ -->
+      <sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">History</div>
+              <div class="tapz" style="height: 32px; padding: 0 13px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600;">2026 <i class="fa-light fa-chevron-down" style="font-size: 10px;"></i></div>
+              <div class="tapz" style="width: 36px; height: 36px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px;"><i class="fa-light fa-magnifying-glass"></i></div>
+            </div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 8px;">Reimbursed this year</div>
+            <div style="font-size: 36px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;">38.412,60 <span style="font-size: 18px; font-weight: 600; opacity: 0.7;">DKK</span></div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 8px;">42 settled expenses &middot; last payout 31 July</div>
+          </div>
+
+          <div style="flex-shrink: 0; background: #fff; border-bottom: 1px solid var(--color-border); padding: 12px 16px; display: flex; gap: 8px; overflow-x: auto;">
+            <sc-for list="{{ histFilters }}" as="f" hint-placeholder-count="4">
+              <span class="tapz" onClick="{{ f.go }}" style="{{ f.style }}">{{ f.label }}</span>
+            </sc-for>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 24px;">
+            <sc-for list="{{ histMonths }}" as="m" hint-placeholder-count="3">
+              <div>
+                <div style="padding: 20px 16px 8px; display: flex; align-items: baseline; gap: 8px;">
+                  <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); flex: 1;">{{ m.label }}</span>
+                  <span style="font-size: 12px; font-weight: 700; color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ m.total }}</span>
+                </div>
+                <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+                  <sc-for list="{{ m.items }}" as="h" hint-placeholder-count="3">
+                    <div class="tapz" onClick="{{ h.open }}" style="{{ h.rowStyle }}">
+                      <div style="{{ h.iconStyle }}"><i class="{{ h.icon }}"></i></div>
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ h.what }}</div>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                          <span style="{{ h.chipStyle }}">{{ h.status }}</span>
+                          <span style="font-size: 12px; color: var(--c-slate-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ h.meta }}</span>
+                        </div>
+                      </div>
+                      <div style="text-align: right; flex-shrink: 0;">
+                        <div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ h.amount }}</div>
+                        <div style="font-size: 11px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">{{ h.sub }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+
+            <div style="margin: 20px 16px 0; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 18px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 12px;">Paid out to you</div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>31 July, salary account</span><span style="font-variant-numeric: tabular-nums; font-weight: 600;">6.284,00</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>30 June, salary account</span><span style="font-variant-numeric: tabular-nums; font-weight: 600;">4.118,50</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>31 May, salary account</span><span style="font-variant-numeric: tabular-nums; font-weight: 600;">5.902,20</span></div>
+              <div style="display: flex; align-items: center; gap: 9px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--color-border);">
+                <i class="fa-light fa-circle-info" style="color: var(--c-tech-blue); font-size: 14px;"></i>
+                <span style="font-size: 12px; line-height: 1.5; color: var(--c-slate-500);">Card-paid expenses are settled by the company and never appear here.</span>
+              </div>
+            </div>
+
+            <div style="padding: 22px 22px 10px; text-align: center; font-size: 12px; line-height: 1.5; color: var(--c-slate-500);">Expenses older than 24 months live in Business Central.</div>
+          </div>
+
+          <div style="flex-shrink: 0; background: #fff; border-top: 1px solid var(--color-border); display: grid; grid-template-columns: repeat(5, 1fr); padding: 10px 0 30px;">
+            <div class="tapz" onClick="{{ goHome }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-house" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Home</span></div>
+            <div class="tapz" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-tech-blue); min-height: 48px; justify-content: center;"><i class="fa-light fa-clock-rotate-left" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 700;">History</span></div>
+            <div class="tapz" onClick="{{ goReceipts }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-receipt" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Receipts</span></div>
+            <div class="tapz" onClick="{{ goMileage }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Mileage</span></div>
+            <div class="tapz" onClick="{{ goReport }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-folder-open" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Reports</span></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ SCAN ═════════ -->
+      <sc-if value="{{ isScan }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; background: #08111f; position: relative; display: flex; flex-direction: column; overflow: hidden;">
+          <div style="position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 30%, #1c2b42 0%, #08111f 70%);"></div>
+
+          <div style="position: relative; padding: 56px 18px 0; display: flex; align-items: center; gap: 12px; z-index: 5;">
+            <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px;"><i class="fa-light fa-xmark"></i></div>
+            <div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; color: #fff;">Scan receipt</div>
+            <div class="tapz" style="width: 40px; height: 40px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px;"><i class="fa-light fa-bolt"></i></div>
+          </div>
+
+          <div style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; z-index: 5;">
+            <div style="width: 236px; height: 320px; position: relative;">
+              <div style="position: absolute; inset: 0; background: linear-gradient(178deg, #fdfdfb 0%, #f4f2ec 100%); border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); transform: rotate(-1.2deg); padding: 20px 18px; display: flex; flex-direction: column; gap: 9px;">
+                <div style="height: 9px; width: 54%; background: #2a2a2a; border-radius: 2px;"></div>
+                <div style="height: 5px; width: 40%; background: #b8b8b8; border-radius: 2px; margin-bottom: 6px;"></div>
+                <div style="height: 1px; background: #ddd;"></div>
+                <div style="display: flex; justify-content: space-between;"><div style="height: 5px; width: 44%; background: #c9c9c9; border-radius: 2px;"></div><div style="height: 5px; width: 18%; background: #c9c9c9; border-radius: 2px;"></div></div>
+                <div style="display: flex; justify-content: space-between;"><div style="height: 5px; width: 52%; background: #c9c9c9; border-radius: 2px;"></div><div style="height: 5px; width: 16%; background: #c9c9c9; border-radius: 2px;"></div></div>
+                <div style="display: flex; justify-content: space-between;"><div style="height: 5px; width: 36%; background: #c9c9c9; border-radius: 2px;"></div><div style="height: 5px; width: 20%; background: #c9c9c9; border-radius: 2px;"></div></div>
+                <div style="height: 1px; background: #ddd; margin-top: 4px;"></div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px;"><div style="height: 8px; width: 26%; background: #2a2a2a; border-radius: 2px;"></div><div style="height: 10px; width: 34%; background: #052975; border-radius: 2px;"></div></div>
+                <div style="margin-top: auto; display: flex; flex-direction: column; gap: 5px;"><div style="height: 4px; width: 70%; background: #dcdcdc; border-radius: 2px;"></div><div style="height: 4px; width: 50%; background: #dcdcdc; border-radius: 2px;"></div></div>
+              </div>
+              <div style="position: absolute; top: -14px; left: -14px; width: 34px; height: 34px; border-top: 3px solid var(--c-innovation-blue); border-left: 3px solid var(--c-innovation-blue); border-radius: 6px 0 0 0; animation: pulseFrame 1.8s ease-in-out infinite;"></div>
+              <div style="position: absolute; top: -14px; right: -14px; width: 34px; height: 34px; border-top: 3px solid var(--c-innovation-blue); border-right: 3px solid var(--c-innovation-blue); border-radius: 0 6px 0 0; animation: pulseFrame 1.8s ease-in-out infinite;"></div>
+              <div style="position: absolute; bottom: -14px; left: -14px; width: 34px; height: 34px; border-bottom: 3px solid var(--c-innovation-blue); border-left: 3px solid var(--c-innovation-blue); border-radius: 0 0 0 6px; animation: pulseFrame 1.8s ease-in-out infinite;"></div>
+              <div style="position: absolute; bottom: -14px; right: -14px; width: 34px; height: 34px; border-bottom: 3px solid var(--c-innovation-blue); border-right: 3px solid var(--c-innovation-blue); border-radius: 0 0 6px 0; animation: pulseFrame 1.8s ease-in-out infinite;"></div>
+            </div>
+          </div>
+
+          <div style="position: relative; z-index: 5; padding: 0 20px;">
+            <div style="display: inline-flex; align-items: center; gap: 9px; background: rgba(143,248,255,0.16); border: 1px solid rgba(143,248,255,0.4); border-radius: 999px; padding: 9px 16px; margin-bottom: 16px;">
+              <i class="fa-light fa-sparkles" style="color: var(--c-innovation-blue); font-size: 13px;"></i>
+              <span style="font-size: 13px; font-weight: 600; color: #fff;">Edges found &mdash; hold still</span>
+            </div>
+            <div style="font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.6); margin-bottom: 22px;">Amount, date and merchant are read automatically. You confirm before anything is saved.</div>
+          </div>
+
+          <div style="position: relative; z-index: 5; padding: 0 24px 46px; display: flex; align-items: center; justify-content: space-between;">
+            <div class="tapz" style="width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px;"><i class="fa-light fa-images"></i></div>
+            <div class="tapz" onClick="{{ goScanResult }}" style="width: 74px; height: 74px; border-radius: 999px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px rgba(255,255,255,0.22);">
+              <div style="width: 58px; height: 58px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px;"><i class="fa-light fa-camera"></i></div>
+            </div>
+            <div class="tapz" style="width: 48px; height: 48px; border-radius: 12px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; text-align: center; line-height: 1.2;">Multi<br>page</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ SCAN RESULT ═════════ -->
+      <sc-if value="{{ isScanResult }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; background: #08111f; position: relative; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;">
+          <div style="position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 24%, #1c2b42 0%, #08111f 70%);"></div>
+          <div style="position: absolute; top: 74px; left: 50%; transform: translateX(-50%) rotate(-1.2deg); width: 150px; height: 200px; background: linear-gradient(178deg, #fdfdfb 0%, #f4f2ec 100%); border-radius: 6px; box-shadow: 0 20px 44px rgba(0,0,0,0.5); padding: 14px 12px; display: flex; flex-direction: column; gap: 6px;">
+            <div style="height: 7px; width: 56%; background: #2a2a2a; border-radius: 2px;"></div>
+            <div style="height: 4px; width: 38%; background: #b8b8b8; border-radius: 2px;"></div>
+            <div style="height: 1px; background: #ddd; margin: 4px 0;"></div>
+            <div style="height: 4px; width: 76%; background: #cfcfcf; border-radius: 2px;"></div>
+            <div style="height: 4px; width: 62%; background: #cfcfcf; border-radius: 2px;"></div>
+            <div style="height: 4px; width: 70%; background: #cfcfcf; border-radius: 2px;"></div>
+            <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: baseline;"><div style="height: 6px; width: 24%; background: #2a2a2a; border-radius: 2px;"></div><div style="height: 8px; width: 40%; background: #052975; border-radius: 2px;"></div></div>
+          </div>
+
+          <sc-if value="{{ isScanOk }}" hint-placeholder-val="{{ true }}">
+            <div style="position: relative; z-index: 5; background: #fff; border-radius: 24px 24px 0 0; box-shadow: 0 -12px 34px rgba(0,0,0,0.34); animation: riseIn 320ms cubic-bezier(0.16,1,0.3,1);">
+              <div style="width: 38px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 11px auto 0;"></div>
+              <div style="padding: 18px 20px 0;">
+                <div style="display: inline-flex; align-items: center; gap: 8px; background: var(--c-smart-green-30); color: var(--color-success-fg); border-radius: 999px; padding: 6px 12px; font-size: 11px; font-weight: 700; margin-bottom: 14px;"><i class="fa-light fa-sparkles"></i>READ IN 1,2 S</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--c-tech-blue); margin-bottom: 4px;">Does this look right?</div>
+                <div style="font-size: 13px; line-height: 1.5; color: var(--c-slate-500); margin-bottom: 18px;">Tap anything to correct it. Nothing is saved until you continue.</div>
+              </div>
+              <div style="border-top: 1px solid var(--color-border);">
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 13px 20px; min-height: 60px; border-bottom: 1px solid var(--color-border); background: var(--c-light-blue);">
+                  <i class="fa-light fa-coins" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-tech-blue); opacity: 0.75; font-weight: 600;">Amount</div><div style="font-size: 17px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums;">1.240,00 DKK</div></div>
+                  <i class="fa-light fa-pen" style="color: var(--c-tech-blue); font-size: 13px;"></i>
+                </div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 13px 20px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                  <i class="fa-light fa-shop" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Merchant</div><div style="font-size: 15px; font-weight: 500;">Scandic Copenhagen</div></div>
+                  <i class="fa-light fa-pen" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                </div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 13px 20px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                  <i class="fa-light fa-calendar" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Date</div><div style="font-size: 15px; font-weight: 500;">3 February 2026</div></div>
+                  <i class="fa-light fa-pen" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                </div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 13px 20px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                  <i class="fa-light fa-tag" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Category &middot; suggested</div><div style="font-size: 15px; font-weight: 500;">Hotel</div></div>
+                  <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                </div>
+              </div>
+              <div style="padding: 16px 20px 34px; display: flex; gap: 10px;">
+                <div class="tapz" onClick="{{ goScan }}" style="width: 52px; height: 52px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0;"><i class="fa-light fa-rotate-left"></i></div>
+                <div class="tapz" onClick="{{ goCreate }}" style="flex: 1; height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">Continue<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isScanFail }}" hint-placeholder-val="{{ false }}">
+            <div style="position: relative; z-index: 5; background: #fff; border-radius: 24px 24px 0 0; box-shadow: 0 -12px 34px rgba(0,0,0,0.34); animation: riseIn 320ms cubic-bezier(0.16,1,0.3,1);">
+              <div style="width: 38px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 11px auto 0;"></div>
+              <div style="padding: 22px 20px 0; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div style="width: 68px; height: 68px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 16px;"><i class="fa-light fa-image-slash"></i></div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--color-danger-fg); margin-bottom: 6px;">Couldn't read the receipt</div>
+                <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); margin-bottom: 18px;">The photo is too blurry. The image is saved either way &mdash; you can retake it or type the amount yourself.</div>
+              </div>
+              <div style="margin: 0 20px 18px; background: var(--c-slate-50); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 9px;">
+                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">What usually helps</div>
+                <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--c-slate-700);"><i class="fa-light fa-check" style="color: var(--c-smart-green); margin-top: 3px;"></i>Flatten the receipt on a dark surface</div>
+                <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--c-slate-700);"><i class="fa-light fa-check" style="color: var(--c-smart-green); margin-top: 3px;"></i>Keep the total inside the frame</div>
+              </div>
+              <div style="padding: 0 20px 34px; display: flex; flex-direction: column; gap: 10px;">
+                <div class="tapz" onClick="{{ goScan }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;"><i class="fa-light fa-camera"></i>Retake photo</div>
+                <div class="tapz" onClick="{{ goCreate }}" style="height: 52px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600;">Enter manually</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ CREATE — SINGLE SCREEN ═════════ -->
+      <sc-if value="{{ isCreateSingle }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 20px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+              <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">New expense</div>
+              <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Save draft</span>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 10px;">Amount</div>
+              <div style="display: flex; align-items: baseline; justify-content: center; gap: 10px;">
+                <span style="font-size: 42px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.02em;">1.240,00</span>
+                <span class="tapz" style="display: inline-flex; align-items: center; gap: 5px; font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.8);">DKK <i class="fa-light fa-chevron-down" style="font-size: 11px;"></i></span>
+              </div>
+              <div style="font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 8px;">Read from receipt &middot; tap to change</div>
+            </div>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 100px;">
+            <div style="margin: 16px; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 12px; display: flex; gap: 14px; align-items: center; box-shadow: var(--shadow-xs);">
+              <div style="width: 48px; height: 62px; border-radius: 8px; background: linear-gradient(180deg, #fff 0%, #f2f5fa 100%); border: 1px solid var(--color-border); padding: 6px 5px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0;">
+                <div style="height: 3px; width: 60%; background: var(--c-slate-300); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 100%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 84%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 3px; width: 44%; background: var(--c-tech-blue-50); border-radius: 2px; margin-top: auto;"></div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Scandic_kvittering.jpg</div>
+                <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px;">1,2 MB</div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;"><i class="fa-light fa-sparkles"></i>READ</span>
+              </div>
+              <div class="tapz" onClick="{{ goScan }}" style="width: 40px; height: 40px; border-radius: 999px; border: 1px solid var(--color-border); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;"><i class="fa-light fa-plus"></i></div>
+            </div>
+
+            <div style="padding: 6px 16px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">The expense</div>
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-calendar" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Date</div><div style="font-size: 15px; font-weight: 500;">3 February 2026</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" onClick="{{ openSheet }}" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-tag" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Category</div><div style="font-size: 15px; font-weight: 500;">Hotel</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-credit-card" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Paid with</div><div style="font-size: 15px; font-weight: 500;">Firmakort &middot;&middot;&middot;&middot; 4127</div></div>
+                <span style="background: var(--c-light-blue); color: var(--c-tech-blue); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;">MATCHED</span>
+              </div>
+              <div class="tapz" style="display: flex; align-items: flex-start; gap: 14px; padding: 12px 16px; min-height: 60px;">
+                <i class="fa-light fa-note" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center; margin-top: 2px;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Business purpose</div><div style="font-size: 15px; font-weight: 500; line-height: 1.45; margin-top: 2px;">Nordic Summit &mdash; 2 nights, client meetings</div></div>
+              </div>
+            </div>
+
+            <div style="padding: 22px 16px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Accounting</div>
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-diagram-project" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Project</div><div style="font-size: 15px; font-weight: 500;">NORDIC-24 &middot; Nordic Summit</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-sitemap" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Department</div><div style="font-size: 15px; font-weight: 500;">Salg / Øst</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px;">
+                <i class="fa-light fa-building" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Customer</div><div style="font-size: 15px; color: var(--c-slate-300);">Not set &middot; optional</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+            </div>
+
+            <div style="margin: 22px 16px 0; background: var(--c-slate-100); border-radius: 12px; padding: 14px 16px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 10px;">VAT is calculated for you</div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--c-slate-700); padding: 3px 0;"><span>Net</span><span style="font-variant-numeric: tabular-nums;">992,00 DKK</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--c-slate-700); padding: 3px 0;"><span>VAT 25%</span><span style="font-variant-numeric: tabular-nums;">248,00 DKK</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; color: var(--c-tech-blue); padding: 8px 0 0; margin-top: 6px; border-top: 1px solid var(--c-tech-blue-20);"><span>Total</span><span style="font-variant-numeric: tabular-nums;">1.240,00 DKK</span></div>
+            </div>
+
+            <div class="tapz" onClick="{{ goReport }}" style="margin: 14px 16px 0; background: #fff; border: 1px solid var(--color-border); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px;">
+              <i class="fa-light fa-folder-open" style="color: var(--c-tech-blue); font-size: 17px;"></i>
+              <div style="flex: 1;"><div style="font-size: 14px; font-weight: 600;">Add to report</div><div style="font-size: 12px; color: var(--c-slate-500);">Nordic Summit, Feb 2026 &middot; 3 expenses</div></div>
+              <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 16px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ submitExpense }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">Submit for approval<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+          </div>
+
+          <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ closeSheet }}" style="position: absolute; inset: 0; background: rgba(4,20,52,0.5); z-index: 40; display: flex; flex-direction: column; justify-content: flex-end;">
+              <div style="background: #fff; border-radius: 24px 24px 0 0; padding-bottom: 34px; animation: riseIn 280ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="width: 38px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 11px auto 14px;"></div>
+                <div style="padding: 0 20px 12px; font-size: 17px; font-weight: 700; color: var(--c-tech-blue);">Category</div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 56px; border-top: 1px solid var(--color-border); font-size: 15px;"><i class="fa-light fa-train" style="color: var(--c-tech-blue); width: 22px; text-align: center;"></i>Transport</div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 56px; border-top: 1px solid var(--color-border); font-size: 15px; background: var(--c-light-blue); font-weight: 600;"><i class="fa-light fa-bed-front" style="color: var(--c-tech-blue); width: 22px; text-align: center;"></i>Hotel<i class="fa-light fa-check" style="margin-left: auto; color: var(--c-tech-blue);"></i></div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 56px; border-top: 1px solid var(--color-border); font-size: 15px;"><i class="fa-light fa-utensils" style="color: var(--c-tech-blue); width: 22px; text-align: center;"></i>Repræsentation</div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 56px; border-top: 1px solid var(--color-border); font-size: 15px;"><i class="fa-light fa-plane" style="color: var(--c-tech-blue); width: 22px; text-align: center;"></i>Flyrejse</div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 20px; min-height: 56px; border-top: 1px solid var(--color-border); font-size: 15px;"><i class="fa-light fa-laptop" style="color: var(--c-tech-blue); width: 22px; text-align: center;"></i>Software</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ CREATE — WIZARD ═════════ -->
+      <sc-if value="{{ isCreateWizard }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: #fff;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+              <div class="tapz" onClick="{{ wizBack }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">{{ wizTitle }}</div>
+              <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Cancel</span>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <sc-for list="{{ wizBars }}" as="b" hint-placeholder-count="4">
+                <div style="{{ b.style }}"></div>
+              </sc-for>
+            </div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 10px;">Step {{ wizStep }} of 4</div>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding: 28px 20px 110px;">
+            <sc-if value="{{ wizIs1 }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size: 24px; font-weight: 700; color: var(--c-tech-blue); line-height: 1.25; margin-bottom: 8px;">How much did you spend?</div>
+              <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); margin-bottom: 30px;">We read 1.240,00 from your receipt. Change it if the total was different.</div>
+              <div style="border-bottom: 2px solid var(--c-tech-blue); padding-bottom: 12px; display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px;">
+                <span style="font-size: 40px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; flex: 1;">1.240,00</span>
+                <span class="tapz" style="display: inline-flex; align-items: center; gap: 6px; font-size: 17px; font-weight: 600; color: var(--c-slate-700);">DKK <i class="fa-light fa-chevron-down" style="font-size: 12px;"></i></span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--c-slate-500);"><i class="fa-light fa-sparkles" style="color: var(--c-smart-green);"></i>Read from Scandic_kvittering.jpg</div>
+              <div style="margin-top: 34px; background: var(--c-light-blue); border-radius: 16px; padding: 16px; display: flex; gap: 13px; align-items: flex-start;">
+                <i class="fa-light fa-credit-card" style="color: var(--c-tech-blue); font-size: 18px; margin-top: 2px;"></i>
+                <div><div style="font-size: 14px; font-weight: 600; color: var(--c-tech-blue);">Matched to a card transaction</div><div style="font-size: 13px; line-height: 1.5; color: var(--c-tech-blue); opacity: 0.85; margin-top: 3px;">Firmakort &middot;&middot;&middot;&middot; 4127, 3 Feb, 1.240,00 DKK. Nothing to reimburse &mdash; the company already paid.</div></div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ wizIs2 }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 24px; font-weight: 700; color: var(--c-tech-blue); line-height: 1.25; margin-bottom: 8px;">What kind of expense?</div>
+              <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); margin-bottom: 26px;">Hotel is suggested from the receipt.</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div class="tapz" style="background: var(--c-tech-blue); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-bed-front" style="font-size: 24px; color: var(--c-innovation-blue);"></i>
+                  <div><div style="font-size: 15px; font-weight: 700; color: #fff;">Hotel</div><div style="font-size: 11px; color: var(--c-innovation-blue); margin-top: 2px;">Suggested</div></div>
+                </div>
+                <div class="tapz" style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-train" style="font-size: 24px; color: var(--c-tech-blue);"></i>
+                  <div style="font-size: 15px; font-weight: 600;">Transport</div>
+                </div>
+                <div class="tapz" style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-utensils" style="font-size: 24px; color: var(--c-tech-blue);"></i>
+                  <div style="font-size: 15px; font-weight: 600;">Repræsentation</div>
+                </div>
+                <div class="tapz" style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-plane" style="font-size: 24px; color: var(--c-tech-blue);"></i>
+                  <div style="font-size: 15px; font-weight: 600;">Flyrejse</div>
+                </div>
+                <div class="tapz" style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-laptop" style="font-size: 24px; color: var(--c-tech-blue);"></i>
+                  <div style="font-size: 15px; font-weight: 600;">Software</div>
+                </div>
+                <div class="tapz" style="background: #fff; border: 1.5px solid var(--color-border); border-radius: 16px; padding: 22px 16px; min-height: 108px; display: flex; flex-direction: column; justify-content: space-between;">
+                  <i class="fa-light fa-ellipsis" style="font-size: 24px; color: var(--c-tech-blue);"></i>
+                  <div style="font-size: 15px; font-weight: 600;">Other</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ wizIs3 }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 24px; font-weight: 700; color: var(--c-tech-blue); line-height: 1.25; margin-bottom: 8px;">What was it for?</div>
+              <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); margin-bottom: 26px;">One line is enough. Your approver reads this first.</div>
+              <div style="border: 1.5px solid var(--c-tech-blue); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow-focus); margin-bottom: 22px;">
+                <div style="font-size: 15px; line-height: 1.5; color: var(--color-text);">Nordic Summit &mdash; 2 nights, client meetings<span style="display: inline-block; width: 2px; height: 18px; background: var(--c-tech-blue); vertical-align: middle; margin-left: 2px;"></span></div>
+              </div>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px;">
+                <span class="tapz" style="background: var(--c-slate-100); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 999px;">Client meeting</span>
+                <span class="tapz" style="background: var(--c-slate-100); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 999px;">Conference</span>
+                <span class="tapz" style="background: var(--c-slate-100); color: var(--c-slate-700); font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 999px;">Team event</span>
+              </div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 10px;">Where does it belong?</div>
+              <div style="border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden;">
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 58px; border-bottom: 1px solid var(--color-border);">
+                  <i class="fa-light fa-diagram-project" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Project</div><div style="font-size: 15px; font-weight: 500;">NORDIC-24</div></div>
+                  <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                </div>
+                <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 58px;">
+                  <i class="fa-light fa-sitemap" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Department</div><div style="font-size: 15px; font-weight: 500;">Salg / Øst</div></div>
+                  <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ wizIs4 }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size: 24px; font-weight: 700; color: var(--c-tech-blue); line-height: 1.25; margin-bottom: 8px;">Ready to send</div>
+              <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-500); margin-bottom: 24px;">Goes to Lars Bruun, then to Anne Kjeldsen in finance.</div>
+              <div style="background: var(--c-light-blue); border-radius: 16px; padding: 20px; margin-bottom: 18px;">
+                <div style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">1.240,00 <span style="font-size: 17px; font-weight: 600;">DKK</span></div>
+                <div style="font-size: 14px; color: var(--c-tech-blue); opacity: 0.85; margin-top: 4px;">Scandic Copenhagen &middot; Hotel</div>
+              </div>
+              <div style="border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; margin-bottom: 18px;">
+                <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Date</span><span style="font-weight: 500;">3 February 2026</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Paid with</span><span style="font-weight: 500;">Firmakort &middot;&middot;&middot;&middot; 4127</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Project</span><span style="font-weight: 500;">NORDIC-24</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">VAT 25%</span><span style="font-weight: 500; font-variant-numeric: tabular-nums;">248,00 DKK</span></div>
+                <div style="display: flex; justify-content: space-between; padding: 13px 16px; font-size: 14px;"><span style="color: var(--c-slate-500);">Receipt</span><span style="font-weight: 500; color: var(--color-success-fg);">Attached</span></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--c-slate-500);"><i class="fa-light fa-circle-check" style="color: var(--c-smart-green); font-size: 15px;"></i>Within policy for Hotel (max 1.800 kr./night)</div>
+            </sc-if>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 20px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ wizNext }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">{{ wizCta }}<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ MILEAGE ═════════ -->
+      <sc-if value="{{ isMileage }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px;">
+            <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+            <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Mileage</div>
+            <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Save draft</span>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 100px;">
+            <div style="position: relative; height: 232px; background: #dfe7f0; overflow: hidden;">
+              <iframe src="../mileage-map.html" title="Route Aarhus to Silkeborg" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
+              <div style="position: absolute; left: 16px; top: 14px; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); border-radius: 12px; padding: 9px 13px; box-shadow: var(--shadow-sm); pointer-events: none;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i class="fa-light fa-route" style="color: var(--c-tech-blue); font-size: 13px;"></i>
+                  <span style="font-size: 14px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums;">43 km</span>
+                </div>
+                <div style="font-size: 11px; color: var(--c-slate-500); margin-top: 2px;">Shortest route &middot; 38 min</div>
+              </div>
+              <div class="tapz" style="position: absolute; right: 16px; top: 14px; width: 40px; height: 40px; border-radius: 999px; background: #fff; display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 15px; box-shadow: var(--shadow-sm);"><i class="fa-light fa-location-crosshairs"></i></div>
+            </div>
+
+            <div style="margin: -18px 16px 0; position: relative; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-md); overflow: hidden;">
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid var(--color-border); min-height: 62px;">
+                <div style="width: 14px; height: 14px; border-radius: 999px; border: 4px solid var(--c-tech-blue); flex-shrink: 0;"></div>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">From</div><div style="font-size: 15px; font-weight: 500;">Aarhus C, Åboulevarden 21</div></div>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 62px;">
+                <i class="fa-light fa-location-dot" style="color: var(--c-tech-blue); font-size: 16px; width: 14px; text-align: center; flex-shrink: 0;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">To</div><div style="font-size: 15px; font-weight: 500;">Silkeborg, Papirfabrikken 12</div></div>
+                <div class="tapz" style="width: 40px; height: 40px; border-radius: 999px; background: var(--c-light-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;"><i class="fa-light fa-arrow-up-arrow-down"></i></div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; padding: 14px 16px 0;">
+              <span class="tapz" style="background: #fff; border: 1px solid var(--color-border); color: var(--c-tech-blue); font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px;"><i class="fa-light fa-plus" style="font-size: 11px;"></i>Via point</span>
+              <span class="tapz" style="background: #fff; border: 1px solid var(--color-border); color: var(--c-tech-blue); font-size: 13px; font-weight: 600; padding: 9px 15px; border-radius: 999px; display: inline-flex; align-items: center; gap: 7px;"><i class="fa-light fa-arrows-repeat" style="font-size: 11px;"></i>Return trip</span>
+            </div>
+
+            <div style="margin: 18px 16px 0; background: var(--c-light-blue); border-radius: 16px; padding: 18px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-tech-blue); opacity: 0.75;">Reimbursement</span>
+                <span style="font-size: 11px; background: #fff; color: var(--c-tech-blue); padding: 4px 9px; border-radius: 999px; font-weight: 700;">STATE RATE 2026</span>
+              </div>
+              <div style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">162,97 <span style="font-size: 17px; font-weight: 600;">DKK</span></div>
+              <div style="font-size: 13px; color: var(--c-tech-blue); opacity: 0.85; margin-top: 6px; font-variant-numeric: tabular-nums;">43 km &times; 3,79 kr./km &middot; low rate</div>
+              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--c-tech-blue-20); display: flex; align-items: center; gap: 9px;">
+                <i class="fa-light fa-circle-info" style="color: var(--c-tech-blue); font-size: 14px;"></i>
+                <span style="font-size: 12px; line-height: 1.5; color: var(--c-tech-blue); opacity: 0.85;">You have driven 4.180 km this year. High rate applies above 20.000 km.</span>
+              </div>
+            </div>
+
+            <div style="padding: 22px 16px 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Details</div>
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-calendar" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Date</div><div style="font-size: 15px; font-weight: 500;">2 February 2026</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-car" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Vehicle</div><div style="font-size: 15px; font-weight: 500;">Egen bil &middot; AB 12 345</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-note" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Purpose</div><div style="font-size: 15px; font-weight: 500;">Kundemøde hos Jyske Maskiner</div></div>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px;">
+                <i class="fa-light fa-diagram-project" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Project</div><div style="font-size: 15px; font-weight: 500;">Salg / Vest</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 16px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ submitExpense }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">Submit 162,97 DKK<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ PER DIEM ═════════ -->
+      <sc-if value="{{ isPerDiem }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px;">
+            <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+            <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Per diem</div>
+            <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Save draft</span>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 116px;">
+            <div style="margin: 16px 16px 0; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden;">
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-earth-europe" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Country</div><div style="font-size: 15px; font-weight: 500;">Tyskland &middot; Berlin</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-plane-departure" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Departure</div><div style="font-size: 15px; font-weight: 500;">3 Aug 2026, 07:40</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px; border-bottom: 1px solid var(--color-border);">
+                <i class="fa-light fa-plane-arrival" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Return</div><div style="font-size: 15px; font-weight: 500;">6 Aug 2026, 07:15</div></div>
+                <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 13px;"></i>
+              </div>
+              <div class="tapz" style="display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 60px;">
+                <i class="fa-light fa-note" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                <div style="flex: 1;"><div style="font-size: 11px; color: var(--c-slate-500);">Purpose</div><div style="font-size: 15px; font-weight: 500;">Kundebesøg, Vestas Berlin</div></div>
+              </div>
+            </div>
+
+            <div style="margin: 20px 16px 0; background: var(--c-light-blue); border-radius: 16px; padding: 18px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-tech-blue); opacity: 0.75;">Allowance</span>
+                <span style="font-size: 11px; background: #fff; color: var(--c-tech-blue); padding: 4px 9px; border-radius: 999px; font-weight: 700;">STATE RATE 2026</span>
+              </div>
+              <div style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">1.688,01 <span style="font-size: 17px; font-weight: 600;">DKK</span></div>
+              <div style="font-size: 13px; color: var(--c-tech-blue); opacity: 0.85; margin-top: 6px; font-variant-numeric: tabular-nums;">3 days &times; 562,67 kr./day &middot; {{ pdCaption }}</div>
+              <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--c-tech-blue-20); display: flex; align-items: center; gap: 9px;">
+                <i class="fa-light fa-circle-info" style="color: var(--c-tech-blue); font-size: 14px;"></i>
+                <span style="font-size: 12px; line-height: 1.5; color: var(--c-tech-blue);">Counted per 24 hours from departure. 71 hours gives 2 full days plus 23 hours.</span>
+              </div>
+            </div>
+
+            <div style="padding: 22px 16px 8px;">
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Meals paid by someone else</span>
+            </div>
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <sc-for list="{{ pdMeals }}" as="m" hint-placeholder-count="3">
+                <div class="tapz" onClick="{{ m.toggle }}" style="display: flex; align-items: center; gap: 14px; padding: 13px 16px; min-height: 62px; border-bottom: 1px solid var(--color-border);">
+                  <i class="{{ m.icon }}" style="color: var(--c-tech-blue); font-size: 17px; width: 22px; text-align: center;"></i>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 15px; font-weight: 500;">{{ m.label }}</div>
+                    <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">{{ m.meta }}</div>
+                  </div>
+                  <span style="{{ m.switchStyle }}"><span style="{{ m.knobStyle }}"></span></span>
+                </div>
+              </sc-for>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--c-slate-50);">
+                <span style="font-size: 13px; color: var(--c-slate-700);">Deducted</span>
+                <span style="font-size: 15px; font-weight: 700; color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ pdDeducted }}</span>
+              </div>
+            </div>
+
+            <div style="margin: 20px 16px 0; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 16px 18px;">
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>Allowance, 3 days</span><span style="font-variant-numeric: tabular-nums; font-weight: 600;">1.688,01</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>Meal deductions</span><span style="font-variant-numeric: tabular-nums; font-weight: 600;">{{ pdDeductedNeg }}</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; color: var(--c-tech-blue); padding: 10px 0 0; margin-top: 6px; border-top: 1px solid var(--color-border);"><span>To be reimbursed</span><span style="font-variant-numeric: tabular-nums;">{{ pdTotal }} DKK</span></div>
+              <div style="display: flex; align-items: center; gap: 9px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--color-border);">
+                <i class="fa-light fa-circle-check" style="color: var(--c-smart-green); font-size: 14px;"></i>
+                <span style="font-size: 12px; line-height: 1.5; color: var(--c-slate-500);">Tax free &mdash; no receipt required for per diem.</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 16px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ submitPerDiem }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">Submit {{ pdTotal }} DKK<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ REPORT ═════════ -->
+      <sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
+              <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Expense report</div>
+              <div class="tapz" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-ellipsis"></i></div>
+            </div>
+            <div style="font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px;">Nordic Summit</div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 18px;">1&ndash;4 February 2026 &middot; København</div>
+            <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+              <div>
+                <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-innovation-blue); margin-bottom: 6px;">Total</div>
+                <div style="font-size: 34px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;">4.238,00 <span style="font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.7);">DKK</span></div>
+              </div>
+              <span style="background: var(--c-slate-100); color: var(--color-neutral-fg); font-size: 10px; font-weight: 700; padding: 6px 11px; border-radius: 999px;">DRAFT</span>
+            </div>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 100px;">
+            <div style="margin: 16px; background: var(--c-light-yellow); border: 1px solid #e8d9ab; border-radius: 12px; padding: 13px 15px; display: flex; gap: 12px; align-items: flex-start;">
+              <i class="fa-light fa-triangle-exclamation" style="color: var(--color-warning-fg); font-size: 16px; margin-top: 1px;"></i>
+              <div style="flex: 1;">
+                <div style="font-size: 13px; font-weight: 700; color: var(--color-warning-fg);">One receipt is missing</div>
+                <div style="font-size: 12px; line-height: 1.5; color: var(--c-slate-700); margin-top: 2px;">DSB Billetsalg has no receipt attached. You can still submit &mdash; finance may ask for it.</div>
+              </div>
+            </div>
+
+            <div style="padding: 6px 16px 8px; display: flex; align-items: baseline; justify-content: space-between;">
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">4 expenses</span>
+              <span class="tapz" onClick="{{ goCreate }}" style="font-size: 13px; font-weight: 700; color: var(--c-tech-blue);">+ Add</span>
+            </div>
+
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 70px; border-bottom: 1px solid var(--color-border);">
+                <div style="width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 16px; flex-shrink: 0;"><i class="fa-light fa-bed-front"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Scandic Copenhagen</div>
+                  <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 3px;">Hotel &middot; 3 Feb &middot; receipt attached</div>
+                </div>
+                <div style="text-align: right; flex-shrink: 0;"><div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">1.240,00</div></div>
+              </div>
+              <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 70px; border-bottom: 1px solid var(--color-border); background: #fdfaf0;">
+                <div style="width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-yellow); display: flex; align-items: center; justify-content: center; color: var(--color-warning-fg); font-size: 16px; flex-shrink: 0;"><i class="fa-light fa-train"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">DSB Billetsalg</div>
+                  <div style="font-size: 12px; color: var(--color-warning-fg); margin-top: 3px;">Transport &middot; 1 Feb &middot; no receipt</div>
+                </div>
+                <div style="text-align: right; flex-shrink: 0;"><div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">398,00</div></div>
+              </div>
+              <div class="tapz" onClick="{{ goDetail }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 70px; border-bottom: 1px solid var(--color-border);">
+                <div style="width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 16px; flex-shrink: 0;"><i class="fa-light fa-utensils"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Restaurant Höst</div>
+                  <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 3px;">Repræsentation &middot; 2 Feb &middot; 4 guests</div>
+                </div>
+                <div style="text-align: right; flex-shrink: 0;"><div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">2.437,03</div></div>
+              </div>
+              <div class="tapz" onClick="{{ goMileage }}" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 70px;">
+                <div style="width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-blue); display: flex; align-items: center; justify-content: center; color: var(--c-tech-blue); font-size: 16px; flex-shrink: 0;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Aarhus &rarr; København</div>
+                  <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 3px;">Kørsel &middot; 1 Feb &middot; 43 km</div>
+                </div>
+                <div style="text-align: right; flex-shrink: 0;"><div style="font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums;">162,97</div></div>
+              </div>
+            </div>
+
+            <div style="margin: 20px 16px 0; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 18px;">
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 12px;">Settlement</div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>Paid by company card</span><span style="font-variant-numeric: tabular-nums;">1.240,00 DKK</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--c-slate-700); padding: 5px 0;"><span>Paid by you</span><span style="font-variant-numeric: tabular-nums;">2.998,00 DKK</span></div>
+              <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; color: var(--c-tech-blue); padding: 12px 0 0; margin-top: 8px; border-top: 1px solid var(--color-border);"><span>To be reimbursed</span><span style="font-variant-numeric: tabular-nums;">2.998,00 DKK</span></div>
+              <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 10px; line-height: 1.5;">Paid with your salary at the end of the month once approved.</div>
+            </div>
+
+            <div style="margin: 16px; background: var(--c-slate-100); border-radius: 12px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;">
+              <i class="fa-light fa-user-check" style="color: var(--c-slate-700); font-size: 16px; margin-top: 1px;"></i>
+              <div style="font-size: 13px; line-height: 1.5; color: var(--c-slate-700);">Goes to <strong>Lars Bruun</strong> (manager), then <strong>Anne Kjeldsen</strong> (finance). Usually approved within 2 working days.</div>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 16px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ submitExpense }}" style="height: 52px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">Submit report<i class="fa-light fa-arrow-right" style="font-size: 14px;"></i></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ DETAIL ═════════ -->
+      <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
+              <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Expense</div>
+              <div class="tapz" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-ellipsis"></i></div>
+            </div>
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 14px;">
+              <div style="min-width: 0;">
+                <div style="font-size: 34px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;">{{ dAmount }} <span style="font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.7);">DKK</span></div>
+                <div style="font-size: 15px; color: rgba(255,255,255,0.82); margin-top: 8px;">{{ dMerchant }}</div>
+              </div>
+              <span style="{{ dChipStyle }}">{{ dStatus }}</span>
+            </div>
+          </div>
+
+          <div style="flex: 1; overflow: auto; padding-bottom: 100px;">
+            <sc-if value="{{ isRejected }}" hint-placeholder-val="{{ false }}">
+              <div style="margin: 16px 16px 0; background: #fff; border: 1.5px solid var(--c-performance-purple-50); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                <div style="background: var(--color-danger-bg); padding: 14px 16px; display: flex; align-items: center; gap: 11px;">
+                  <i class="fa-light fa-circle-xmark" style="color: var(--color-danger); font-size: 17px;"></i>
+                  <div style="flex: 1;"><div style="font-size: 14px; font-weight: 700; color: var(--color-danger-fg);">Sent back for changes</div><div style="font-size: 12px; color: var(--color-danger-fg); opacity: 0.8;">Lars Bruun &middot; 1 February, 16:22</div></div>
+                </div>
+                <div style="padding: 16px;">
+                  <div style="font-size: 14px; line-height: 1.6; color: var(--c-slate-700);">"Over the 1.500 kr. limit for Repræsentation. Split it across the four attendees or attach the guest list, then send it again."</div>
+                  <div class="tapz" onClick="{{ goCreate }}" style="margin-top: 16px; height: 48px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 15px; font-weight: 600;"><i class="fa-light fa-pen"></i>Edit and resubmit</div>
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="margin: 16px; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 12px; display: flex; gap: 14px; align-items: center; box-shadow: var(--shadow-xs);">
+              <div style="width: 52px; height: 66px; border-radius: 8px; background: linear-gradient(180deg, #fff 0%, #f2f5fa 100%); border: 1px solid var(--color-border); padding: 7px 6px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0;">
+                <div style="height: 3px; width: 60%; background: var(--c-slate-300); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 100%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 84%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 92%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 3px; width: 44%; background: var(--c-tech-blue-50); border-radius: 2px; margin-top: auto;"></div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ dReceiptName }}</div>
+                <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px;">1,4 MB &middot; read automatically</div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;"><i class="fa-light fa-sparkles"></i>READ</span>
+              </div>
+              <i class="fa-light fa-up-right-and-down-left-from-center" style="color: var(--c-slate-300); font-size: 14px; flex-shrink: 0;"></i>
+            </div>
+
+            <div style="background: #fff; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Date</span><span style="font-weight: 500;">{{ dDate }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Category</span><span style="font-weight: 500;">{{ dCategory }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Paid with</span><span style="font-weight: 500;">{{ dPayment }}</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Project</span><span style="font-weight: 500;">NORDIC-24</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; border-bottom: 1px solid var(--color-border); font-size: 14px;"><span style="color: var(--c-slate-500);">Department</span><span style="font-weight: 500;">Salg / Øst</span></div>
+              <div style="display: flex; justify-content: space-between; padding: 13px 16px; font-size: 14px;"><span style="color: var(--c-slate-500);">VAT 25%</span><span style="font-weight: 500; font-variant-numeric: tabular-nums;">{{ dVat }}</span></div>
+            </div>
+
+            <div style="padding: 24px 16px 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Status history</div>
+            <div style="margin: 0 16px; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 20px 18px;">
+              <sc-for list="{{ timeline }}" as="t" hint-placeholder-count="4">
+                <div style="display: grid; grid-template-columns: 28px 1fr; gap: 14px;">
+                  <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="{{ t.dotStyle }}"><i class="{{ t.icon }}"></i></div>
+                    <div style="{{ t.lineStyle }}"></div>
+                  </div>
+                  <div style="{{ t.bodyStyle }}">
+                    <div style="{{ t.titleStyle }}">{{ t.title }}</div>
+                    <div style="{{ t.metaStyle }}">{{ t.meta }}</div>
+                    <sc-if value="{{ t.note }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size: 13px; line-height: 1.5; color: var(--c-slate-700); margin-top: 9px; padding: 11px 13px; background: var(--c-slate-50); border-radius: 8px;">{{ t.note }}</div>
+                    </sc-if>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin: 20px 16px 0; display: flex; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--color-border); border-radius: 999px; padding: 12px 16px;">
+              <i class="fa-light fa-comment" style="color: var(--c-slate-500); font-size: 16px;"></i>
+              <span style="font-size: 14px; color: var(--c-slate-300); flex: 1;">Add a comment for your approver</span>
+            </div>
+          </div>
+
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); border-top: 1px solid var(--color-border); padding: 14px 16px 34px; z-index: 30;">
+            <div class="tapz" onClick="{{ goHome }}" style="height: 52px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; font-weight: 600;">{{ dCta }}</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═════════ RECEIPTS ═════════ -->
+      <sc-if value="{{ isReceipts }}" hint-placeholder-val="{{ false }}">
+        <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+              <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
+              <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Receipt inbox</div>
+              <div class="tapz" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px;"><i class="fa-light fa-magnifying-glass"></i></div>
+            </div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.7);">3 receipts not yet turned into an expense</div>
+          </div>
+          <div style="flex: 1; overflow: auto; padding: 16px 16px 92px; display: flex; flex-direction: column; gap: 12px;">
+            <div class="tapz" onClick="{{ goCreate }}" style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 12px; display: flex; gap: 14px; align-items: center; box-shadow: var(--shadow-xs);">
+              <div style="width: 52px; height: 66px; border-radius: 8px; background: linear-gradient(180deg, #fff 0%, #f2f5fa 100%); border: 1px solid var(--color-border); padding: 7px 6px; display: flex; flex-direction: column; gap: 3px; flex-shrink: 0;">
+                <div style="height: 3px; width: 62%; background: var(--c-slate-300); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 100%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 2px; width: 82%; background: var(--c-slate-100); border-radius: 2px;"></div>
+                <div style="height: 3px; width: 44%; background: var(--c-tech-blue-50); border-radius: 2px; margin-top: auto;"></div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 15px; font-weight: 600;">Lagkagehuset</div>
+                <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px; font-variant-numeric: tabular-nums;">79,00 DKK &middot; 3 Feb</div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;"><i class="fa-light fa-sparkles"></i>READ</span>
+              </div>
+              <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 14px; flex-shrink: 0;"></i>
+            </div>
+            <div style="background: var(--c-light-blue); border: 1px solid var(--c-tech-blue-20); border-radius: 16px; padding: 12px; display: flex; gap: 14px; align-items: center;">
+              <div style="width: 52px; height: 66px; border-radius: 8px; background: #fff; border: 1px solid var(--c-tech-blue-20); position: relative; overflow: hidden; flex-shrink: 0;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(143,248,255,0.9), transparent); background-size: 200px 100%; animation: shimmer 1.4s linear infinite;"></div>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 15px; font-weight: 600;">IMG_4412.heic</div>
+                <div style="font-size: 12px; color: var(--c-slate-500); margin: 3px 0 7px;">Reading amount and date…</div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--color-info-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;"><i class="fa-light fa-spinner"></i>SCANNING</span>
+              </div>
+            </div>
+            <div class="tapz" onClick="{{ goScanFail }}" style="background: #fff; border: 1.5px solid var(--c-performance-purple-50); border-radius: 16px; padding: 12px; display: flex; gap: 14px; align-items: center;">
+              <div style="width: 52px; height: 66px; border-radius: 8px; background: var(--color-danger-bg); border: 1px solid var(--c-performance-purple-50); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i class="fa-light fa-image-slash" style="color: var(--color-danger); font-size: 18px;"></i></div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 15px; font-weight: 600;">IMG_4413.heic</div>
+                <div style="font-size: 12px; color: var(--color-danger-fg); margin: 3px 0 7px; line-height: 1.4;">Too blurry &mdash; retake or type it in</div>
+                <span style="display: inline-flex; align-items: center; gap: 6px; background: var(--color-danger-bg); color: var(--color-danger-fg); font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px;"><i class="fa-light fa-triangle-exclamation"></i>UNREADABLE</span>
+              </div>
+              <i class="fa-light fa-chevron-right" style="color: var(--c-slate-300); font-size: 14px; flex-shrink: 0;"></i>
+            </div>
+            <div style="margin-top: 8px; background: var(--c-slate-100); border-radius: 12px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;">
+              <i class="fa-light fa-envelope" style="color: var(--c-slate-700); font-size: 16px; margin-top: 1px;"></i>
+              <div style="font-size: 13px; line-height: 1.5; color: var(--c-slate-700);">Forward e-receipts to <strong>kvittering@nordic.dk</strong> and they land here automatically.</div>
+            </div>
+          </div>
+          <div style="flex-shrink: 0; background: #fff; border-top: 1px solid var(--color-border); display: grid; grid-template-columns: repeat(5, 1fr); padding: 10px 0 30px;">
+            <div class="tapz" onClick="{{ goHome }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-house" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Home</span></div>
+            <div class="tapz" onClick="{{ goHistory }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-clock-rotate-left" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">History</span></div>
+            <div class="tapz" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-tech-blue); min-height: 48px; justify-content: center;"><i class="fa-light fa-receipt" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 700;">Receipts</span></div>
+            <div class="tapz" onClick="{{ goMileage }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-kit fa-mileage-feature-module-expense-management-em-car-icon" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Mileage</span></div>
+            <div class="tapz" onClick="{{ goReport }}" style="display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--c-slate-500); min-height: 48px; justify-content: center;"><i class="fa-light fa-folder-open" style="font-size: 19px;"></i><span style="font-size: 10px; font-weight: 600;">Reports</span></div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- toast -->
+      <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; bottom: 108px; left: 16px; right: 16px; z-index: 60; background: var(--c-tech-blue); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 14px 34px rgba(2,12,40,0.4); animation: riseIn 260ms cubic-bezier(0.16,1,0.3,1);">
+          <i class="fa-light fa-circle-check" style="color: var(--c-innovation-blue); font-size: 18px;"></i>
+          <span style="font-size: 14px; font-weight: 600; color: #fff; flex: 1;">{{ toast }}</span>
+        </div>
+      </sc-if>
+
+    </x-import>
+
+    <div style="max-width: 390px; font-size: 12px; line-height: 1.6; color: var(--c-slate-500); text-align: center;">{{ screenNote }}</div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
+class Component extends DCLogic {
+  state = { screen: "home", dash: "b", create: "wizard", data: "normal", wiz: 1, sheet: false, detail: "pending", toast: null, scan: "ok", hist: "all", fab: false };
+
+  set(patch) { this.setState(patch); }
+
+  componentDidMount() {
+    // The preview origin ignores Range requests, so Chromium refuses to stream
+    // media from a path — fetch it whole and hand the element a blob URL.
+    fetch("../assets/brand-clouds.mp4")
+      .then(r => r.ok ? r.blob() : null)
+      .catch(() => null)
+      .then(blob => {
+        if (!blob || this._gone) return;
+        this._url = URL.createObjectURL(blob);
+        this.setState({ heroVideo: this._url });
+      });
+  }
+  componentDidUpdate() { this.playVideos(); }
+  playVideos() {
+    document.querySelectorAll("video[src]").forEach(v => {
+      if (v.paused) { v.muted = true; v.play().catch(() => {}); }
+    });
+  }
+  componentWillUnmount() {
+    this._gone = true;
+    if (this._url) URL.revokeObjectURL(this._url);
+  }
+
+  flash(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: null }), 2600);
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  renderVals() {
+    const s = this.state;
+    const screens = [
+      { key: "login",   label: "Login",            icon: "fa-light fa-right-to-bracket" },
+      { key: "home",    label: "My expenses",      icon: "fa-light fa-house", badge: "2 variants" },
+      { key: "history", label: "History",           icon: "fa-light fa-clock-rotate-left" },
+      { key: "perdiem", label: "Per diem",          icon: "fa-kit fa-per-diem-feature-module-expense-management-em-briefcase-icon" },
+      { key: "scan",    label: "Scan receipt",     icon: "fa-light fa-camera" },
+      { key: "result",  label: "Scan result",      icon: "fa-light fa-sparkles" },
+      { key: "create",  label: "New expense",      icon: "fa-light fa-plus", badge: "2 variants" },
+      { key: "mileage", label: "Mileage",          icon: "fa-kit fa-mileage-feature-module-expense-management-em-car-icon" },
+      { key: "report",  label: "Expense report",   icon: "fa-light fa-folder-open" },
+      { key: "detail",  label: "Expense detail",   icon: "fa-light fa-file-invoice", badge: "2 states" },
+      { key: "receipts",label: "Receipt inbox",    icon: "fa-light fa-receipt" },
+    ];
+    const railStyle = (on) => `display: flex; align-items: center; gap: 11px; padding: 10px 10px; border-radius: 10px; font-size: 13px; font-weight: ${on ? 700 : 500}; color: ${on ? "var(--c-tech-blue)" : "var(--c-slate-700)"}; background: ${on ? "var(--c-light-blue)" : "transparent"};`;
+
+    const railScreens = screens.map(r => ({
+      label: r.label, icon: r.icon, badge: r.badge || null,
+      style: railStyle(s.screen === r.key),
+      go: () => this.set({ screen: r.key, sheet: false, fab: false, wiz: 1 }),
+    }));
+
+    const chipStyle = (on) => `font-size: 11px; font-weight: 700; padding: 7px 12px; border-radius: 999px; border: 1px solid ${on ? "var(--c-tech-blue)" : "var(--color-border)"}; background: ${on ? "var(--c-tech-blue)" : "#fff"}; color: ${on ? "#fff" : "var(--c-slate-700)"};`;
+    const dataStates = [["normal", "Normal"], ["loading", "Loading"], ["empty", "Empty"], ["error", "Error"], ["offline", "Offline"]];
+    const stateChips = dataStates.map(([k, label]) => ({
+      label, style: chipStyle(s.data === k), go: () => this.set({ data: k }),
+    }));
+
+    const histChip = {
+      reimbursed: { bg: "var(--c-smart-green-30)", fg: "var(--color-success-fg)", label: "REIMBURSED" },
+      posted: { bg: "var(--c-tech-blue)", fg: "#fff", label: "POSTED" },
+      rejected: { bg: "var(--color-danger-bg)", fg: "var(--color-danger-fg)", label: "REJECTED" },
+    };
+    const histData = [
+      { month: "July 2026", items: [
+        { what: "Hotel Skt. Petri", meta: "Hotel \u00B7 28 Jul", icon: "fa-light fa-bed-front", amount: "3.180,00", sub: "DKK", kind: "reimbursed" },
+        { what: "DSB Billetsalg", meta: "Transport \u00B7 24 Jul", icon: "fa-light fa-train", amount: "486,00", sub: "DKK", kind: "reimbursed" },
+        { what: "Aarhus \u2192 Odense", meta: "K\u00F8rsel \u00B7 188 km \u00B7 18 Jul", icon: "fa-kit fa-mileage-feature-module-expense-management-em-car-icon", amount: "712,52", sub: "DKK", kind: "reimbursed" },
+        { what: "Restaurant Bind, Vejle", meta: "No attendees listed \u00B7 11 Jul", icon: "fa-light fa-utensils", amount: "1.420,00", sub: "DKK", kind: "rejected" },
+      ] },
+      { month: "June 2026", items: [
+        { what: "SAS CPH\u2013LHR", meta: "Airfare \u00B7 26 Jun", icon: "fa-light fa-plane-up", amount: "2.914,00", sub: "DKK", kind: "posted" },
+        { what: "Lyreco Danmark", meta: "Office \u00B7 19 Jun", icon: "fa-light fa-paperclip", amount: "1.204,50", sub: "DKK", kind: "reimbursed" },
+      ] },
+      { month: "May 2026", items: [
+        { what: "Per diem, Berlin", meta: "3 days \u00B7 22 May", icon: "fa-kit fa-per-diem-feature-module-expense-management-em-briefcase-icon", amount: "1.688,01", sub: "DKK", kind: "reimbursed" },
+        { what: "Deutsche Bahn", meta: "Rail \u00B7 21 May", icon: "fa-light fa-train", amount: "486,20", sub: "65,17 EUR", kind: "posted" },
+        { what: "Scandic Aarhus", meta: "Hotel \u00B7 14 May", icon: "fa-light fa-bed-front", amount: "2.480,00", sub: "DKK", kind: "reimbursed" },
+      ] },
+    ];
+    const histMonths = histData.map(g => {
+      const items = g.items.filter(i => s.hist === "all" || i.kind === s.hist);
+      const sum = items.reduce((a, i) => a + parseFloat(i.amount.replace(/\./g, "").replace(",", ".")), 0);
+      return {
+        label: g.month,
+        total: sum.toLocaleString("da-DK", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " DKK",
+        items: items.map(i => ({
+          what: i.what, meta: i.meta, icon: i.icon, amount: i.amount, sub: i.sub,
+          status: histChip[i.kind].label,
+          chipStyle: `background: ${histChip[i.kind].bg}; color: ${histChip[i.kind].fg}; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 999px; flex-shrink: 0;`,
+          iconStyle: `width: 40px; height: 40px; border-radius: 999px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; background: ${i.kind === "rejected" ? "var(--color-danger-bg)" : "var(--c-light-blue)"}; color: ${i.kind === "rejected" ? "var(--color-danger)" : "var(--c-tech-blue)"};`,
+          rowStyle: "display: flex; align-items: center; gap: 14px; padding: 14px 16px; min-height: 72px; border-bottom: 1px solid var(--color-border);",
+          open: () => this.set({ screen: "detail", detail: i.kind === "rejected" ? "rejected" : "pending" }),
+        })),
+      };
+    }).filter(g => g.items.length > 0);
+
+    const pdFmt = (n) => n.toLocaleString("da-DK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const pdMealDefs = [
+      { key: "breakfast", label: "Breakfast", icon: "fa-light fa-mug-saucer", pct: 15 },
+      { key: "lunch", label: "Lunch", icon: "fa-light fa-utensils", pct: 30 },
+      { key: "dinner", label: "Dinner", icon: "fa-light fa-wine-glass", pct: 30 },
+    ];
+    const pdOn = s.pdMeals || {};
+    let pdDeducted = 0;
+    const pdMealRows = pdMealDefs.map(m => {
+      const on = pdOn[m.key] === true;
+      const amount = 562.67 * 3 * (m.pct / 100);
+      if (on) pdDeducted += amount;
+      return {
+        label: m.label, icon: m.icon,
+        meta: on ? "Deducts " + m.pct + "% \u00B7 \u2212" + pdFmt(amount) : m.pct + "% of the daily rate",
+        switchStyle: `width: 46px; height: 28px; border-radius: 999px; flex-shrink: 0; display: flex; align-items: center; padding: 3px; background: ${on ? "var(--c-tech-blue)" : "var(--c-slate-300)"}; justify-content: ${on ? "flex-end" : "flex-start"};`,
+        knobStyle: "width: 22px; height: 22px; border-radius: 999px; background: #fff;",
+        toggle: () => this.set({ pdMeals: Object.assign({}, pdOn, { [m.key]: !on }) }),
+      };
+    });
+
+    let variantChips = [];
+    if (s.screen === "home") {
+      variantChips = [["a", "List-led"], ["b", "Summary-led"]].map(([k, label]) => ({
+        label, style: `padding: 7px 15px; border-radius: 999px; font-size: 12px; font-weight: ${s.dash === k ? 700 : 600}; background: ${s.dash === k ? "var(--c-tech-blue)" : "transparent"}; color: ${s.dash === k ? "#fff" : "var(--c-slate-700)"};`,
+        go: () => this.set({ dash: k }),
+      }));
+    } else if (s.screen === "create") {
+      variantChips = [["single", "One screen"], ["wizard", "Step by step"]].map(([k, label]) => ({
+        label, style: `padding: 7px 15px; border-radius: 999px; font-size: 12px; font-weight: ${s.create === k ? 700 : 600}; background: ${s.create === k ? "var(--c-tech-blue)" : "transparent"}; color: ${s.create === k ? "#fff" : "var(--c-slate-700)"};`,
+        go: () => this.set({ create: k, wiz: 1 }),
+      }));
+    } else if (s.screen === "detail") {
+      variantChips = [["pending", "Pending"], ["rejected", "Rejected"]].map(([k, label]) => ({
+        label, style: `padding: 7px 15px; border-radius: 999px; font-size: 12px; font-weight: ${s.detail === k ? 700 : 600}; background: ${s.detail === k ? "var(--c-tech-blue)" : "transparent"}; color: ${s.detail === k ? "#fff" : "var(--c-slate-700)"};`,
+        go: () => this.set({ detail: k }),
+      }));
+    } else if (s.screen === "result") {
+      variantChips = [["ok", "Read"], ["fail", "Unreadable"]].map(([k, label]) => ({
+        label, style: `padding: 7px 15px; border-radius: 999px; font-size: 12px; font-weight: ${s.scan === k ? 700 : 600}; background: ${s.scan === k ? "var(--c-tech-blue)" : "transparent"}; color: ${s.scan === k ? "#fff" : "var(--c-slate-700)"};`,
+        go: () => this.set({ scan: k }),
+      }));
+    }
+
+    const titles = {
+      login: "Login", home: "My expenses", history: "History", perdiem: "Per diem", scan: "Camera — scanner state", result: "Scan result",
+      create: s.create === "single" ? "New expense — one screen" : "New expense — step by step",
+      mileage: "Mileage registration", report: "Expense report", detail: "Expense detail", receipts: "Receipt inbox",
+    };
+    const notes = {
+      login: "The brand cloud video carries the hero and a white sheet carries the work. Face ID is first because the returning employee is the common case; Microsoft 365 and email sit under it.",
+      home: "Summary-led is the default: it answers \"how much am I owed\" before anything else. List-led puts the work first. Both share the same rows, chips and tab bar.",
+      history: "My expenses holds what is still moving; History holds what is settled. It answers the two questions people actually ask afterwards — what did I get paid, and when — so payouts are listed under the months. Card-paid expenses are excluded because the employee was never owed the money.",
+      perdiem: "Per diem has no receipt and no merchant, so it gets its own screen instead of the receipt wizard: dates in, allowance out. Meals paid by someone else are toggles that subtract 15/30/30 percent of the daily rate, and the total updates as you flip them.",
+      scan: "Edge detection is confirmed before the shutter fires. Copy says what the scan will do and that nothing is saved yet.",
+      result: "OCR proposes, the employee confirms. The read field is tinted Light Blue so it is obvious what the machine filled in.",
+      create: "VAT is calculated and shown, never entered. Accounting fields are grouped away from the expense itself.",
+      mileage: "Kilometres and the 2026 state rate, with the running year-to-date total that decides low vs. high rate. The map is real OpenStreetMap geography — the route follows Rute 15 from Aarhus C to Papirfabrikken in Silkeborg.",
+      report: "A report is a container for expenses that settles as one. The split between card-paid and self-paid is what the employee actually cares about.",
+      detail: "The full approval chain, not a single state. Rejection always carries the reason and a way back in.",
+      receipts: "Receipts arrive by camera or forwarded e-mail and wait here until they become an expense. All three OCR states live in one list.",
+    };
+    const stateNotes = {
+      normal: "Full data.",
+      loading: "Skeletons mirror the real row shape — no spinners in lists.",
+      empty: "Zero state offers the fastest next action.",
+      error: "Says what happens to unsaved work.",
+      offline: "Cached data stays visible with a banner on top.",
+    };
+
+    const wizTitles = { 1: "Amount", 2: "Category", 3: "Details", 4: "Review" };
+    const wizBars = [1, 2, 3, 4].map(n => ({
+      style: `flex: 1; height: 4px; border-radius: 999px; background: ${n <= s.wiz ? "var(--c-innovation-blue)" : "rgba(255,255,255,0.22)"};`,
+    }));
+
+    const rejected = s.detail === "rejected";
+    const dot = (kind) => {
+      const base = "width: 28px; height: 28px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0;";
+      if (kind === "done") return base + " background: var(--c-smart-green); color: #fff;";
+      if (kind === "wait") return base + " background: var(--c-light-yellow); border: 1.5px solid #d9b45c; color: var(--color-warning-fg);";
+      if (kind === "bad") return base + " background: var(--color-danger); color: #fff;";
+      return base + " background: #fff; border: 1.5px dashed var(--c-slate-300); color: var(--c-slate-300);";
+    };
+    const line = (on) => `width: 2px; flex: 1; min-height: 22px; background: ${on ? "var(--c-smart-green-50)" : "var(--c-slate-100)"};`;
+    const titleS = (muted) => `font-size: 14px; font-weight: 600; color: ${muted ? "var(--c-slate-300)" : "var(--color-text)"};`;
+    const metaS = (muted) => `font-size: 12px; color: ${muted ? "var(--c-slate-300)" : "var(--c-slate-500)"}; margin-top: 2px;`;
+
+    const timeline = rejected ? [
+      { icon: "fa-light fa-check", dotStyle: dot("done"), lineStyle: line(true), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(), metaStyle: metaS(), title: "Submitted", meta: "You · 22 January, 08:40", note: null },
+      { icon: "fa-light fa-xmark", dotStyle: dot("bad"), lineStyle: line(false), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(), metaStyle: metaS(), title: "Sent back by manager", meta: "Lars Bruun · 1 February, 16:22", note: "Over the 1.500 kr. limit for Repræsentation. Split it or attach the guest list." },
+      { icon: "fa-light fa-clock", dotStyle: dot("idle"), lineStyle: line(false), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(true), metaStyle: metaS(true), title: "Controller review", meta: "Not started", note: null },
+      { icon: "fa-light fa-lock", dotStyle: dot("idle"), lineStyle: "width: 0;", bodyStyle: "", titleStyle: titleS(true), metaStyle: metaS(true), title: "Posted in Business Central", meta: "Not yet", note: null },
+    ] : [
+      { icon: "fa-light fa-check", dotStyle: dot("done"), lineStyle: line(true), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(), metaStyle: metaS(), title: "Submitted", meta: "You · 3 February, 09:14", note: null },
+      { icon: "fa-light fa-check", dotStyle: dot("done"), lineStyle: line(false), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(), metaStyle: metaS(), title: "Approved by manager", meta: "Lars Bruun · 3 February, 15:40", note: "Fine — remember the agenda next time." },
+      { icon: "fa-light fa-clock", dotStyle: dot("wait"), lineStyle: line(false), bodyStyle: "padding-bottom: 20px;", titleStyle: titleS(), metaStyle: metaS(), title: "Controller review", meta: "Anne Kjeldsen · waiting since 3 February", note: null },
+      { icon: "fa-light fa-lock", dotStyle: dot("idle"), lineStyle: "width: 0;", bodyStyle: "", titleStyle: titleS(true), metaStyle: metaS(true), title: "Posted in Business Central", meta: "Not yet", note: null },
+    ];
+
+    const chip = (bg, fg) => `background: ${bg}; color: ${fg}; font-size: 10px; font-weight: 700; padding: 6px 11px; border-radius: 999px; flex-shrink: 0;`;
+
+    return {
+      phoneW: 390, phoneH: 844,
+      railScreens, stateChips, variantChips,
+      hasVariants: variantChips.length > 0,
+      screenTitle: titles[s.screen] || "",
+      screenNote: notes[s.screen] || "",
+      stateNote: stateNotes[s.data],
+
+      isLogin: s.screen === "login",
+      isHome: s.screen === "home",
+      isHistory: s.screen === "history",
+      isPerDiem: s.screen === "perdiem",
+      pdMeals: pdMealRows,
+      pdCaption: pdDeducted === 0 ? "no deductions" : "before \u2212" + pdFmt(pdDeducted) + " in meals",
+      pdDeducted: pdDeducted === 0 ? "0,00" : "\u2212" + pdFmt(pdDeducted),
+      pdDeductedNeg: pdDeducted === 0 ? "0,00" : "\u2212" + pdFmt(pdDeducted),
+      pdTotal: pdFmt(1688.01 - pdDeducted),
+      submitPerDiem: () => { this.set({ screen: "home" }); this.flash("Per diem submitted \u00B7 " + pdFmt(1688.01 - pdDeducted) + " DKK to Lars Bruun"); },
+      lastWeekOpen: s.lastWeek !== false,
+      lastWeekChevron: s.lastWeek === false ? "fa-light fa-chevron-down" : "fa-light fa-chevron-up",
+      lastWeekSummary: s.lastWeek === false ? "3 expenses \u00B7 3.564,86 DKK" : "3 expenses",
+      toggleLastWeek: () => this.set({ lastWeek: s.lastWeek === false }),
+      histFilters: [["all", "All"], ["reimbursed", "Reimbursed"], ["posted", "Posted"], ["rejected", "Rejected"]].map(([k, label]) => ({
+        label,
+        style: `flex-shrink: 0; padding: 8px 15px; border-radius: 999px; font-size: 13px; font-weight: 600; border: 1px solid ${s.hist === k ? "var(--c-tech-blue)" : "var(--color-border)"}; background: ${s.hist === k ? "var(--c-tech-blue)" : "#fff"}; color: ${s.hist === k ? "#fff" : "var(--c-slate-700)"};`,
+        go: () => this.set({ hist: k }),
+      })),
+      histMonths: histMonths,
+      heroVideo: s.heroVideo || null,
+      startVideo: (e) => { const el = e.currentTarget; el.muted = true; if (el.paused) el.play().catch(() => {}); },
+      isScan: s.screen === "scan",
+      isScanResult: s.screen === "result",
+      isCreateSingle: s.screen === "create" && s.create === "single",
+      isCreateWizard: s.screen === "create" && s.create === "wizard",
+      isMileage: s.screen === "mileage",
+      isReport: s.screen === "report",
+      isDetail: s.screen === "detail",
+      isReceipts: s.screen === "receipts",
+
+      isHomeA: s.dash === "a",
+      isHomeB: s.dash === "b",
+      isNormal: s.data === "normal" || s.data === "offline",
+      isLoading: s.data === "loading",
+      isEmpty: s.data === "empty",
+      isErrorState: s.data === "error",
+      isOffline: s.data === "offline",
+      isScanOk: s.scan === "ok",
+      isScanFail: s.scan === "fail",
+      isRejected: rejected,
+      sheetOpen: s.sheet,
+      toast: s.toast,
+
+      wizStep: s.wiz,
+      wizTitle: wizTitles[s.wiz],
+      wizBars,
+      wizIs1: s.wiz === 1, wizIs2: s.wiz === 2, wizIs3: s.wiz === 3, wizIs4: s.wiz === 4,
+      wizCta: s.wiz === 4 ? "Submit for approval" : "Continue",
+      wizNext: () => { if (s.wiz < 4) this.set({ wiz: s.wiz + 1 }); else { this.set({ screen: "home" }); this.flash("Expense submitted to Lars Bruun"); } },
+      wizBack: () => { if (s.wiz > 1) this.set({ wiz: s.wiz - 1 }); else this.set({ screen: "home" }); },
+
+      dAmount: rejected ? "2.850,00" : "1.240,00",
+      dMerchant: rejected ? "Restaurant Kähler · Repræsentation" : "Scandic Copenhagen · Hotel",
+      dStatus: rejected ? "REJECTED" : "PENDING",
+      dChipStyle: rejected ? chip("var(--c-performance-purple-50)", "#4a1257") : chip("var(--c-light-yellow)", "var(--color-warning-fg)"),
+      dDate: rejected ? "22 January 2026" : "3 February 2026",
+      dCategory: rejected ? "Repræsentation" : "Hotel",
+      dPayment: rejected ? "Eget kort" : "Firmakort ···· 4127",
+      dVat: rejected ? "570,00 DKK" : "248,00 DKK",
+      dReceiptName: rejected ? "Kähler_regning.pdf" : "Scandic_kvittering.jpg",
+      dCta: rejected ? "Withdraw expense" : "Withdraw from approval",
+
+      goHome: () => this.set({ screen: "home", sheet: false }),
+      goHistory: () => this.set({ screen: "history", sheet: false }),
+      goScan: () => this.set({ screen: "scan" }),
+      goScanResult: () => this.set({ screen: "result", scan: "ok" }),
+      goScanFail: () => this.set({ screen: "result", scan: "fail" }),
+      goCreate: () => this.set({ screen: "create", wiz: 1 }),
+      goMileage: () => this.set({ screen: "mileage" }),
+      goReport: () => this.set({ screen: "report" }),
+      goDetail: () => this.set({ screen: "detail", detail: "pending" }),
+      goRejected: () => this.set({ screen: "detail", detail: "rejected" }),
+      goReceipts: () => this.set({ screen: "receipts" }),
+      setNormal: () => this.set({ data: "normal" }),
+      fabOpen: s.fab === true,
+      fabIcon: s.fab === true ? "fa-light fa-xmark" : "fa-light fa-plus",
+      openFab: () => this.set({ fab: true }),
+      closeFab: () => this.set({ fab: false }),
+      fabActions: [
+        { label: "Scan receipt", meta: "Photograph it and let OCR fill in the fields", icon: "fa-light fa-camera", go: () => this.set({ fab: false, screen: "scan" }) },
+        { label: "Mileage", meta: "Kilometres at the 2026 state rate", icon: "fa-kit fa-mileage-feature-module-expense-management-em-car-icon", go: () => this.set({ fab: false, screen: "mileage" }) },
+        { label: "Per diem", meta: "Days abroad at the standard allowance", icon: "fa-kit fa-per-diem-feature-module-expense-management-em-briefcase-icon", go: () => this.set({ fab: false, screen: "perdiem" }) },
+        { label: "Expense report", meta: "Group expenses that settle as one", icon: "fa-light fa-folder-open", go: () => this.set({ fab: false, screen: "report" }) },
+      ],
+      openSheet: () => this.set({ sheet: true }),
+      closeSheet: () => this.set({ sheet: false }),
+      submitExpense: () => { this.set({ screen: "home" }); this.flash("Submitted — waiting for Lars Bruun"); },
+    };
+  }
+}
+</script>
+</body>
+</html>

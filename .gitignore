@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Originale eksportarkiver
+*.zip
+
+# Rå kildemateriale fra Claude Design (Figma-screenshots, uploads, scraps,
+# og en byte-identisk kopi af de tre designfiler). Ligger stadig lokalt —
+# skal blot ikke med i det publicerede site.
+_source/
+design_handoff_expense_management/

@@ -1,0 +1,61 @@
+/* ============================================================
+   Continia — Spacing, radii, shadows, motion
+   Generous whitespace; rounded UI-style elements; subtle shadows.
+   ============================================================ */
+
+:root {
+  /* spacing scale (4px base) */
+  --space-0: 0;
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.5rem;    /* 24 */
+  --space-6: 2rem;      /* 32 */
+  --space-7: 3rem;      /* 48 */
+  --space-8: 4rem;      /* 64 */
+  --space-9: 6rem;      /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* radii — Continia UI leans rounded; pills for buttons/chips */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  /* the quarter-circle motif: a single rounded corner at a large radius */
+  --radius-quarter: 100%; /* @kind radius */
+
+  /* shadows — soft, blue-tinted, never harsh */
+  --shadow-xs: 0 1px 2px rgba(5, 41, 117, 0.06);
+  --shadow-sm: 0 2px 8px rgba(5, 41, 117, 0.08);
+  --shadow-md: 0 8px 24px rgba(5, 41, 117, 0.10);
+  --shadow-lg: 0 18px 48px rgba(5, 41, 117, 0.14);
+  /* popup aliases lg — lg is the deepest elevation in the system */
+  --shadow-popup: var(--shadow-lg);
+  --shadow-focus: 0 0 0 3px rgba(143, 248, 255, 0.55);
+
+  /* borders */
+  --border-width: 1px;            /* @kind other */
+  --border-width-strong: 1.5px;   /* @kind other */
+
+  /* layout — ONE canonical content geometry (hard rule, pricing session 2026):
+     every page & section uses the SAME width. Mixed widths (1200 vs 1360)
+     caused visible jumps between pages. */
+  --layout-content-max: 1360px;
+  --layout-page-pad: 28px;
+  --container-max: var(--layout-content-max);   /* legacy alias */
+  --container-wide: var(--layout-content-max);  /* legacy alias */
+  --container-narrow: 760px; /* prose & forms only */
+
+  /* motion — calm, confident easing; quick but never bouncy */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);   /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);       /* @kind other */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);           /* @kind other */
+  --dur-fast: 120ms;   /* @kind other */
+  --dur-base: 200ms;   /* @kind other */
+  --dur-slow: 360ms;   /* @kind other */
+}
