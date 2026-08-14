@@ -426,7 +426,7 @@
       <sc-if value="{{ isHistory }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
 
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">History</div>
               <div class="tapz" style="height: 32px; padding: 0 13px; border-radius: 999px; background: rgba(255,255,255,0.14); color: #fff; display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600;">2026 <i class="fa-light fa-chevron-down" style="font-size: 10px;"></i></div>
@@ -620,7 +620,7 @@
       <!-- ═════════ CREATE — SINGLE SCREEN ═════════ -->
       <sc-if value="{{ isCreateSingle }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 20px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 20px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
               <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">New expense</div>
@@ -731,7 +731,7 @@
       <!-- ═════════ CREATE — WIZARD ═════════ -->
       <sc-if value="{{ isCreateWizard }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: #fff;">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
               <div class="tapz" onClick="{{ wizBack }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">{{ wizTitle }}</div>
@@ -844,7 +844,7 @@
       <!-- ═════════ MILEAGE ═════════ -->
       <sc-if value="{{ isMileage }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
             <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Mileage</div>
             <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Save draft</span>
@@ -926,7 +926,7 @@
       <!-- ═════════ PER DIEM ═════════ -->
       <sc-if value="{{ isPerDiem }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
             <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Per diem</div>
             <span class="tapz" onClick="{{ goHome }}" style="font-size: 14px; font-weight: 600; color: var(--c-innovation-blue); padding: 8px;">Save draft</span>
@@ -1008,7 +1008,7 @@
       <!-- ═════════ REPORT ═════════ -->
       <sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
               <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Expense report</div>
@@ -1097,7 +1097,7 @@
       <!-- ═════════ DETAIL ═════════ -->
       <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 22px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
               <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Expense</div>
@@ -1185,7 +1185,7 @@
       <!-- ═════════ RECEIPTS ═════════ -->
       <sc-if value="{{ isReceipts }}" hint-placeholder-val="{{ false }}">
         <div style="height: 100%; display: flex; flex-direction: column; background: var(--c-slate-50);">
-          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0;">
+          <div style="background: var(--c-tech-blue); padding: 56px 16px 18px; flex-shrink: 0; position: relative; z-index: 0; overflow: hidden;"><sc-if value="{{ heroVideo }}" hint-placeholder-val="{{ false }}"><video src="{{ heroVideo }}" onLoadedData="{{ startVideo }}" autoPlay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: -1;"></video><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4,30,88,0.62) 0%, rgba(5,41,117,0.72) 100%); pointer-events: none; z-index: -1;"></div></sc-if>
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
               <div class="tapz" onClick="{{ goHome }}" style="width: 40px; height: 40px; margin-left: -8px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px;"><i class="fa-light fa-chevron-left"></i></div>
               <div style="flex: 1; font-size: 16px; font-weight: 600; color: #fff;">Receipt inbox</div>
