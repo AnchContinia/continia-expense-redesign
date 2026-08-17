@@ -33,6 +33,9 @@
   .rail-item:hover { background: var(--c-light-blue); }
   .navi { cursor: pointer; transition: background 160ms, color 160ms; }
   .navi:hover { background: rgba(143,248,255,0.12); color: #fff; }
+  .homez { cursor: pointer; transition: opacity 160ms, transform 120ms; }
+  .homez:hover { opacity: 0.72; }
+  .homez:active { transform: scale(0.97); }
   .trow { cursor: pointer; transition: background 140ms; }
   .trow:hover { background: var(--c-light-blue); }
   .btnz { cursor: pointer; transition: background 160ms, box-shadow 160ms, transform 120ms; }
@@ -167,8 +170,8 @@
 
         <!-- ══ product sidebar ══ -->
         <nav style="width: 208px; flex-shrink: 0; background: var(--c-tech-blue); display: flex; flex-direction: column; padding: 18px 0 12px;">
-          <div style="padding: 2px 18px 22px;">
-            <img src="../assets/em-logo-white.png" alt="Continia Expense Management" style="height: 46px; width: auto; display: block;">
+          <div class="homez" onClick="{{ goHome }}" title="Continia Expense Management — go to Approvals" style="padding: 2px 18px 22px;">
+            <img src="../assets/em-logo-white.png" alt="Continia Expense Management — home" style="height: 46px; width: auto; display: block;">
           </div>
           <div style="padding: 0 8px; display: flex; flex-direction: column; gap: 2px;">
             <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
@@ -1814,6 +1817,7 @@ class Component extends DCLogic {
       clearSel: () => this.setState({ sel: [] }),
       bulkApprove: () => { this.setState({ sel: [] }); this.flash(sel.length + " expenses approved and sent to Henrik Dam"); },
       goList: this.go("list"), goReports: this.go("reports"), goQueue: this.go("queue"),
+      goHome: () => this.setState({ screen: "queue", detail: null, toast: null }),
       nextItem: () => this.flash("Next item in queue \u2014 Jonas Vestergaard, SAS CPH\u2013MUC"),
       approve: () => { this.setState({ screen: "queue" }); this.flash("Approved \u00B7 2.850,00 DKK sent to Henrik Dam, controller"); },
       hold: () => { this.setState({ screen: "queue" }); this.flash("On hold \u00B7 Mette Holm asked for the attendee list"); },
