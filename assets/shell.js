@@ -5,11 +5,13 @@
  * hvor produktets egen navigation (portalens sidebar, appens bundlinje) allerede
  * er wired til den samme state.
  *
- * Skallen gør tre ting:
+ * Skallen gør fire ting:
  *   1. vælger flade ud fra viewporten (matchMedia, ikke user-agent)
  *   2. injicerer CSS i designfilen der fjerner prototype-chrome og lader
  *      designet fylde viewporten — designfilen selv røres ikke
  *   3. binder `state.screen` sammen med URL'ens hash i begge retninger
+ *   4. sætter `theme-color` efter fladen, så browserens egen chrome ikke
+ *      bliver navy på portalen (se setThemeColor)
  *
  * Punkt 2 sker med !important i et stylesheet, ikke med inline styles: React
  * gen-skriver style-attributten ved hver re-render og ville ellers overskrive os.
@@ -19,6 +21,10 @@
 
   var MOBILE_MAX = 767;               // < 768px  -> mobilappen
   var PORTAL_MIN_WIDTH = 1280;        // portalens flydende gulv
+
+  // Browser-chromens tint pr. flade. null = ingen theme-color, dvs. browserens
+  // egen værktøjslinje. Se setThemeColor().
+  var THEME_COLOR = { app: '#052975', portal: null };
 
   // ── Ruter ──────────────────────────────────────────────────
   // slug i URL'en  <->  state.screen i designfilen
@@ -273,11 +279,40 @@
     setTimeout(function () { whenReady(doc, done, tries + 1); }, 100);
   }
 
+  /** Safari (15+, macOS) og Chrome tinter browser-chromen med sidens
+   *  theme-color. Mobilappens header er Tech Blue helt op i statuslinjen, så
+   *  navy er den rigtige tint dér. Portalen har derimod en hvid 56px topbar:
+   *  en navy værktøjslinje fik Tech Blue til at brede sig ud over hele
+   *  browseren i stedet for at stoppe ved vindueskanten.
+   *
+   *  Metaen styres herfra frem for med `media` på selve tagget, fordi
+   *  understøttelsen af width-queries på theme-color er ujævn — og fordi
+   *  fladen alligevel kan skifte midt i en session når man resizer.
+   *
+   *  manifest.json beholder sin navy `theme_color`: den gælder den
+   *  *installerede* app, hvor en navy titelbjælke er det vi vil have. */
+  function setThemeColor(surface) {
+    var el = document.querySelector('meta[name="theme-color"]');
+    var color = THEME_COLOR[surface];
+
+    if (!color) {
+      if (el) el.parentNode.removeChild(el);
+      return;
+    }
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute('name', 'theme-color');
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', color);
+  }
+
   function loadSurface(surface, screen) {
     current.surface = surface;
     current.logic = null;
     current.screen = null;
     body.setAttribute('data-surface', surface);
+    setThemeColor(surface);
     body.removeAttribute('data-ready');
 
     frameEl.onload = function () {

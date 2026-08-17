@@ -61,12 +61,13 @@ expense, trip, cardtx, settings`), mobil 11.
 ## Skallen (`assets/shell.js`)
 
 `index.html` er en skal der loader designfilen i en fuldskærms-iframe. Den gør
-tre ting, og de er alle tre skrøbelige på hver sin måde:
+fire ting, og de tre første er skrøbelige på hver sin måde:
 
 1. **Vælger flade** med `matchMedia` (<768px → app, ellers portal).
 2. **Injicerer chromeless-CSS** der skjuler prototype-panelet, skærmtitlen,
    noterne og enhedsrammen.
 3. **Binder `state.screen` til URL-hashen** i begge retninger.
+4. **Sætter `theme-color`** efter fladen — navy på app, *fjernet* på portal.
 
 ### Tre ting skallen antager om designfilerne
 
@@ -117,6 +118,15 @@ screenshot *den*.
 **Programmatisk iframe-resize** udløser hverken `matchMedia`-change eller
 `resize` i headless. Skallen har derfor tre backstops: `matchMedia`, `resize`
 og en `ResizeObserver` på `document.documentElement`.
+
+**`theme-color` tinter browserens egen chrome.** Safari 15+ på macOS farver
+tab- og værktøjslinjen med sidens `theme-color`. Et statisk `#052975` i
+`index.html` fik derfor Tech Blue til at brede sig ud over hele browseren
+omkring portalen — som om siden var et browser-tema. Metaen sættes nu fra
+`setThemeColor()` pr. flade: navy på app (headeren *er* navy op i statuslinjen),
+helt fjernet på portal (den har hvid topbar). `manifest.json` beholder sin navy
+`theme_color` — den gælder kun den *installerede* app. Symptomet ses ikke i
+headless og ikke i fuldskærm; kun i et almindeligt Safari-vindue.
 
 ---
 
