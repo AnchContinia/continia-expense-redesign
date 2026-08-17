@@ -11,6 +11,10 @@ mobil, og navigationen er designets egen.
 > Designfilerne er **referencer, ikke produktionskode**. Se
 > [HANDOFF.md](HANDOFF.md) for tokens og implementeringsnoter, og
 > [PROJECT_RULES.md](PROJECT_RULES.md) for de visuelle regler.
+>
+> Skal du *arbejde* i repoet — eller starte en ny Claude-session — så læs
+> [CLAUDE.md](CLAUDE.md) først. Den samler arkitekturen, fælderne og
+> verifikationsopskriften.
 
 ---
 
