@@ -29,7 +29,9 @@ TARGETS = {
         '"./support.js"',
         '"./image-slot.js"',
         '"./ios-frame.jsx"',
-        '"mileage-map.html"',
+        # Uden afsluttende citationstegn: kortet kaldes med ?route=<fra>-<til>,
+        # så en fast '"mileage-map.html"' ville ikke matche længere.
+        '"mileage-map.html',
         '"assets/',
         f'"{DS}',
     ],
@@ -128,6 +130,11 @@ def main():
         base = os.path.dirname(path)
         for ref in sorted(set(re.findall(r'(?:src|href|from)\s*=\s*"([^"]+)"', body))):
             if ref.startswith(("data:", "http", "#", "{{")):
+                continue
+            # Query og fragment hører til URL'en, ikke til filnavnet:
+            # '../mileage-map.html?route=aarhus-odense' er en gyldig reference.
+            ref = ref.split("?", 1)[0].split("#", 1)[0]
+            if not ref:
                 continue
             resolved = os.path.normpath(os.path.join(base, ref))
             if not os.path.exists(resolved):

@@ -235,9 +235,12 @@ Opdatér desuden kortene i `gallery/index.html` og tabellerne her.
 - **Detaljeskærmene** nås ved at klikke en række. Et deep link uden valgt række
   falder tilbage til den første i listen, og prev/næste går gennem den
   *filtrerede* liste — ikke hele datasættet.
-- **Mileage-kortet** er den samme `mileage-map.html` som mobilappen bruger, med
-  en fast rute. Fra/til-felterne viser den rigtige strækning; selve stregen er
-  illustrativ, hvilket også står skrevet på skærmen.
+- **Mileage-kortet** er den samme `mileage-map.html` som mobilappen bruger, men
+  den kaldes nu med `?route=<fra>-<til>`, så hver række tegner sin egen
+  strækning. Geometrien er rigtige vejdata fra OSRM/OpenStreetMap, hentet én
+  gang og bagt ind statisk — kortet kalder ingen routing-tjeneste ved visning.
+  Ruten går bymidte til bymidte, ikke adresse til adresse, og det står på
+  skærmen. De påståede km i dataen matcher ikke rutens faktiske længde.
 - **Detaljernes handlingsfelt** klippes ved viewporthøjder under ca. 950px. Det
   gør den eksisterende `approve`-skærm også — og værre. Portalen er tegnet til
   984px høj.

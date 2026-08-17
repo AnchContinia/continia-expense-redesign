@@ -245,9 +245,10 @@ Alt nedenstående er bygget, verificeret og deployet.
 - Mobilens `login` kan ikke nås tilbage fra produkt-UI'et — der er ingen
   `signOut` i appen. Appen åbner på login; derfra er der kun vej frem.
 - Portalens `approve` har ingen sidebar-post; den nås fra godkendelseskøen.
-- Mileage-detaljens kort er `mileage-map.html` med en **fast** rute
-  (Aarhus→Silkeborg). Fra/til-felterne viser den rigtige strækning; stregen er
-  illustrativ, og det står skrevet på skærmen.
+- Mileage-kortet tegner nu rigtig vejgeometri pr. strækning, men de **påståede
+  km i fixturedataen matcher ikke** ruten (Silkeborg→Herning er 38,5 km og
+  hævder 116). Sub-baren siger "distance checked against the routing service",
+  hvilket kortet nu gør efterprøveligt. Se `mileage-map.html`.
 - Detaljeskærmenes handlingsfelt klippes under ca. 950px viewporthøjde.
 - Scan og Scan result i appen har bevidst **ikke** cloud-video — de er
   kamera-viewfindere på `#08111f`, ikke navy headere.
