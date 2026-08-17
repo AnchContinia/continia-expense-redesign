@@ -149,7 +149,7 @@
                 <div style="font-size: 12px; color: rgba(255,255,255,0.65);">Nordic Consulting A/S</div>
                 <div style="font-size: 16px; font-weight: 600; color: #fff;">Mette Sørensen</div>
               </div>
-              <div style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; position: relative;"><i class="fa-light fa-bell"></i><span style="position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 999px; background: var(--c-innovation-blue); border: 1.5px solid var(--c-tech-blue);"></span></div>
+              <div class="tapz" onClick="{{ openNotif }}" style="width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 17px; position: relative;"><i class="fa-light fa-bell"></i><sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; top: 8px; right: 9px; width: 8px; height: 8px; border-radius: 999px; background: var(--c-innovation-blue); border: 1.5px solid var(--c-tech-blue);"></span></sc-if></div>
             </div>
 
             <sc-if value="{{ isHomeB }}" hint-placeholder-val="{{ false }}">
@@ -385,6 +385,45 @@
           <div style="position: absolute; bottom: 96px; right: 18px; z-index: 30;">
             <div class="tapz" onClick="{{ openFab }}" style="width: 58px; height: 58px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 12px 28px rgba(5,41,117,0.34);"><i class="{{ fabIcon }}"></i></div>
           </div>
+
+          <!-- Notifikationer. Samme sheet-sprog som plus-menuen: scrim der lukker,
+               grab-handle, riseIn. Ulæst signaleres med prik og 600-vægt, så farve
+               aldrig står alene. -->
+          <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ closeNotif }}" style="position: absolute; inset: 0; background: rgba(4,20,52,0.5); z-index: 45; display: flex; flex-direction: column; justify-content: flex-end;">
+              <div onClick="{{ eat }}" style="background: #fff; border-radius: 24px 24px 0 0; padding-bottom: 30px; max-height: 82%; display: flex; flex-direction: column; animation: riseIn 280ms cubic-bezier(0.16,1,0.3,1);">
+                <div style="width: 38px; height: 4px; border-radius: 999px; background: var(--c-slate-300); margin: 11px auto 16px; flex-shrink: 0;"></div>
+                <div style="display: flex; align-items: center; gap: 10px; padding: 0 20px 14px; flex-shrink: 0;">
+                  <div style="font-size: 19px; font-weight: 700; color: var(--c-tech-blue);">Notifications</div>
+                  <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+                    <span style="{{ notifCountStyle }}">{{ notifCount }}</span>
+                  </sc-if>
+                  <div style="flex: 1;"></div>
+                  <span class="tapz" onClick="{{ markAllRead }}" style="{{ markAllStyle }}">Mark all read</span>
+                </div>
+                <div style="flex: 1; overflow: auto; border-top: 1px solid var(--color-border);">
+                  <sc-for list="{{ notifItems }}" as="n" hint-placeholder-count="5">
+                    <div class="tapz" onClick="{{ n.go }}" style="{{ n.rowStyle }}">
+                      <div style="{{ n.iconStyle }}"><i class="{{ n.icon }}"></i></div>
+                      <div style="flex: 1; min-width: 0;">
+                        <div style="{{ n.titleStyle }}">{{ n.title }}</div>
+                        <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">{{ n.meta }}</div>
+                      </div>
+                      <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0;">
+                        <span style="font-size: 11px; color: var(--c-slate-500); white-space: nowrap;">{{ n.when }}</span>
+                        <sc-if value="{{ n.unread }}" hint-placeholder-val="{{ true }}">
+                          <span style="width: 8px; height: 8px; border-radius: 999px; background: var(--c-tech-blue);"></span>
+                        </sc-if>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="padding: 14px 20px 0; flex-shrink: 0;">
+                  <div class="tapz" onClick="{{ closeNotif }}" style="height: 50px; border-radius: 999px; border: 1.5px solid var(--color-border); color: var(--c-slate-700); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600;">Close</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
 
           <sc-if value="{{ fabOpen }}" hint-placeholder-val="{{ false }}">
             <div onClick="{{ closeFab }}" style="position: absolute; inset: 0; background: rgba(4,20,52,0.5); z-index: 40; display: flex; flex-direction: column; justify-content: flex-end;">
@@ -1259,7 +1298,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
 class Component extends DCLogic {
-  state = { screen: "home", dash: "b", create: "wizard", data: "normal", wiz: 1, sheet: false, detail: "pending", toast: null, scan: "ok", hist: "all", fab: false };
+  state = { screen: "home", dash: "b", create: "wizard", data: "normal", wiz: 1, sheet: false, detail: "pending", toast: null, scan: "ok", hist: "all", fab: false,
+            // Notifikationer. `notifRead` er de poster brugeren har åbnet.
+            notif: false, notifRead: [] };
 
   set(patch) { this.setState(patch); }
 
@@ -1462,6 +1503,23 @@ class Component extends DCLogic {
 
     const chip = (bg, fg) => `background: ${bg}; color: ${fg}; font-size: 10px; font-weight: 700; padding: 6px 11px; border-radius: 999px; flex-shrink: 0;`;
 
+
+    // ── Notifikationer ─────────────────────────────────────
+    const notifTone = {
+      info:   ["var(--c-light-blue)", "var(--c-tech-blue)"],
+      warn:   ["var(--c-light-yellow)", "var(--color-warning-fg)"],
+      danger: ["var(--color-danger-bg)", "var(--color-danger-fg)"],
+      ok:     ["var(--c-smart-green-30)", "var(--color-success-fg)"]
+    };
+    const notifData = [
+      { key: "m1", tone: "ok",     icon: "fa-light fa-check",               title: "Lars Bruun approved your hotel",      meta: "3.180,00 DKK · on its way to payroll", when: "12 min",    go: "history",  fresh: true },
+      { key: "m2", tone: "danger", icon: "fa-light fa-xmark",               title: "Taxi 4x35 was rejected",              meta: "Missing purpose · fix and resubmit",   when: "2 hours",   go: "detail",   fresh: true },
+      { key: "m3", tone: "warn",   icon: "fa-light fa-image-slash",         title: "Receipt needed for Circle K",         meta: "Firmakort ···· 4127 · 640,25 DKK",     when: "Yesterday", go: "receipts", fresh: true },
+      { key: "m4", tone: "info",   icon: "fa-light fa-money-bill-transfer", title: "34.892,60 DKK was paid out",          meta: "To your salary account · 31 July",     when: "6 days",    go: "history",  fresh: false },
+      { key: "m5", tone: "info",   icon: "fa-light fa-clock",               title: "Per diem, Berlin is with Lars Bruun", meta: "Submitted 6 Aug · 1.688,01 DKK",       when: "1 week",    go: "home",     fresh: false }
+    ];
+    const notifUnread = notifData.filter(x => x.fresh && s.notifRead.indexOf(x.key) < 0).length;
+
     return {
       phoneW: 390, phoneH: 844,
       railScreens, stateChips, variantChips,
@@ -1545,6 +1603,29 @@ class Component extends DCLogic {
       goRejected: () => this.set({ screen: "detail", detail: "rejected" }),
       goReceipts: () => this.set({ screen: "receipts" }),
       setNormal: () => this.set({ data: "normal" }),
+      // ── Notifikationer ───────────────────────────────────
+      // Mettes eget perspektiv: hvad der skete med hendes udlæg, ikke en
+      // godkenders kø. Hver række går til den skærm den handler om.
+      notifOpen: s.notif === true,
+      openNotif: () => this.set({ notif: true }),
+      closeNotif: () => this.set({ notif: false }),
+      eat: (e) => e.stopPropagation(),
+      hasUnread: notifUnread > 0,
+      notifCount: notifUnread + " NEW",
+      notifCountStyle: "font-size: 10px; font-weight: 700; letter-spacing: 0.04em; background: var(--c-tech-blue); color: #fff; padding: 4px 9px; border-radius: 999px; font-variant-numeric: tabular-nums;",
+      markAllStyle: "font-size: 13px; font-weight: 600; padding: 8px; color: " + (notifUnread ? "var(--c-tech-blue)" : "var(--c-slate-300)") + ";",
+      markAllRead: (e) => { e.stopPropagation(); if (notifUnread) this.set({ notifRead: notifData.map(x => x.key) }); },
+      notifItems: notifData.map(x => {
+        const un = x.fresh && s.notifRead.indexOf(x.key) < 0;
+        return {
+          icon: x.icon, title: x.title, meta: x.meta, when: x.when, unread: un,
+          rowStyle: "display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; min-height: 68px; border-bottom: 1px solid var(--color-border);",
+          iconStyle: "width: 40px; height: 40px; border-radius: 999px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; background: " + notifTone[x.tone][0] + "; color: " + notifTone[x.tone][1] + ";",
+          titleStyle: "font-size: 15px; line-height: 1.35; font-weight: " + (un ? "600" : "500") + "; color: " + (un ? "var(--color-text)" : "var(--c-slate-500)") + ";",
+          go: () => this.set({ notif: false, screen: x.go, notifRead: s.notifRead.indexOf(x.key) >= 0 ? s.notifRead : s.notifRead.concat([x.key]) })
+        };
+      }),
+
       fabOpen: s.fab === true,
       fabIcon: s.fab === true ? "fa-light fa-xmark" : "fa-light fa-plus",
       openFab: () => this.set({ fab: true }),

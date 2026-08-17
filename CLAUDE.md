@@ -178,6 +178,23 @@ Samme trick med `<sc-for list="{{ x }}" as="y">` finder listerne, og
 `grid-template-columns` finder tabellernes kolonner (husk: de står **to**
 steder — i tabelhovedets markup og i `rowStyle` i logikken; ret altid begge).
 
+### Sådan verificerer man at et klik virker
+
+`--dump-dom` dumper **kun topdokumentet**, så designfilen inde i skallens iframe
+er usynlig. Screenshots fanger den derimod. Vil man teste interaktion, så lav en
+harness-side på samme origin, iframe designfilen direkte og kald `.click()` i
+`iframe.contentDocument` — React fanger et rigtigt click-event fint. Log til et
+`<pre>` og læs det med `--dump-dom` på harnessen.
+
+Fire ting koster tid hver gang, hvis man ikke ved dem:
+
+| Fælde | Konsekvens |
+| --- | --- |
+| Designfilen åbner på `login`; app-shellen ligger bag `<sc-if isApp>` | Ingen `<header>`, ingen sidebar. Klik først en post i prototype-railen |
+| Rail-etiketterne er **ikke** sidebar-etiketterne | Railen siger "Approval queue", sidebaren siger "Approvals" |
+| Browseren normaliserer `style`-attributten | `[style*="border-radius: 24px 24px 0 0"]` matcher ikke — det bliver `0px 0px`. Samme med `#fff` → `rgb(255, 255, 255)`. Vælg på `var(--…)`, heltal (`z-index: 45`) eller px-længder |
+| Font Awesome-kittet kører som **webfont**, ikke SVG | `i.fa-bell` findes, men et manglende ikon renderer *tomt i samme størrelse*. Test ikon-navne med `getComputedStyle(el, '::before').content` — `none` betyder manglende. Mål altid mod et opdigtet navn som kontrol, ellers tester man ingenting |
+
 **Verificér før du melder færdig.** Alt i dette repo er blevet målt eller
 renderet, ikke antaget. Målte tal der stadig gælder:
 
@@ -259,9 +276,17 @@ Alt nedenstående er bygget, verificeret og deployet.
 
 Ikke aftalt med brugeren — spørg før du går i gang:
 
-- Portalens **Reporting** og **Setup** har **nul** `onClick` overhovedet.
-  Kategorirækker, afdelinger og opsætningsfelter er helt døde. Det er de sidste
-  to skærme uden interaktion.
+- Portalens **Reporting** har **nul** `onClick` overhovedet — kategorirækker,
+  månedsbjælker og afdelingstabellen er døde. Det er den sidste skærm uden
+  interaktion. (Setup er wired: kontakter, kategorier, trin-omrokering og
+  BC-felter. Se nedenfor.)
+- **Mileage rates** i Setup er bevidst ikke klikbare: kortet siger selv at
+  satserne følger skattestyrelsen og opdateres automatisk hver januar. At gøre
+  dem redigerbare ville modsige skærmens egen tekst.
+- Mobilen har **to** `componentWillUnmount` (omkring linje 1284 og 1294). Den
+  anden skygger for den første, så `URL.revokeObjectURL` på blob-URL'en til
+  cloud-videoen aldrig kører. Ikke rettet — flet de to kroppe hvis du er i
+  nærheden.
 - Mobilappen har derimod allerede rækkeinteraktion: History (`h.open`),
   Expense report (`goDetail`) og Receipt inbox (`goScanFail`). Antag ikke at
   den mangler det — tjek `onClick`-kortet først.

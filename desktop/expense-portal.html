@@ -187,7 +187,7 @@
           <div style="flex: 1;"></div>
           <div style="margin: 0 12px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.07); border: 1px solid rgba(143,248,255,0.18);">
             <div style="display: flex; align-items: center; gap: 7px; color: var(--c-innovation-blue); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px;"><i class="fa-light fa-circle-check"></i>Built inside</div>
-            <div style="font-size: 11px; color: rgba(255,255,255,0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><strong style="color: #fff; font-weight: 600;">Contina A/S</strong> &middot; BC 26.1</div>
+            <div style="font-size: 11px; color: rgba(255,255,255,0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><strong style="color: #fff; font-weight: 600;">{{ bcCompany }}</strong> &middot; BC 26.1</div>
           </div>
           <div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px 4px;">
             <div style="width: 30px; height: 30px; border-radius: 999px; background: var(--c-innovation-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0;">LB</div>
@@ -212,9 +212,47 @@
             <div class="btnz" style="height: 32px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);">
               <i class="fa-light fa-calendar-range"></i>Aug 2026
             </div>
-            <div class="btnz" style="width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--c-slate-700); position: relative;">
-              <i class="fa-light fa-bell" style="font-size: 14px;"></i>
-              <span style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 999px; background: var(--c-performance-purple); border: 1.5px solid #fff;"></span>
+            <!-- Klokken. Popoveren ligger som søskende til knappen i en
+                 position:relative-wrapper, ikke inde i den — ellers ville et klik
+                 i panelet boble op til knappen og lukke det igen. -->
+            <div style="position: relative; flex-shrink: 0;">
+              <div class="btnz" onClick="{{ toggleNotif }}" style="width: 32px; height: 32px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; color: var(--c-slate-700); position: relative;">
+                <i class="fa-light fa-bell" style="font-size: 14px;"></i>
+                <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+                  <span style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; border-radius: 999px; background: var(--c-performance-purple); border: 1.5px solid #fff;"></span>
+                </sc-if>
+              </div>
+              <sc-if value="{{ notifOpen }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ closeNotif }}" style="position: fixed; inset: 0; z-index: 55;"></div>
+                <div style="position: absolute; top: 42px; right: 0; z-index: 60; width: 384px; background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-md); overflow: hidden; animation: riseIn 220ms ease-out;">
+                  <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--color-border);">
+                    <div style="font-size: 14px; font-weight: 700; color: var(--c-tech-blue);">Notifications</div>
+                    <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+                      <span style="{{ notifCountStyle }}">{{ notifCount }}</span>
+                    </sc-if>
+                    <div style="flex: 1;"></div>
+                    <span class="btnz" onClick="{{ markAllRead }}" style="{{ markAllStyle }}">Mark all read</span>
+                  </div>
+                  <sc-for list="{{ notifItems }}" as="n" hint-placeholder-count="5">
+                    <div class="trow" onClick="{{ n.go }}" style="{{ n.rowStyle }}">
+                      <span style="{{ n.iconStyle }}"><i class="{{ n.icon }}"></i></span>
+                      <span style="flex: 1; min-width: 0;">
+                        <span style="{{ n.titleStyle }}">{{ n.title }}</span>
+                        <span style="display: block; font-size: 11px; color: var(--c-slate-500); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ n.meta }}</span>
+                      </span>
+                      <span style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; padding-top: 1px;">
+                        <span style="font-size: 10px; color: var(--c-slate-500); white-space: nowrap;">{{ n.when }}</span>
+                        <sc-if value="{{ n.unread }}" hint-placeholder-val="{{ true }}">
+                          <span style="width: 7px; height: 7px; border-radius: 999px; background: var(--c-tech-blue);"></span>
+                        </sc-if>
+                      </span>
+                    </div>
+                  </sc-for>
+                  <div class="trow" onClick="{{ notifFootGo }}" style="display: flex; align-items: center; gap: 9px; padding: 11px 16px; background: var(--c-slate-50); font-size: 12px; color: var(--c-slate-500);">
+                    <i class="fa-light fa-sliders" style="color: var(--c-tech-blue);"></i>{{ notifFoot }}
+                  </div>
+                </div>
+              </sc-if>
             </div>
           </header>
 
@@ -1227,22 +1265,25 @@
                           <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">{{ f.meta }}</div>
                         </div>
                         <span style="font-size: 11px; font-weight: 700; background: var(--c-light-blue); color: var(--c-tech-blue); padding: 5px 11px; border-radius: 999px;">{{ f.sla }}</span>
-                        <i class="fa-light fa-grip-dots-vertical" style="color: var(--c-slate-300);"></i>
+                        <span style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                        <span class="btnz" onClick="{{ f.up }}" style="{{ f.upStyle }}"><i class="fa-light fa-chevron-up"></i></span>
+                        <span class="btnz" onClick="{{ f.down }}" style="{{ f.downStyle }}"><i class="fa-light fa-chevron-down"></i></span>
+                      </span>
                       </div>
                     </sc-for>
                   </div>
-                  <div class="btnz" style="margin-top: 12px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1.5px dashed var(--c-slate-300); color: var(--c-tech-blue); display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;"><i class="fa-light fa-plus"></i>Add step</div>
+                  <div class="btnz" onClick="{{ addStep }}" style="{{ addStepStyle }}"><i class="fa-light fa-plus"></i>{{ addStepLabel }}</div>
 
                   <div style="height: 1px; background: var(--color-border); margin: 24px 0;"></div>
 
                   <div style="font-size: 15px; font-weight: 700; color: var(--c-tech-blue); margin-bottom: 14px;">Policy rules</div>
                   <div style="display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;">
                     <sc-for list="{{ rules }}" as="r" hint-placeholder-count="5">
-                      <div style="display: flex; align-items: center; gap: 14px; padding: 13px 16px; background: #fff; border-bottom: 1px solid var(--color-border);">
+                      <div class="btnz" onClick="{{ r.toggle }}" style="display: flex; align-items: center; gap: 14px; padding: 13px 16px; background: #fff; border-bottom: 1px solid var(--color-border);">
                         <i class="{{ r.icon }}" style="color: var(--c-tech-blue); width: 16px; text-align: center; font-size: 14px;"></i>
                         <div style="flex: 1; min-width: 0;">
-                          <div style="font-size: 13px; font-weight: 500;">{{ r.title }}</div>
-                          <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 1px;">{{ r.meta }}</div>
+                          <div style="{{ r.titleStyle }}">{{ r.title }}</div>
+                          <div style="{{ r.metaStyle }}">{{ r.meta }}</div>
                         </div>
                         <span style="{{ r.actionStyle }}">{{ r.action }}</span>
                         <span style="{{ r.toggleStyle }}"><span style="{{ r.knobStyle }}"></span></span>
@@ -1256,8 +1297,8 @@
                     <div style="font-size: 15px; font-weight: 700; color: var(--c-tech-blue); margin-bottom: 4px;">Business Central</div>
                     <div style="font-size: 13px; line-height: 1.6; color: var(--c-slate-700);">Approved expenses post to a journal in the company below. Nothing posts until the controller signs off.</div>
                     <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
-                      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--color-border);"><span style="color: var(--c-slate-500);">Company</span><strong style="font-weight: 600;">Contina A/S</strong></div>
-                      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--color-border);"><span style="color: var(--c-slate-500);">Journal template</span><strong style="font-weight: 600;">EXPENSE</strong></div>
+                      <div class="btnz" onClick="{{ bcCoGo }}" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--color-border);"><span style="color: var(--c-slate-500);">Company</span><strong style="font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">{{ bcCompany }}<i class="fa-light fa-angle-down" style="color: var(--c-slate-500); font-size: 12px;"></i></strong></div>
+                      <div class="btnz" onClick="{{ bcJnGo }}" style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--color-border);"><span style="color: var(--c-slate-500);">Journal template</span><strong style="font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">{{ bcJournal }}<i class="fa-light fa-angle-down" style="color: var(--c-slate-500); font-size: 12px;"></i></strong></div>
                       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0; border-bottom: 1px solid var(--color-border);"><span style="color: var(--c-slate-500);">Version</span><strong style="font-weight: 600;">BC 26.1 &middot; on-prem</strong></div>
                       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 0;"><span style="color: var(--c-slate-500);">Last sync</span><span style="display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--c-smart-green);"><i class="fa-light fa-circle-check"></i>2 min ago</span></div>
                     </div>
@@ -1285,9 +1326,9 @@
                     <div style="font-size: 15px; font-weight: 700; color: var(--c-tech-blue); margin-bottom: 12px;">Categories</div>
                     <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                       <sc-for list="{{ categories }}" as="c" hint-placeholder-count="9">
-                        <span style="display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--color-border); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500; color: var(--c-slate-700);"><i class="{{ c.icon }}" style="color: var(--c-tech-blue); font-size: 12px;"></i>{{ c.label }}</span>
+                        <span class="btnz" onClick="{{ c.toggle }}" style="{{ c.style }}"><i class="{{ c.icon }}" style="{{ c.iconStyle }}"></i><span style="{{ c.labelStyle }}">{{ c.label }}</span></span>
                       </sc-for>
-                      <span class="btnz" style="display: inline-flex; align-items: center; gap: 7px; border: 1.5px dashed var(--c-slate-300); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 600; color: var(--c-tech-blue);"><i class="fa-light fa-plus"></i>New</span>
+                      <span class="btnz" onClick="{{ newCat }}" style="{{ newCatStyle }}"><i class="fa-light fa-plus"></i>{{ newCatLabel }}</span>
                     </div>
                   </div>
                 </div>
@@ -1315,7 +1356,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1840,&quot;height&quot;:1080},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;,&quot;section&quot;:&quot;Table&quot;}}">
 class Component extends DCLogic {
-  state = { screen: "login", data: "normal", density: null, sel: [], qtab: "clean", filter: "All", cardFilter: "Needs action", toast: null, detail: null };
+  state = { screen: "login", data: "normal", density: null, sel: [], qtab: "clean", filter: "All", cardFilter: "Needs action", toast: null, detail: null,
+            // Setup + notifikationer. `dupe` er slukket fra start, som designet viste.
+            ruleOff: ["dupe"], catOff: [], order: null, stepAdd: 0, catAdd: 0, bcCo: 0, bcJn: 0, notif: false, notifRead: [] };
 
   go(screen) { return () => this.setState({ screen: screen, toast: null }); }
 
@@ -1672,6 +1715,88 @@ class Component extends DCLogic {
                  : mD ? "expense.continia.com/mileage/MI-2026-0" + (220 + detPos)
                  : cD ? "expense.continia.com/card-transactions/CT-2026-1" + (480 + detPos) : null;
 
+    // ── Setup: godkendelsesflow ──────────────────────────
+    // Trinnene kan flyttes. `order` er en liste af nøgler; null betyder
+    // designets egen rækkefølge. Et tilføjet trin der mangler i `order`
+    // hænges bagpå, så en omrokering aldrig taber det.
+    const flowBase = [
+      { key: "submit",     title: "Employee submits",         meta: "App or portal · receipt required over 100 DKK", sla: "—" },
+      { key: "manager",    title: "Line manager approves",    meta: "Lars Bruun and 6 others · skipped under 500 DKK", sla: "2 days" },
+      { key: "controller", title: "Controller checks",        meta: "Henrik Dam · VAT, dimensions, project", sla: "3 days" },
+      { key: "post",       title: "Post to Business Central", meta: "Automatic once the controller signs off", sla: "Nightly" }
+    ];
+    const stepPool = [
+      { key: "project", title: "Project owner approves", meta: "Only when a project is set · skipped otherwise", sla: "2 days" },
+      { key: "finance", title: "Finance spot check",     meta: "Random 10% sample · Anne Kjeldsen", sla: "1 day" }
+    ];
+    const flowAll = flowBase.concat(stepPool.slice(0, s.stepAdd));
+    const flowPicked = (s.order || []).map(k => flowAll.find(x => x.key === k)).filter(Boolean);
+    const flowOrder = flowPicked.concat(flowAll.filter(x => flowPicked.indexOf(x) < 0));
+    const swapStep = (a, b) => () => {
+      const keys = flowOrder.map(x => x.key);
+      const t = keys[a]; keys[a] = keys[b]; keys[b] = t;
+      this.setState({ order: keys, toast: null });
+    };
+
+    // ── Setup: policy-regler ─────────────────────────────
+    // Tonen på handlings-tagget følger den enkelte regel, ikke handlingen:
+    // FLAG er danger-tonet på måltidsloftet og light-blue på dubletter i det
+    // oprindelige design. Bevaret som det stod.
+    const ruleData = [
+      { key: "meal",    icon: "fa-light fa-utensils",       title: "Meal cap, client dining",     meta: "500 DKK per attendee",                     action: "FLAG",  bg: "var(--color-danger-bg)", fg: "var(--color-danger-fg)" },
+      { key: "receipt", icon: "fa-light fa-receipt",        title: "Receipt required",            meta: "All expenses over 100 DKK",                action: "BLOCK", bg: "var(--color-danger-bg)", fg: "var(--color-danger-fg)" },
+      { key: "attend",  icon: "fa-light fa-users",          title: "Attendees on representation", meta: "Names required for VAT deduction",         action: "BLOCK", bg: "var(--color-danger-bg)", fg: "var(--color-danger-fg)" },
+      { key: "late",    icon: "fa-light fa-calendar-xmark", title: "Late submission",             meta: "More than 30 days after the expense date", action: "WARN",  bg: "var(--c-light-yellow)",  fg: "var(--color-warning-fg)" },
+      { key: "dupe",    icon: "fa-light fa-copy",           title: "Duplicate detection",         meta: "Same amount, merchant and day",            action: "FLAG",  bg: "var(--c-light-blue)",    fg: "var(--c-tech-blue)" }
+    ];
+    // Kontakten bærer tilstanden med både position og farve, så farve aldrig
+    // står alene. En slukket regel får et neutralt tag frem for at tabe det.
+    const switchStyle = (on) => "width: 34px; height: 20px; border-radius: 999px; background: " + (on ? "var(--c-tech-blue)" : "var(--c-slate-300)") + "; display: flex; align-items: center; padding: 2px; justify-content: " + (on ? "flex-end" : "flex-start") + "; flex-shrink: 0; transition: background 160ms ease;";
+    const tagStyle = (bg, fg) => "font-size: 10px; font-weight: 700; background: " + bg + "; color: " + fg + "; padding: 4px 9px; border-radius: 999px;";
+
+    // ── Setup: kategorier ────────────────────────────────
+    // En slukket kategori beholder sin ramme og får gennemstregning — dashed
+    // ramme er optaget af New-chippen og ville forveksles med den.
+    const catBase = [
+      { key: "meals", label: "Meals", icon: cats.meals }, { key: "air", label: "Airfare", icon: cats.travel },
+      { key: "hotel", label: "Accommodation", icon: cats.hotel }, { key: "mileage", label: "Mileage", icon: cats.mileage },
+      { key: "fuel", label: "Fuel", icon: cats.fuel }, { key: "software", label: "Software", icon: cats.software },
+      { key: "taxi", label: "Local transport", icon: cats.taxi }, { key: "perdiem", label: "Per diem", icon: cats.perdiem },
+      { key: "office", label: "Office", icon: cats.office }
+    ];
+    const catPool = [
+      { key: "rail", label: "Rail", icon: cats.train },
+      { key: "parking", label: "Parking", icon: "fa-light fa-square-parking" },
+      { key: "training", label: "Training", icon: "fa-light fa-graduation-cap" }
+    ];
+    const catAll = catBase.concat(catPool.slice(0, s.catAdd));
+
+    // ── Setup: Business Central ──────────────────────────
+    // Company og Journal template er valg. Version og Last sync er fakta og
+    // bliver ikke klikbare. Satserne under Mileage rates er heller ikke: kortet
+    // siger selv at de følger skattestyrelsen og opdateres automatisk.
+    const bcCompanies = ["Contina A/S", "Contina Norge AS", "Contina Sverige AB"];
+    const bcJournals = ["EXPENSE", "EXPENSE-EU", "PAYROLL-EXP"];
+
+    // ── Notifikationer ───────────────────────────────────
+    // `fresh` er om posten er ulæst fra start; `notifRead` er dem brugeren har
+    // åbnet. Ulæst signaleres med både en prik og 600-vægt, aldrig kun farve.
+    const notifTone = {
+      info:   ["var(--c-light-blue)", "var(--c-tech-blue)"],
+      warn:   ["var(--c-light-yellow)", "var(--color-warning-fg)"],
+      danger: ["var(--color-danger-bg)", "var(--color-danger-fg)"],
+      ok:     ["var(--c-smart-green-30)", "var(--color-success-fg)"]
+    };
+    const notifData = [
+      { key: "n1", tone: "info",   icon: cats.meals,          title: "Mette Holm submitted Restaurant Kähler", meta: "2.850,00 DKK · client dinner, 4 attendees", when: "8 min",     go: "queue",   fresh: true },
+      { key: "n2", tone: "warn",   icon: "fa-light fa-clock", title: "Jonas Vestergaard has waited 3 days",         meta: "Past your 2-day SLA · SAS CPH–MUC",   when: "1 hour",    go: "queue",   fresh: true },
+      { key: "n3", tone: "danger", icon: cats.card,           title: "3 card transactions have no expense",         meta: "Eurocard feed · imported today 06:00",     when: "5 hours",   go: "cards",   fresh: true },
+      { key: "n4", tone: "ok",     icon: "fa-light fa-lock",  title: "Henrik Dam posted 12 expenses",               meta: "Journal EXPENSE · BC 26.1",               when: "Yesterday", go: "list",    fresh: false },
+      { key: "n5", tone: "info",   icon: cats.mileage,        title: "Signe Dalgaard crossed 20.000 km",            meta: "Rate dropped to 2,23 kr./km",                  when: "2 days",    go: "mileage", fresh: false }
+    ];
+    const isUnread = (x) => x.fresh && s.notifRead.indexOf(x.key) < 0;
+    const unreadCount = notifData.filter(isUnread).length;
+
 
     return {
       winW: 1440, winH: 984, url: detUrl || cur.url, tabs: [{ title: "Continia Expense" }, { title: "Business Central" }],
@@ -1892,26 +2017,88 @@ class Component extends DCLogic {
         barStyle: "display: block; height: 100%; width: " + share + "%; background: var(--c-tech-blue); border-radius: 999px;"
       })),
 
-      flow: [
-        { n: "1", title: "Employee submits", meta: "App or portal \u00B7 receipt required over 100 DKK", sla: "\u2014" },
-        { n: "2", title: "Line manager approves", meta: "Lars Bruun and 6 others \u00B7 skipped under 500 DKK", sla: "2 days" },
-        { n: "3", title: "Controller checks", meta: "Henrik Dam \u00B7 VAT, dimensions, project", sla: "3 days" },
-        { n: "4", title: "Post to Business Central", meta: "Automatic once the controller signs off", sla: "Nightly" }
-      ],
-      rules: [
-        { icon: "fa-light fa-utensils", title: "Meal cap, client dining", meta: "500 DKK per attendee", action: "FLAG", actionStyle: "font-size: 10px; font-weight: 700; background: var(--color-danger-bg); color: var(--color-danger-fg); padding: 4px 9px; border-radius: 999px;", toggleStyle: "width: 34px; height: 20px; border-radius: 999px; background: var(--c-tech-blue); display: flex; align-items: center; padding: 2px; justify-content: flex-end;", knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;" },
-        { icon: "fa-light fa-receipt", title: "Receipt required", meta: "All expenses over 100 DKK", action: "BLOCK", actionStyle: "font-size: 10px; font-weight: 700; background: var(--color-danger-bg); color: var(--color-danger-fg); padding: 4px 9px; border-radius: 999px;", toggleStyle: "width: 34px; height: 20px; border-radius: 999px; background: var(--c-tech-blue); display: flex; align-items: center; padding: 2px; justify-content: flex-end;", knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;" },
-        { icon: "fa-light fa-users", title: "Attendees on representation", meta: "Names required for VAT deduction", action: "BLOCK", actionStyle: "font-size: 10px; font-weight: 700; background: var(--color-danger-bg); color: var(--color-danger-fg); padding: 4px 9px; border-radius: 999px;", toggleStyle: "width: 34px; height: 20px; border-radius: 999px; background: var(--c-tech-blue); display: flex; align-items: center; padding: 2px; justify-content: flex-end;", knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;" },
-        { icon: "fa-light fa-calendar-xmark", title: "Late submission", meta: "More than 30 days after the expense date", action: "WARN", actionStyle: "font-size: 10px; font-weight: 700; background: var(--c-light-yellow); color: var(--color-warning-fg); padding: 4px 9px; border-radius: 999px;", toggleStyle: "width: 34px; height: 20px; border-radius: 999px; background: var(--c-tech-blue); display: flex; align-items: center; padding: 2px; justify-content: flex-end;", knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;" },
-        { icon: "fa-light fa-copy", title: "Duplicate detection", meta: "Same amount, merchant and day", action: "FLAG", actionStyle: "font-size: 10px; font-weight: 700; background: var(--c-light-blue); color: var(--c-tech-blue); padding: 4px 9px; border-radius: 999px;", toggleStyle: "width: 34px; height: 20px; border-radius: 999px; background: var(--c-slate-300); display: flex; align-items: center; padding: 2px; justify-content: flex-start;", knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;" }
-      ],
-      categories: [
-        { label: "Meals", icon: cats.meals }, { label: "Airfare", icon: cats.travel },
-        { label: "Accommodation", icon: cats.hotel }, { label: "Mileage", icon: cats.mileage },
-        { label: "Fuel", icon: cats.fuel }, { label: "Software", icon: cats.software },
-        { label: "Local transport", icon: cats.taxi }, { label: "Per diem", icon: cats.perdiem },
-        { label: "Office", icon: cats.office }
-      ]
+      // ── Setup ────────────────────────────────────────────
+      flow: flowOrder.map((x, i) => ({
+        n: String(i + 1), title: x.title, meta: x.meta, sla: x.sla,
+        upStyle: stepBtn(i > 0), downStyle: stepBtn(i < flowOrder.length - 1),
+        up: i > 0 ? swapStep(i, i - 1) : () => {},
+        down: i < flowOrder.length - 1 ? swapStep(i, i + 1) : () => {}
+      })),
+      addStepLabel: s.stepAdd >= stepPool.length ? "No more steps to add" : "Add step",
+      addStepStyle: "margin-top: 12px; height: 36px; padding: 0 16px; border-radius: 999px; border: 1.5px dashed " + (s.stepAdd >= stepPool.length ? "var(--color-border)" : "var(--c-slate-300)") + "; color: " + (s.stepAdd >= stepPool.length ? "var(--c-slate-300)" : "var(--c-tech-blue)") + "; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;",
+      addStep: () => {
+        if (s.stepAdd >= stepPool.length) return;
+        this.setState({ stepAdd: s.stepAdd + 1 });
+        this.flash(stepPool[s.stepAdd].title + " added to the flow");
+      },
+
+      rules: ruleData.map(r => {
+        const on = s.ruleOff.indexOf(r.key) < 0;
+        return {
+          icon: r.icon, title: r.title, meta: r.meta, action: r.action,
+          titleStyle: "font-size: 13px; font-weight: 500; color: " + (on ? "var(--color-text)" : "var(--c-slate-500)") + ";",
+          metaStyle: "font-size: 12px; color: " + (on ? "var(--c-slate-500)" : "var(--c-slate-300)") + "; margin-top: 1px;",
+          actionStyle: on ? tagStyle(r.bg, r.fg) : tagStyle("var(--c-slate-100)", "var(--color-neutral-fg)"),
+          toggleStyle: switchStyle(on),
+          knobStyle: "width: 16px; height: 16px; border-radius: 999px; background: #fff;",
+          toggle: () => {
+            const off = on ? s.ruleOff.concat([r.key]) : s.ruleOff.filter(k => k !== r.key);
+            this.setState({ ruleOff: off, toast: null });
+          }
+        };
+      }),
+
+      categories: catAll.map(x => {
+        const on = s.catOff.indexOf(x.key) < 0;
+        return {
+          label: x.label, icon: x.icon,
+          style: "display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--color-border); border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 500; background: " + (on ? "#fff" : "var(--c-slate-50)") + "; color: " + (on ? "var(--c-slate-700)" : "var(--c-slate-300)") + ";",
+          iconStyle: "color: " + (on ? "var(--c-tech-blue)" : "var(--c-slate-300)") + "; font-size: 12px;",
+          labelStyle: on ? "" : "text-decoration: line-through;",
+          toggle: () => {
+            const off = on ? s.catOff.concat([x.key]) : s.catOff.filter(k => k !== x.key);
+            this.setState({ catOff: off, toast: null });
+          }
+        };
+      }),
+      newCatLabel: s.catAdd >= catPool.length ? "All categories added" : "New",
+      newCatStyle: "display: inline-flex; align-items: center; gap: 7px; border: 1.5px dashed " + (s.catAdd >= catPool.length ? "var(--color-border)" : "var(--c-slate-300)") + "; border-radius: 999px; padding: 6px 13px; font-size: 12px; font-weight: 600; color: " + (s.catAdd >= catPool.length ? "var(--c-slate-300)" : "var(--c-tech-blue)") + ";",
+      newCat: () => {
+        if (s.catAdd >= catPool.length) return;
+        this.setState({ catAdd: s.catAdd + 1 });
+        this.flash(catPool[s.catAdd].label + " added as a category");
+      },
+
+      bcCompany: bcCompanies[s.bcCo],
+      bcJournal: bcJournals[s.bcJn],
+      bcCoGo: () => this.setState({ bcCo: (s.bcCo + 1) % bcCompanies.length, toast: null }),
+      bcJnGo: () => this.setState({ bcJn: (s.bcJn + 1) % bcJournals.length, toast: null }),
+
+      // ── Notifikationer ───────────────────────────────────
+      notifOpen: s.notif,
+      hasUnread: unreadCount > 0,
+      notifCount: unreadCount + " NEW",
+      notifCountStyle: "font-size: 10px; font-weight: 700; letter-spacing: 0.04em; background: var(--c-tech-blue); color: #fff; padding: 4px 9px; border-radius: 999px; font-variant-numeric: tabular-nums;",
+      markAllStyle: "font-size: 12px; font-weight: 600; color: " + (unreadCount ? "var(--c-tech-blue)" : "var(--c-slate-300)") + ";",
+      toggleNotif: () => this.setState({ notif: !s.notif, toast: null }),
+      closeNotif: () => this.setState({ notif: false }),
+      markAllRead: (e) => {
+        e.stopPropagation();
+        if (!unreadCount) return;
+        this.setState({ notifRead: notifData.map(x => x.key) });
+      },
+      notifItems: notifData.map(x => {
+        const un = isUnread(x);
+        return {
+          icon: x.icon, title: x.title, meta: x.meta, when: x.when, unread: un,
+          rowStyle: "display: flex; align-items: flex-start; gap: 11px; padding: 12px 16px; border-bottom: 1px solid var(--color-border);",
+          iconStyle: "width: 30px; height: 30px; border-radius: 999px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; background: " + notifTone[x.tone][0] + "; color: " + notifTone[x.tone][1] + ";",
+          titleStyle: "display: block; font-size: 13px; line-height: 1.4; font-weight: " + (un ? "600" : "500") + "; color: " + (un ? "var(--color-text)" : "var(--c-slate-500)") + ";",
+          go: () => this.setState({ screen: x.go, notif: false, detail: null, notifRead: s.notifRead.indexOf(x.key) >= 0 ? s.notifRead : s.notifRead.concat([x.key]), toast: null })
+        };
+      }),
+      notifFoot: "Change your notifications in Setup",
+      notifFootGo: () => this.setState({ screen: "settings", notif: false, toast: null })
     };
   }
 }
