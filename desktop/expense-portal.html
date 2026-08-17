@@ -236,7 +236,7 @@
                   </div>
                   <div class="lift" style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow-sm);">
                     <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500);">Value in queue</div>
-                    <div style="font-size: 28px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; margin-top: 8px; letter-spacing: -0.01em;">14.704,77</div>
+                    <div style="font-size: 28px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; margin-top: 8px; letter-spacing: -0.01em;">15.095,14</div>
                     <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px;">DKK &middot; incl. 2.180,95 VAT</div>
                   </div>
                   <div class="lift" style="background: #fff; border: 1px solid var(--c-performance-purple-50); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow-sm);">
@@ -694,10 +694,10 @@
                 </div>
                     </sc-for>
                     <div style="display: flex; align-items: center; gap: 16px; padding: 13px 18px; background: var(--c-slate-50);">
-                      <span style="font-size: 12px; color: var(--c-slate-500);">7 entries this month &middot; 886 km</span>
+                      <span style="font-size: 12px; color: var(--c-slate-500);">7 entries this month &middot; 618 km</span>
                       <div style="flex: 1;"></div>
                       <span style="font-size: 12px; color: var(--c-slate-500);">Month total</span>
-                      <span style="font-size: 15px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums;">3.214,42 DKK</span>
+                      <span style="font-size: 15px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums;">2.268,90 DKK</span>
                     </div>
                   </div>
 
@@ -734,7 +734,7 @@
                         </div>
                         <div style="display: flex; gap: 11px; align-items: flex-start; padding: 12px 14px;">
                           <i class="fa-light fa-triangle-exclamation" style="color: var(--color-danger); font-size: 14px; margin-top: 1px;"></i>
-                          <div style="font-size: 12px; line-height: 1.55; color: var(--c-slate-700);"><strong style="color: var(--color-danger-fg);">Overrides are flagged.</strong> 2 entries this month claim more km than the proposed route.</div>
+                          <div style="font-size: 12px; line-height: 1.55; color: var(--c-slate-700);"><strong style="color: var(--color-danger-fg);">Overrides are flagged.</strong> 1 entry this month claims more km than the proposed route.</div>
                         </div>
                       </div>
                     </div>
@@ -1416,7 +1416,7 @@ class Component extends DCLogic {
       { id: 1, who: "Mette Holm", initials: "MH", dept: "Sales \u00B7 Aarhus", what: "Restaurant K\u00E4hler \u00B7 client dinner", date: "5 Aug", cat: "Meals", catIcon: cats.meals, amount: "2.850,00", sub: "VAT 570,00", age: "3 days", old: true, flag: "OVER LIMIT", flagKind: "danger" },
       { id: 2, who: "Jonas Vestergaard", initials: "JV", dept: "Consulting", what: "SAS CPH\u2013MUC, return", date: "4 Aug", cat: "Airfare", catIcon: cats.travel, amount: "4.312,00", sub: "VAT 0,00", age: "2 days", old: true, flag: "CLEAN", flagKind: "ok" },
       { id: 3, who: "Anne Sofie Kruse", initials: "AK", dept: "Marketing", what: "Hotel Skt. Petri, 2 nights", date: "4 Aug", cat: "Accommodation", catIcon: cats.hotel, amount: "3.180,00", sub: "VAT 795,00", age: "2 days", old: false, flag: "CLEAN", flagKind: "ok" },
-      { id: 4, who: "Rasmus Lind", initials: "RL", dept: "Service", what: "Aarhus\u2013Odense, 188 km", date: "5 Aug", cat: "Mileage", catIcon: cats.mileage, amount: "712,52", sub: "3,79 / km", age: "1 day", old: false, flag: "CLEAN", flagKind: "ok" },
+      { id: 4, who: "Rasmus Lind", initials: "RL", dept: "Service", what: "Aarhus\u2013Odense, 291 km", date: "5 Aug", cat: "Mileage", catIcon: cats.mileage, amount: "1.102,89", sub: "3,79 / km", age: "1 day", old: false, flag: "CLEAN", flagKind: "ok" },
       { id: 5, who: "Camilla Berg", initials: "CB", dept: "Service", what: "Circle K, fuel", date: "5 Aug", cat: "Fuel", catIcon: cats.fuel, amount: "640,25", sub: "VAT 128,05", age: "1 day", old: false, flag: "NO RECEIPT", flagKind: "danger" },
       { id: 6, who: "Mikkel Overgaard", initials: "MO", dept: "Product", what: "Adobe Creative Cloud", date: "6 Aug", cat: "Software", catIcon: cats.software, amount: "1.036,99", sub: "139,00 EUR", age: "Today", old: false, flag: "CLEAN", flagKind: "ok" },
       { id: 7, who: "Signe Dalgaard", initials: "SD", dept: "Sales \u00B7 K\u00F8benhavn", what: "Taxa 4x35, airport", date: "6 Aug", cat: "Local transport", catIcon: cats.taxi, amount: "285,00", sub: "VAT 57,00", age: "Today", old: false, flag: "CLEAN", flagKind: "ok" },
@@ -1464,7 +1464,7 @@ class Component extends DCLogic {
       { date: "04-08-2026", what: "Hotel Skt. Petri, 2 nights", sub: "Conference \u00B7 K\u00F8benhavn", who: "Anne Sofie Kruse", initials: "AK", cat: "Accommodation", catIcon: cats.hotel, status: "APPROVED", key: "approved", amount: "3.180,00", fx: "VAT 795,00", entry: "\u2014" },
       { date: "03-08-2026", what: "Deutsche Bahn, Berlin\u2013Hamburg", sub: "Card \u00B7 Eurocard 4417", who: "Peter Winther", initials: "PW", cat: "Rail", catIcon: cats.train, status: "APPROVED", key: "approved", amount: "486,20", fx: "65,17 EUR \u00B7 7,4604", entry: "\u2014" },
       { date: "01-08-2026", what: "Restaurant Bind, Vejle", sub: "Rejected \u00B7 no attendees listed", who: "Jonas Vestergaard", initials: "JV", cat: "Meals", catIcon: cats.meals, status: "REJECTED", key: "rejected", amount: "1.420,00", fx: "VAT 284,00", entry: "\u2014" },
-      { date: "31-07-2026", what: "Aarhus\u2013Odense, 188 km", sub: "Mileage \u00B7 low rate", who: "Rasmus Lind", initials: "RL", cat: "Mileage", catIcon: cats.mileage, status: "POSTED", key: "posted", amount: "712,52", fx: "3,79 / km", entry: "G/L 118402" },
+      { date: "31-07-2026", what: "Aarhus\u2013Odense, 145 km", sub: "Mileage \u00B7 low rate", who: "Rasmus Lind", initials: "RL", cat: "Mileage", catIcon: cats.mileage, status: "POSTED", key: "posted", amount: "549,55", fx: "3,79 / km", entry: "G/L 118402" },
       { date: "30-07-2026", what: "SAS CPH\u2013LHR, return", sub: "Booked via TravelPartner", who: "Mette Holm", initials: "MH", cat: "Airfare", catIcon: cats.travel, status: "POSTED", key: "posted", amount: "3.965,00", fx: "VAT 0,00", entry: "G/L 118388" },
       { date: "29-07-2026", what: "Lyreco, office supplies", sub: "Invoice 88213", who: "Anne Sofie Kruse", initials: "AK", cat: "Office", catIcon: cats.office, status: "POSTED", key: "posted", amount: "1.204,50", fx: "VAT 240,90", entry: "G/L 118371" },
       { date: "28-07-2026", what: "Per diem, M\u00FCnchen \u00B7 2 days", sub: "Draft \u00B7 not submitted", who: "Jonas Vestergaard", initials: "JV", cat: "Per diem", catIcon: cats.perdiem, status: "DRAFT", key: "draft", amount: "1.125,34", fx: "Rate 2026", entry: "\u2014" }
@@ -1512,13 +1512,13 @@ class Component extends DCLogic {
     ];
 
     const mileData = [
-      { date: "06-08", who: "Rasmus Lind", initials: "RL", route: "Aarhus \u2192 Odense", purpose: "Service visit, Odense Havn \u00B7 return trip", km: "188", rate: "3,79", amount: "712,52", status: "PENDING", key: "pending" },
-      { date: "05-08", who: "Mette Holm", initials: "MH", route: "Aarhus \u2192 Vejle", purpose: "Vestas renewal meeting \u00B7 commute deducted", km: "148", rate: "3,79", amount: "560,92", status: "PENDING", key: "pending" },
-      { date: "04-08", who: "Camilla Berg", initials: "CB", route: "Silkeborg \u2192 Herning", purpose: "Installation follow-up", km: "116", rate: "3,79", amount: "439,64", status: "APPROVED", key: "approved" },
-      { date: "04-08", who: "Jonas Vestergaard", initials: "JV", route: "K\u00F8benhavn \u2192 Roskilde", purpose: "Workshop, 2 consultants", km: "62", rate: "3,79", amount: "234,98", status: "APPROVED", key: "approved" },
-      { date: "01-08", who: "Rasmus Lind", initials: "RL", route: "Aarhus \u2192 Aalborg", purpose: "Installation \u00B7 claimed 12 km over route", km: "236", rate: "3,79", amount: "894,44", status: "POSTED", key: "posted" },
-      { date: "31-07", who: "Signe Dalgaard", initials: "SD", route: "K\u00F8benhavn \u2192 Helsing\u00F8r", purpose: "Customer meeting \u00B7 driver on high rate", km: "92", rate: "2,23", amount: "205,16", status: "POSTED", key: "posted", high: true },
-      { date: "30-07", who: "Peter Winther", initials: "PW", route: "Aarhus \u2192 Skanderborg", purpose: "Site survey", km: "44", rate: "3,79", amount: "166,76", status: "POSTED", key: "posted" }
+      { date: "06-08", who: "Rasmus Lind", initials: "RL", route: "Aarhus \u2192 Odense", purpose: "Service visit, Odense Havn \u00B7 return trip", km: "291", rate: "3,79", amount: "1.102,89", status: "PENDING", key: "pending" },
+      { date: "05-08", who: "Mette Holm", initials: "MH", route: "Aarhus \u2192 Vejle", purpose: "Vestas renewal meeting \u00B7 commute deducted", km: "47", rate: "3,79", amount: "178,13", status: "PENDING", key: "pending" },
+      { date: "04-08", who: "Camilla Berg", initials: "CB", route: "Silkeborg \u2192 Herning", purpose: "Installation follow-up", km: "39", rate: "3,79", amount: "147,81", status: "APPROVED", key: "approved" },
+      { date: "04-08", who: "Jonas Vestergaard", initials: "JV", route: "K\u00F8benhavn \u2192 Roskilde", purpose: "Workshop, 2 consultants", km: "35", rate: "3,79", amount: "132,65", status: "APPROVED", key: "approved" },
+      { date: "01-08", who: "Rasmus Lind", initials: "RL", route: "Aarhus \u2192 Aalborg", purpose: "Installation \u00B7 claimed 12 km over route", km: "132", rate: "3,79", amount: "500,28", status: "POSTED", key: "posted" },
+      { date: "31-07", who: "Signe Dalgaard", initials: "SD", route: "K\u00F8benhavn \u2192 Helsing\u00F8r", purpose: "Customer meeting \u00B7 driver on high rate", km: "47", rate: "2,23", amount: "104,81", status: "POSTED", key: "posted", high: true },
+      { date: "30-07", who: "Peter Winther", initials: "PW", route: "Aarhus \u2192 Skanderborg", purpose: "Site survey", km: "27", rate: "3,79", amount: "102,33", status: "POSTED", key: "posted" }
     ];
     const driverData = [
       ["Signe Dalgaard", 21480, "HIGH RATE", "high"],
@@ -1779,7 +1779,7 @@ class Component extends DCLogic {
         { label: "Km logged, YTD", value: "74.280", note: "412 entries \u00B7 24 drivers" },
         { label: "Reimbursed, YTD", value: "264.880", note: "DKK \u00B7 3,79 average rate" },
         { label: "On the high rate", value: "1", note: "of 24 drivers \u00B7 2 within 2.000 km" },
-        { label: "Awaiting approval", value: "2", note: "712,52 + 560,92 DKK" }
+        { label: "Awaiting approval", value: "2", note: "1.102,89 + 178,13 DKK" }
       ],
       mileRows: mileData.map((m, mi) => ({
         open: this.openDetail("mile", mi),
