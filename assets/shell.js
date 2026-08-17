@@ -36,7 +36,10 @@
         'mileage':           'mileage',
         'card-transactions': 'cards',
         'reporting':         'reports',
-        'setup':             'settings'
+        'setup':             'settings',
+        'expense-detail':    'expense',
+        'mileage-detail':    'trip',
+        'card-transaction':  'cardtx'
       }
     },
     app: {
@@ -74,10 +77,11 @@
   // ikke smides tilbage til forsiden. Kortlægning mellem fladernes skærme:
   var EQUIVALENT = {
     portal: { login:'login', queue:'home', approve:'detail', list:'history',
-              mileage:'mileage', cards:'history', reports:'report', settings:'home' },
+              mileage:'mileage', cards:'history', reports:'report', settings:'home',
+              expense:'detail', trip:'mileage', cardtx:'receipts' },
     app:    { login:'login', home:'queue', history:'list', perdiem:'list',
               scan:'queue', result:'queue', create:'queue', mileage:'mileage',
-              report:'reports', detail:'approve', receipts:'queue' }
+              report:'reports', detail:'expense', receipts:'cardtx' }
   };
 
   function slugFor(surface, screen) {

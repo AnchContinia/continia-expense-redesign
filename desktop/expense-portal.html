@@ -502,12 +502,12 @@
                     <div class="btnz" style="height: 30px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-tag"></i>Category &middot; all</div>
                   </div>
 
-                  <div style="display: grid; grid-template-columns: 118px 1.6fr 1.3fr 118px 120px 128px 118px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
+                  <div style="display: grid; grid-template-columns: 118px 1.6fr 1.3fr 118px 120px 128px 118px 28px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
                     <span>Date</span><span>Expense</span><span>Employee</span><span>Category</span><span>Status</span><span style="text-align: right;">Amount</span><span style="text-align: right;">Entry</span>
                   </div>
 
                   <sc-for list="{{ rows }}" as="r" hint-placeholder-count="11">
-                    <div class="trow" style="{{ r.rowStyle }}">
+                    <div class="trow" onClick="{{ r.open }}" style="{{ r.rowStyle }}">
                       <span style="font-size: 12px; color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ r.date }}</span>
                       <span style="min-width: 0;">
                         <span style="display: block; font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ r.what }}</span>
@@ -527,7 +527,9 @@
                         <span style="display: block; font-size: 11px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">{{ r.fx }}</span>
                       </span>
                       <span style="text-align: right; font-size: 11px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">{{ r.entry }}</span>
-                    </div>
+                    
+                  <span style="text-align: right; color: var(--c-slate-300); font-size: 13px;"><i class="fa-light fa-chevron-right"></i></span>
+                </div>
                   </sc-for>
 
                   <div style="display: flex; align-items: center; gap: 16px; padding: 13px 18px; background: var(--c-slate-50);">
@@ -664,11 +666,11 @@
                       <div class="btnz" style="height: 30px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-map-location-dot"></i>Show on map</div>
                       <div class="btnz" style="height: 30px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-arrow-down-to-line"></i>Export</div>
                     </div>
-                    <div style="display: grid; grid-template-columns: 76px 178px 1fr 78px 74px 116px 118px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
+                    <div style="display: grid; grid-template-columns: 76px 178px 1fr 78px 74px 116px 118px 28px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
                       <span>Date</span><span>Driver</span><span>Route &amp; purpose</span><span style="text-align: right;">Km</span><span style="text-align: right;">Rate</span><span style="text-align: right;">Amount</span><span>Status</span>
                     </div>
                     <sc-for list="{{ mileRows }}" as="m" hint-placeholder-count="7">
-                      <div class="trow" style="{{ m.rowStyle }}">
+                      <div class="trow" onClick="{{ m.open }}" style="{{ m.rowStyle }}">
                         <span style="font-size: 12px; color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ m.date }}</span>
                         <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
                           <span style="{{ m.avStyle }}">{{ m.initials }}</span>
@@ -684,7 +686,9 @@
                         <span style="{{ m.rateStyle }}">{{ m.rate }}</span>
                         <span style="font-size: 13px; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums;">{{ m.amount }}</span>
                         <span><span style="{{ m.chipStyle }}"><i class="{{ m.chipIcon }}" style="font-size: 10px;"></i>{{ m.status }}</span></span>
-                      </div>
+                      
+                  <span style="text-align: right; color: var(--c-slate-300); font-size: 13px;"><i class="fa-light fa-chevron-right"></i></span>
+                </div>
                     </sc-for>
                     <div style="display: flex; align-items: center; gap: 16px; padding: 13px 18px; background: var(--c-slate-50);">
                       <span style="font-size: 12px; color: var(--c-slate-500);">7 entries this month &middot; 886 km</span>
@@ -771,11 +775,11 @@
                     <div class="btnz" style="height: 30px; padding: 0 13px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-arrows-rotate"></i>Import feed</div>
                   </div>
 
-                  <div style="display: grid; grid-template-columns: 88px 1.3fr 1.2fr 1.4fr 124px 128px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
+                  <div style="display: grid; grid-template-columns: 88px 1.3fr 1.2fr 1.4fr 124px 128px 28px; align-items: center; gap: 12px; padding: 10px 18px; background: var(--c-slate-50); border-bottom: 1px solid var(--color-border); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-slate-500);">
                     <span>Date</span><span>Merchant</span><span>Card</span><span>Matched expense</span><span style="text-align: right;">Amount</span><span>Reconciliation</span>
                   </div>
                   <sc-for list="{{ cardRows }}" as="c" hint-placeholder-count="10">
-                    <div class="trow" style="{{ c.rowStyle }}">
+                    <div class="trow" onClick="{{ c.open }}" style="{{ c.rowStyle }}">
                       <span style="font-size: 12px; color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ c.date }}</span>
                       <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
                         <i class="{{ c.icon }}" style="color: var(--c-tech-blue); font-size: 13px;"></i>
@@ -794,7 +798,9 @@
                         <span style="display: block; font-size: 11px; color: var(--c-slate-500); font-variant-numeric: tabular-nums;">{{ c.fx }}</span>
                       </span>
                       <span><span style="{{ c.chipStyle }}"><i class="{{ c.chipIcon }}" style="font-size: 10px;"></i>{{ c.status }}</span></span>
-                    </div>
+                    
+                  <span style="text-align: right; color: var(--c-slate-300); font-size: 13px;"><i class="fa-light fa-chevron-right"></i></span>
+                </div>
                   </sc-for>
                   <div style="display: flex; align-items: center; gap: 16px; padding: 13px 18px; background: var(--c-slate-50);">
                     <span style="font-size: 12px; color: var(--c-slate-500);">{{ cardFootNote }}</span>
@@ -806,7 +812,404 @@
             </sc-if>
 
             <!-- ─────────── SETTINGS ─────────── -->
-            <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+            <!-- ─────────── EXPENSE DETAIL ─────────── -->
+        <sc-if value="{{ isExpense }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; height: 100%;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+              <div class="btnz" onClick="{{ backList }}" style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-arrow-left"></i>Expenses</div>
+              <div style="width: 1px; height: 18px; background: var(--color-border);"></div>
+              <span style="font-size: 12px; color: var(--c-slate-500);">Item <strong style="color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ detPos }} of {{ detCount }}</strong></span>
+              <div style="display: flex; gap: 4px;">
+                <div class="btnz" onClick="{{ detPrev }}" style="{{ detPrevStyle }}"><i class="fa-light fa-chevron-up"></i></div>
+                <div class="btnz" onClick="{{ detNext }}" style="{{ detNextStyle }}"><i class="fa-light fa-chevron-down"></i></div>
+              </div>
+              <div style="flex: 1;"></div>
+              <span style="{{ eChipStyle }}"><i class="{{ eChipIcon }}" style="font-size: 10px;"></i>{{ eStatus }}</span>
+            </div>
+            <div style="flex: 1; display: grid; grid-template-columns: 1fr 468px; min-height: 0;">
+
+              <!-- receipt pane -->
+              <div style="background: #eef2f8; border-right: 1px solid var(--color-border); display: flex; flex-direction: column; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--color-border); background: #fff;">
+                  <sc-if value="{{ eHasReceipt }}" hint-placeholder-val="{{ true }}">
+                    <span style="display: inline-flex; align-items: center; gap: 7px; background: var(--c-smart-green-30); color: var(--color-success-fg); font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 999px;"><i class="fa-light fa-wand-magic-sparkles"></i>OCR MATCHED</span>
+                    <span style="font-size: 12px; color: var(--c-slate-500);">Total, date and VAT read from the receipt</span>
+                  </sc-if>
+                  <sc-if value="{{ eNoReceipt }}" hint-placeholder-val="{{ false }}">
+                    <span style="display: inline-flex; align-items: center; gap: 7px; background: var(--color-danger-bg); color: var(--color-danger-fg); font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 999px;"><i class="fa-light fa-triangle-exclamation"></i>NO RECEIPT</span>
+                    <span style="font-size: 12px; color: var(--c-slate-500);">Nothing was attached to this entry</span>
+                  </sc-if>
+                  <div style="flex: 1;"></div>
+                  <div style="display: flex; gap: 5px;">
+                    <div class="btnz" style="width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--c-slate-700);"><i class="fa-light fa-magnifying-glass-plus"></i></div>
+                    <div class="btnz" style="width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--c-slate-700);"><i class="fa-light fa-arrow-down-to-line"></i></div>
+                  </div>
+                </div>
+                <div style="flex: 1; overflow: auto; padding: 22px; display: flex; justify-content: center; align-items: flex-start;">
+                  <sc-if value="{{ eHasReceipt }}" hint-placeholder-val="{{ true }}">
+                    <div style="width: 440px; background: #fff; box-shadow: 0 18px 44px rgba(5,41,117,0.16); padding: 40px 32px 30px; font-size: 14px; color: #2b3346; position: relative;">
+                      <div style="position: absolute; inset: 0; border: 1px solid rgba(5,41,117,0.06); pointer-events: none;"></div>
+                      <div style="text-align: center; padding-bottom: 18px; border-bottom: 1px dashed #c9d2e2;">
+                        <div style="font-size: 17px; font-weight: 700; letter-spacing: 0.14em; color: #1b2438; text-transform: uppercase;">{{ eWhat }}</div>
+                        <div style="font-size: 13px; color: #6b7689; margin-top: 6px; line-height: 1.5;">{{ eSub }}</div>
+                      </div>
+                      <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6b7689; padding: 15px 0; border-bottom: 1px dashed #c9d2e2;">
+                        <span>{{ eDate }}</span><span>{{ eWho }}</span>
+                      </div>
+                      <div style="padding: 17px 0; display: flex; flex-direction: column; gap: 13px; border-bottom: 1px dashed #c9d2e2; font-variant-numeric: tabular-nums;">
+                        <sc-for list="{{ eReceiptLines }}" as="l" hint-placeholder-count="2">
+                          <div style="display: flex; justify-content: space-between;"><span>{{ l.t }}</span><span>{{ l.v }}</span></div>
+                        </sc-for>
+                      </div>
+                      <div style="padding: 19px 0 4px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 20px; font-weight: 700; color: #1b2438; background: rgba(143,248,255,0.42); margin: -2px -8px; padding: 6px 8px; border-radius: 3px; font-variant-numeric: tabular-nums;"><span>TOTAL DKK</span><span>{{ eAmount }}</span></div>
+                      </div>
+                      <div style="text-align: center; font-size: 11px; color: #8b94a6; letter-spacing: 0.12em; padding-top: 18px; margin-top: 14px; border-top: 1px dashed #c9d2e2;">TAK FOR HANDLEN</div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ eNoReceipt }}" hint-placeholder-val="{{ false }}">
+                    <div style="width: 440px; border: 1.5px dashed var(--c-slate-300); border-radius: 16px; padding: 54px 34px; text-align: center; background: rgba(255,255,255,0.6);">
+                      <div style="width: 52px; height: 52px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger-fg); display: flex; align-items: center; justify-content: center; font-size: 21px; margin: 0 auto 16px;"><i class="fa-light fa-receipt"></i></div>
+                      <div style="font-size: 16px; font-weight: 600; color: var(--c-tech-blue);">No receipt attached</div>
+                      <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 8px; line-height: 1.6;">The card transaction was imported automatically, but {{ eWho }} has not photographed a receipt. Danish bookkeeping rules require documentation over 100 DKK.</div>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="padding: 10px 18px; border-top: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--c-slate-500);">
+                  <i class="fa-light fa-mobile-notch" style="color: var(--c-tech-blue);"></i>
+                  <span>Captured by <strong style="color: var(--c-slate-700);">{{ eWho }}</strong> &middot; {{ eDate }}</span>
+                </div>
+              </div>
+
+              <!-- data pane -->
+              <div style="display: flex; flex-direction: column; min-width: 0; background: #fff;">
+                <div style="flex: 1; overflow: auto; padding: 22px 24px 20px;">
+                  <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 16px;">
+                    <div style="{{ eAvStyle }}">{{ eInitials }}</div>
+                    <div style="min-width: 0;">
+                      <div style="font-size: 14px; font-weight: 600;">{{ eWho }}</div>
+                      <div style="font-size: 12px; color: var(--c-slate-500);">{{ eSub }}</div>
+                    </div>
+                  </div>
+                  <div style="font-size: 22px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">{{ eWhat }}</div>
+                  <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--color-border);">
+                    <span style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">{{ eAmount }}</span>
+                    <span style="font-size: 15px; font-weight: 600; color: var(--c-slate-500);">DKK</span>
+                    <div style="flex: 1;"></div>
+                    <sc-if value="{{ eVat }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size: 12px; color: var(--c-slate-500); text-align: right;">VAT {{ eVat }}</span>
+                    </sc-if>
+                    <sc-if value="{{ eFx }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size: 12px; color: var(--c-slate-500); text-align: right;">{{ eFx }}</span>
+                    </sc-if>
+                  </div>
+                  <div style="display: grid; grid-template-columns: 116px 1fr; gap: 0 14px; padding: 14px 0; border-bottom: 1px solid var(--color-border);">
+                  <sc-for list="{{ eFields }}" as="f" hint-placeholder-count="6">
+                    <div style="font-size: 12px; color: var(--c-slate-500); padding: 7px 0;">{{ f.k }}</div>
+                    <div style="font-size: 13px; font-weight: 500; padding: 7px 0; display: flex; align-items: center; gap: 8px;">
+                      <sc-if value="{{ f.icon }}" hint-placeholder-val="{{ false }}"><i class="{{ f.icon }}" style="color: var(--c-tech-blue); font-size: 13px;"></i></sc-if>
+                      <span>{{ f.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                  <div style="padding: 16px 0 4px;">
+                  <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 10px;">Approval chain</div>
+                  <div style="display: flex; flex-direction: column;">
+                    <sc-for list="{{ eChain }}" as="t" hint-placeholder-count="3">
+                      <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                          <span style="{{ t.dotStyle }}"><i class="{{ t.icon }}" style="font-size: 10px;"></i></span>
+                          <sc-if value="{{ t.line }}" hint-placeholder-val="{{ true }}"><span style="{{ t.lineStyle }}"></span></sc-if>
+                        </div>
+                        <div style="padding-bottom: 16px;">
+                          <div style="font-size: 13px; font-weight: 600; color: {{ t.titleColor }};">{{ t.title }}</div>
+                          <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px; line-height: 1.5;">{{ t.meta }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                </div>
+                <div style="border-top: 1px solid var(--color-border); padding: 14px 24px 16px; background: #fff; box-shadow: 0 -8px 24px rgba(5,41,117,0.05); flex-shrink: 0;">
+                <div style="display: flex; gap: 9px;">
+                  <div class="btnz" onClick="{{ eActions.primary.go }}" style="flex: 1; height: 42px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm);"><i class="{{ eActions.primary.icon }}"></i>{{ eActions.primary.label }}</div>
+                  <sc-if value="{{ eActions.second }}" hint-placeholder-val="{{ false }}">
+                    <div class="btnz" onClick="{{ eActions.second.go }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="{{ eActions.second.icon }}"></i>{{ eActions.second.label }}</div>
+                  </sc-if>
+                  <sc-if value="{{ eActions.third }}" hint-placeholder-val="{{ false }}">
+                    <div class="btnz" onClick="{{ eActions.third.go }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-performance-purple); color: var(--color-danger-fg); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="{{ eActions.third.icon }}"></i>{{ eActions.third.label }}</div>
+                  </sc-if>
+                </div>
+                <div style="font-size: 11px; color: var(--c-slate-500); text-align: center; margin-top: 9px;">{{ eActions.note }}</div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ─────────── MILEAGE DETAIL ─────────── -->
+        <sc-if value="{{ isTrip }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; height: 100%;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+              <div class="btnz" onClick="{{ backMile }}" style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-arrow-left"></i>Mileage</div>
+              <div style="width: 1px; height: 18px; background: var(--color-border);"></div>
+              <span style="font-size: 12px; color: var(--c-slate-500);">Item <strong style="color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ detPos }} of {{ detCount }}</strong></span>
+              <div style="display: flex; gap: 4px;">
+                <div class="btnz" onClick="{{ detPrev }}" style="{{ detPrevStyle }}"><i class="fa-light fa-chevron-up"></i></div>
+                <div class="btnz" onClick="{{ detNext }}" style="{{ detNextStyle }}"><i class="fa-light fa-chevron-down"></i></div>
+              </div>
+              <div style="flex: 1;"></div>
+              <span style="{{ mChipStyle }}"><i class="{{ mChipIcon }}" style="font-size: 10px;"></i>{{ mStatus }}</span>
+            </div>
+            <div style="flex: 1; display: grid; grid-template-columns: 1fr 468px; min-height: 0;">
+
+              <!-- route pane -->
+              <div style="background: #eef2f8; border-right: 1px solid var(--color-border); display: flex; flex-direction: column; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--color-border); background: #fff;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px; background: var(--c-light-blue); color: var(--color-info-fg); font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 999px;"><i class="fa-light fa-route"></i>SHORTEST ROUTE</span>
+                  <span style="font-size: 12px; color: var(--c-slate-500);">{{ mKm }} km logged &middot; distance checked against the routing service</span>
+                </div>
+                <div style="flex: 1; position: relative; min-height: 0;">
+                  <iframe src="../mileage-map.html" title="Route {{ mFrom }} to {{ mTo }}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block;"></iframe>
+                  <div style="position: absolute; left: 18px; top: 18px; background: #fff; border-radius: 12px; box-shadow: var(--shadow-md); padding: 12px 16px; min-width: 210px;">
+                    <div style="display: flex; align-items: center; gap: 9px; padding-bottom: 9px; border-bottom: 1px solid var(--color-border);">
+                      <i class="fa-light fa-circle-dot" style="color: var(--c-tech-blue); font-size: 12px;"></i>
+                      <span style="font-size: 13px; font-weight: 600;">{{ mFrom }}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 9px; padding-top: 9px;">
+                      <i class="fa-light fa-location-dot" style="color: var(--c-tech-blue); font-size: 12px;"></i>
+                      <span style="font-size: 13px; font-weight: 600;">{{ mTo }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div style="padding: 10px 18px; border-top: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--c-slate-500);">
+                  <i class="fa-light fa-circle-info" style="color: var(--c-tech-blue);"></i>
+                  <span>Map is illustrative in this prototype &mdash; the real routing provider draws the driven route.</span>
+                </div>
+              </div>
+
+              <!-- data pane -->
+              <div style="display: flex; flex-direction: column; min-width: 0; background: #fff;">
+                <div style="flex: 1; overflow: auto; padding: 22px 24px 20px;">
+                  <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 16px;">
+                    <div style="{{ mAvStyle }}">{{ mInitials }}</div>
+                    <div style="min-width: 0;">
+                      <div style="font-size: 14px; font-weight: 600;">{{ mWho }}</div>
+                      <div style="font-size: 12px; color: var(--c-slate-500);">Logged {{ mDate }} &middot; private car</div>
+                    </div>
+                  </div>
+                  <div style="font-size: 22px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">{{ mRoute }}</div>
+                  <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--color-border);">
+                    <span style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">{{ mAmount }}</span>
+                    <span style="font-size: 15px; font-weight: 600; color: var(--c-slate-500);">DKK</span>
+                    <div style="flex: 1;"></div>
+                    <span style="font-size: 12px; color: var(--c-slate-500); text-align: right;">{{ mKm }} km</span>
+                  </div>
+
+                  <div style="margin: 16px 0 2px; background: var(--c-light-blue); border-radius: 12px; padding: 14px 16px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                      <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-info-fg);">Reimbursement</span>
+                      <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.04em; background: #fff; color: var(--c-tech-blue); padding: 4px 9px; border-radius: 999px;">STATE RATE 2026</span>
+                    </div>
+                    <div style="display: flex; align-items: baseline; gap: 8px; font-variant-numeric: tabular-nums;">
+                      <span style="font-size: 13px; color: var(--c-slate-700);">{{ mKm }} km</span>
+                      <span style="font-size: 13px; color: var(--c-slate-500);">&times;</span>
+                      <span style="font-size: 13px; color: var(--c-slate-700);">{{ mRate }} kr./km</span>
+                      <div style="flex: 1;"></div>
+                      <span style="font-size: 17px; font-weight: 700; color: var(--c-tech-blue);">{{ mAmount }}</span>
+                    </div>
+                    <div style="font-size: 12px; color: var(--c-slate-700); margin-top: 9px; line-height: 1.55;">Low rate applies above 20.000 km per year. Commuting between home and the office is deducted before the claim.</div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 116px 1fr; gap: 0 14px; padding: 14px 0; border-bottom: 1px solid var(--color-border);">
+                  <sc-for list="{{ mFields }}" as="f" hint-placeholder-count="6">
+                    <div style="font-size: 12px; color: var(--c-slate-500); padding: 7px 0;">{{ f.k }}</div>
+                    <div style="font-size: 13px; font-weight: 500; padding: 7px 0; display: flex; align-items: center; gap: 8px;">
+                      <sc-if value="{{ f.icon }}" hint-placeholder-val="{{ false }}"><i class="{{ f.icon }}" style="color: var(--c-tech-blue); font-size: 13px;"></i></sc-if>
+                      <span>{{ f.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                  <div style="padding: 16px 0 4px;">
+                  <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 10px;">Approval chain</div>
+                  <div style="display: flex; flex-direction: column;">
+                    <sc-for list="{{ mChain }}" as="t" hint-placeholder-count="3">
+                      <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px;">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                          <span style="{{ t.dotStyle }}"><i class="{{ t.icon }}" style="font-size: 10px;"></i></span>
+                          <sc-if value="{{ t.line }}" hint-placeholder-val="{{ true }}"><span style="{{ t.lineStyle }}"></span></sc-if>
+                        </div>
+                        <div style="padding-bottom: 16px;">
+                          <div style="font-size: 13px; font-weight: 600; color: {{ t.titleColor }};">{{ t.title }}</div>
+                          <div style="font-size: 12px; color: var(--c-slate-500); margin-top: 2px; line-height: 1.5;">{{ t.meta }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                </div>
+                <div style="border-top: 1px solid var(--color-border); padding: 14px 24px 16px; background: #fff; box-shadow: 0 -8px 24px rgba(5,41,117,0.05); flex-shrink: 0;">
+                <div style="display: flex; gap: 9px;">
+                  <div class="btnz" onClick="{{ mActions.primary.go }}" style="flex: 1; height: 42px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm);"><i class="{{ mActions.primary.icon }}"></i>{{ mActions.primary.label }}</div>
+                  <sc-if value="{{ mActions.second }}" hint-placeholder-val="{{ false }}">
+                    <div class="btnz" onClick="{{ mActions.second.go }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="{{ mActions.second.icon }}"></i>{{ mActions.second.label }}</div>
+                  </sc-if>
+                  <sc-if value="{{ mActions.third }}" hint-placeholder-val="{{ false }}">
+                    <div class="btnz" onClick="{{ mActions.third.go }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-performance-purple); color: var(--color-danger-fg); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="{{ mActions.third.icon }}"></i>{{ mActions.third.label }}</div>
+                  </sc-if>
+                </div>
+                <div style="font-size: 11px; color: var(--c-slate-500); text-align: center; margin-top: 9px;">{{ mActions.note }}</div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ─────────── CARD TRANSACTION DETAIL ─────────── -->
+        <sc-if value="{{ isCardTx }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; height: 100%;">
+            <div style="display: flex; align-items: center; gap: 14px; padding: 12px 24px; background: #fff; border-bottom: 1px solid var(--color-border); flex-shrink: 0;">
+              <div class="btnz" onClick="{{ backCards }}" style="height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border); display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--c-slate-700);"><i class="fa-light fa-arrow-left"></i>Card transactions</div>
+              <div style="width: 1px; height: 18px; background: var(--color-border);"></div>
+              <span style="font-size: 12px; color: var(--c-slate-500);">Item <strong style="color: var(--c-slate-700); font-variant-numeric: tabular-nums;">{{ detPos }} of {{ detCount }}</strong></span>
+              <div style="display: flex; gap: 4px;">
+                <div class="btnz" onClick="{{ detPrev }}" style="{{ detPrevStyle }}"><i class="fa-light fa-chevron-up"></i></div>
+                <div class="btnz" onClick="{{ detNext }}" style="{{ detNextStyle }}"><i class="fa-light fa-chevron-down"></i></div>
+              </div>
+              <div style="flex: 1;"></div>
+              <span style="{{ cChipStyle }}"><i class="{{ cChipIcon }}" style="font-size: 10px;"></i>{{ cStatus }}</span>
+            </div>
+            <div style="flex: 1; display: grid; grid-template-columns: 1fr 468px; min-height: 0;">
+
+              <!-- reconciliation pane -->
+              <div style="background: #eef2f8; border-right: 1px solid var(--color-border); display: flex; flex-direction: column; min-width: 0;">
+                <div style="display: flex; align-items: center; gap: 10px; padding: 11px 18px; border-bottom: 1px solid var(--color-border); background: #fff;">
+                  <span style="display: inline-flex; align-items: center; gap: 7px; background: var(--c-slate-100); color: var(--color-neutral-fg); font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 999px;"><i class="fa-light fa-arrows-repeat"></i>RECONCILIATION</span>
+                  <span style="font-size: 12px; color: var(--c-slate-500);">Imported from the Eurocard feed</span>
+                </div>
+                <div style="flex: 1; overflow: auto; padding: 22px; display: flex; justify-content: center; align-items: flex-start;">
+
+                  <sc-if value="{{ cUnmatched }}" hint-placeholder-val="{{ true }}">
+                    <div style="width: 440px; border: 1.5px dashed var(--c-slate-300); border-radius: 16px; padding: 46px 34px; text-align: center; background: rgba(255,255,255,0.6);">
+                      <div style="width: 52px; height: 52px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger-fg); display: flex; align-items: center; justify-content: center; font-size: 21px; margin: 0 auto 16px;"><i class="fa-light fa-link-slash"></i></div>
+                      <div style="font-size: 16px; font-weight: 600; color: var(--c-tech-blue);">Nothing to match this against</div>
+                      <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 8px; line-height: 1.6;">The company card was charged, but {{ cHolder }} has not created an expense. Until one exists, the amount sits unreconciled on the card account.</div>
+                      <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; margin-top: 22px; text-align: left; background: #fff;">
+                        <div style="display: flex; align-items: center; gap: 11px; padding: 12px 14px; border-bottom: 1px solid var(--color-border);">
+                          <i class="fa-light fa-wand-magic-sparkles" style="color: var(--c-tech-blue); font-size: 14px;"></i>
+                          <div style="font-size: 12px; line-height: 1.55; color: var(--c-slate-700);">Creating the expense here pre-fills merchant, date, amount and VAT, and sends it to {{ cHolder }} for a receipt.</div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 11px; padding: 12px 14px;">
+                          <i class="fa-light fa-clock" style="color: var(--color-warning-fg); font-size: 14px;"></i>
+                          <div style="font-size: 12px; line-height: 1.55; color: var(--c-slate-700);">{{ cMatchSub }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cNoReceipt }}" hint-placeholder-val="{{ false }}">
+                    <div style="width: 440px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-md); overflow: hidden;">
+                      <div style="padding: 18px 20px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 11px;">
+                        <div style="width: 34px; height: 34px; border-radius: 10px; background: var(--c-smart-green-30); color: var(--color-success-fg); display: flex; align-items: center; justify-content: center; font-size: 14px;"><i class="fa-light fa-link"></i></div>
+                        <div>
+                          <div style="font-size: 14px; font-weight: 600;">Matched to an expense</div>
+                          <div style="font-size: 12px; color: var(--c-slate-500);">{{ cMatch }}</div>
+                        </div>
+                      </div>
+                      <div style="padding: 40px 34px; text-align: center;">
+                        <div style="width: 52px; height: 52px; border-radius: 999px; background: var(--color-danger-bg); color: var(--color-danger-fg); display: flex; align-items: center; justify-content: center; font-size: 21px; margin: 0 auto 16px;"><i class="fa-light fa-receipt"></i></div>
+                        <div style="font-size: 16px; font-weight: 600; color: var(--c-tech-blue);">The receipt is still missing</div>
+                        <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 8px; line-height: 1.6;">{{ cMatchSub }}. The entry cannot be posted until documentation is attached.</div>
+                      </div>
+                    </div>
+                  </sc-if>
+
+                  <sc-if value="{{ cSettled }}" hint-placeholder-val="{{ false }}">
+                    <div style="width: 440px; background: #fff; border-radius: 16px; box-shadow: var(--shadow-md); padding: 46px 34px; text-align: center;">
+                      <div style="width: 52px; height: 52px; border-radius: 999px; background: var(--c-smart-green-30); color: var(--color-success-fg); display: flex; align-items: center; justify-content: center; font-size: 21px; margin: 0 auto 16px;"><i class="fa-light fa-check-double"></i></div>
+                      <div style="font-size: 16px; font-weight: 600; color: var(--c-tech-blue);">Reconciled</div>
+                      <div style="font-size: 13px; color: var(--c-slate-500); margin-top: 8px; line-height: 1.6;">{{ cMatch }} &middot; {{ cMatchSub }}</div>
+                    </div>
+                  </sc-if>
+
+                </div>
+                <div style="padding: 10px 18px; border-top: 1px solid var(--color-border); background: #fff; display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--c-slate-500);">
+                  <i class="fa-light fa-building-columns" style="color: var(--c-tech-blue);"></i>
+                  <span>Feed imported 07-08-2026 06:00 &middot; Eurocard, 24 cards</span>
+                </div>
+              </div>
+
+              <!-- data pane -->
+              <div style="display: flex; flex-direction: column; min-width: 0; background: #fff;">
+                <div style="flex: 1; overflow: auto; padding: 22px 24px 20px;">
+                  <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 16px;">
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: var(--c-slate-100); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;"><i class="{{ cIcon }}"></i></div>
+                    <div style="min-width: 0;">
+                      <div style="font-size: 14px; font-weight: 600;">{{ cHolder }}</div>
+                      <div style="font-size: 12px; color: var(--c-slate-500);">{{ cCard }}</div>
+                    </div>
+                  </div>
+                  <div style="font-size: 22px; font-weight: 700; color: var(--c-tech-blue); letter-spacing: -0.01em;">{{ cMerchant }}</div>
+                  <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 10px; padding-bottom: 18px; border-bottom: 1px solid var(--color-border);">
+                    <span style="font-size: 32px; font-weight: 700; color: var(--c-tech-blue); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;">{{ cAmount }}</span>
+                    <span style="font-size: 15px; font-weight: 600; color: var(--c-slate-500);">DKK</span>
+                    <div style="flex: 1;"></div>
+                    <span style="font-size: 12px; color: var(--c-slate-500); text-align: right;">{{ cFx }}</span>
+                  </div>
+
+                  <div style="padding: 16px 0 4px;">
+                    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-slate-500); margin-bottom: 10px;">Match</div>
+                    <div style="border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden;">
+                      <div style="display: flex; gap: 11px; align-items: flex-start; padding: 12px 14px;">
+                        <i class="fa-light fa-circle-info" style="color: var(--c-tech-blue); font-size: 14px; margin-top: 1px;"></i>
+                        <div style="font-size: 12px; line-height: 1.55; color: var(--c-slate-700);"><strong style="color: var(--c-slate-700);">{{ cMatch }}</strong><br>{{ cMatchSub }}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 116px 1fr; gap: 0 14px; padding: 14px 0; border-bottom: 1px solid var(--color-border);">
+                  <sc-for list="{{ cFields }}" as="f" hint-placeholder-count="6">
+                    <div style="font-size: 12px; color: var(--c-slate-500); padding: 7px 0;">{{ f.k }}</div>
+                    <div style="font-size: 13px; font-weight: 500; padding: 7px 0; display: flex; align-items: center; gap: 8px;">
+                      <sc-if value="{{ f.icon }}" hint-placeholder-val="{{ false }}"><i class="{{ f.icon }}" style="color: var(--c-tech-blue); font-size: 13px;"></i></sc-if>
+                      <span>{{ f.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                </div>
+
+                <div style="border-top: 1px solid var(--color-border); padding: 14px 24px 16px; background: #fff; box-shadow: 0 -8px 24px rgba(5,41,117,0.05); flex-shrink: 0;">
+                  <sc-if value="{{ cUnmatched }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; gap: 9px;">
+                      <div class="btnz" onClick="{{ cCreate }}" style="flex: 1; height: 42px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm);"><i class="fa-light fa-plus"></i>Create expense</div>
+                      <div class="btnz" onClick="{{ cMatchGo }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="fa-light fa-link"></i>Match</div>
+                      <div class="btnz" onClick="{{ cRemind }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="fa-light fa-bell"></i>Remind</div>
+                    </div>
+                    <div style="font-size: 11px; color: var(--c-slate-500); text-align: center; margin-top: 9px;">Creating the expense assigns it to {{ cHolder }} and asks for a receipt.</div>
+                  </sc-if>
+                  <sc-if value="{{ cNoReceipt }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; gap: 9px;">
+                      <div class="btnz" onClick="{{ cRemind }}" style="flex: 1; height: 42px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm);"><i class="fa-light fa-bell"></i>Request receipt</div>
+                      <div class="btnz" onClick="{{ cMatchGo }}" style="height: 42px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--c-tech-blue); color: var(--c-tech-blue); display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600;"><i class="fa-light fa-eye"></i>Open expense</div>
+                    </div>
+                    <div style="font-size: 11px; color: var(--c-slate-500); text-align: center; margin-top: 9px;">A reminder goes to {{ cHolder }} with the merchant, date and amount.</div>
+                  </sc-if>
+                  <sc-if value="{{ cSettled }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; gap: 9px;">
+                      <div class="btnz" onClick="{{ cMatchGo }}" style="flex: 1; height: 42px; border-radius: 999px; background: var(--c-tech-blue); color: #fff; display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 14px; font-weight: 600; box-shadow: var(--shadow-sm);"><i class="fa-light fa-eye"></i>Open the matched expense</div>
+                    </div>
+                    <div style="font-size: 11px; color: var(--c-slate-500); text-align: center; margin-top: 9px;">Reconciled transactions are read-only here.</div>
+                  </sc-if>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
               <div style="padding: 24px 24px 40px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: start;">
 
                 <div style="background: #fff; border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 22px 24px;">
@@ -909,9 +1312,20 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1840,&quot;height&quot;:1080},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;comfortable&quot;,&quot;compact&quot;],&quot;default&quot;:&quot;comfortable&quot;,&quot;tsType&quot;:&quot;'comfortable' | 'compact'&quot;,&quot;section&quot;:&quot;Table&quot;}}">
 class Component extends DCLogic {
-  state = { screen: "login", data: "normal", density: null, sel: [], qtab: "clean", filter: "All", cardFilter: "Needs action", toast: null };
+  state = { screen: "login", data: "normal", density: null, sel: [], qtab: "clean", filter: "All", cardFilter: "Needs action", toast: null, detail: null };
 
   go(screen) { return () => this.setState({ screen: screen, toast: null }); }
+
+  // En række i Expenses / Mileage / Card transactions åbner sin egen
+  // detaljeskærm. `i` er indekset i kildelisten, ikke i den filtrerede visning,
+  // så detaljen overlever at filteret skifter.
+  openDetail(kind, i) {
+    const screen = { list: "expense", mile: "trip", card: "cardtx" }[kind];
+    return () => this.setState({ screen: screen, detail: { kind: kind, i: i }, toast: null });
+  }
+  stepDetail(kind, i) {
+    return () => this.setState({ detail: { kind: kind, i: i }, toast: null });
+  }
   flash(msg) {
     clearTimeout(this._t);
     this.setState({ toast: msg });
@@ -957,6 +1371,12 @@ class Component extends DCLogic {
         note: "Reconciliation, seen from the bank feed rather than the employee. A transaction with no expense is the only real problem here, so it sorts to the top and the reminder is one click \u2014 the rest is already matched and needs no attention." },
       { id: "reports", label: "Reporting", icon: "fa-light fa-chart-simple", title: "Reporting", url: "expense.continia.com/reports",
         note: "Reporting answers three questions: where the money goes, whether it is above budget, and where the process stalls. The stage bars show the time sits before and during manager approval, not in the controller step." },
+      { id: "expense", label: "Expense detail", icon: "fa-light fa-file-invoice", title: "Expense", url: "expense.continia.com/expenses",
+        note: "Opened from a row in All expenses. Same two-pane anatomy as the approval view, but the actions follow the entry's status \u2014 a posted entry offers Business Central and a download, not Approve." },
+      { id: "trip", label: "Mileage detail", icon: "fa-light fa-route", title: "Mileage", url: "expense.continia.com/mileage",
+        note: "The claim next to the route it was calculated from. The reimbursement panel shows the arithmetic rather than just the result, so an approver can see why the amount is what it is." },
+      { id: "cardtx", label: "Card transaction", icon: "fa-light fa-arrows-repeat", title: "Card transaction", url: "expense.continia.com/card-transactions",
+        note: "Reconciliation from the card's side. An unmatched charge leads with what is missing and offers the one action that fixes it \u2014 creating the expense pre-filled from the feed." },
       { id: "settings", label: "Setup", icon: "fa-light fa-sliders", title: "Setup", url: "expense.continia.com/setup",
         note: "Setup is the flow itself, not a list of checkboxes: the approval chain is reorderable, each step carries an SLA, and every policy rule states what happens when it trips." }
     ];
@@ -1049,10 +1469,12 @@ class Component extends DCLogic {
     const rows = listData
       .filter(r => s.filter === "All" || r.status === s.filter.toUpperCase())
       .map(r => Object.assign({}, r, {
+        src: listData.indexOf(r),
+        open: this.openDetail("list", listData.indexOf(r)),
         chipStyle: chipStyle(r.key),
         chipIcon: chips[r.key].icon,
         avStyle: av("var(--c-slate-100)", "var(--c-tech-blue)"),
-        rowStyle: "display: grid; grid-template-columns: 118px 1.6fr 1.3fr 118px 120px 128px 118px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border);"
+        rowStyle: "display: grid; grid-template-columns: 118px 1.6fr 1.3fr 118px 120px 128px 118px 28px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border);"
       }));
 
     const filterCounts = [["All", 248], ["Draft", 14], ["Pending", 31], ["On hold", 6], ["Approved", 22], ["Rejected", 4], ["Posted", 171]];
@@ -1118,14 +1540,130 @@ class Component extends DCLogic {
     const cardRows = cardData
       .filter(c => s.cardFilter === "All" ? true : s.cardFilter === "Matched" ? !c.action : c.action)
       .map(c => Object.assign({}, c, {
+        src: cardData.indexOf(c),
+        open: this.openDetail("card", cardData.indexOf(c)),
         chipStyle: chipStyle(c.key), chipIcon: chips[c.key].icon,
         matchStyle: "display: block; font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: " + (c.key === "noexp" ? "var(--color-danger-fg)" : "var(--color-text)") + ";",
-        rowStyle: "display: grid; grid-template-columns: 88px 1.3fr 1.2fr 1.4fr 124px 128px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border); background: " + (c.action ? "rgba(247,239,250,0.5)" : "transparent") + ";"
+        rowStyle: "display: grid; grid-template-columns: 88px 1.3fr 1.2fr 1.4fr 124px 128px 28px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border); background: " + (c.action ? "rgba(247,239,250,0.5)" : "transparent") + ";"
       }));
 
+    // ── Rækkedetalje ────────────────────────────────────────────────
+    // Expenses, Mileage og Card transactions åbner hver sin detaljeskærm.
+    // Alt herunder udledes af den klikkede række, så skærmen viser den
+    // konkrete post og ikke et fast eksempel.
+    const screenKind = { expense: "list", trip: "mile", cardtx: "card" }[s.screen] || null;
+    const detKind = screenKind || (s.detail ? s.detail.kind : null);
+    const detIdx = (s.detail && s.detail.kind === detKind) ? s.detail.i : 0;
+    const detPool = detKind === "list" ? rows
+                  : detKind === "card" ? cardRows
+                  : detKind === "mile" ? mileData : [];
+    const detPos = detPool.length === 0 ? -1
+      : detKind === "mile" ? Math.min(detIdx, mileData.length - 1)
+      : Math.max(0, detPool.findIndex(x => x.src === detIdx));
+    const D = detPos < 0 ? null : detPool[detPos];
+
+    const step = (delta) => {
+      if (!D || detPool.length < 2) return () => {};
+      const q = (detPos + delta + detPool.length) % detPool.length;
+      const item = detPool[q];
+      return this.stepDetail(detKind, detKind === "mile" ? q : item.src);
+    };
+
+    const stepBtn = (on) => "width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; font-size: 11px; color: " + (on ? "var(--c-slate-700)" : "var(--c-slate-300)") + ";";
+
+    // Godkendelseskæde. Hvert trin får sin egen prik-stil efter tilstand.
+    const dot = (bg, fg, ring) => "width: 24px; height: 24px; border-radius: 999px; background: " + bg + "; color: " + fg + "; display: flex; align-items: center; justify-content: center; flex-shrink: 0;" + (ring ? " box-shadow: 0 0 0 4px " + ring + ";" : "");
+    const line = (col) => "flex: 1; width: 2px; background: " + col + "; margin: 4px 0;";
+    const DONE = { style: dot("var(--c-smart-green-30)", "var(--color-success-fg)"), icon: "fa-light fa-check", lc: "var(--c-smart-green-30)" };
+    const WAIT = { style: dot("var(--c-light-yellow)", "var(--color-warning-fg)", "rgba(255,247,227,0.9)"), icon: "fa-light fa-clock", lc: "var(--color-border)" };
+    const IDLE = { style: dot("var(--c-slate-100)", "var(--c-slate-500)"), icon: "fa-light fa-minus", lc: "var(--color-border)" };
+    const STOP = { style: dot("var(--color-danger-bg)", "var(--color-danger-fg)"), icon: "fa-light fa-xmark", lc: "var(--color-border)" };
+    const LOCK = { style: dot("var(--c-tech-blue)", "#fff"), icon: "fa-light fa-lock", lc: "var(--c-smart-green-30)" };
+
+    const chainFor = (key, who) => {
+      const submitted = { s: DONE, title: "Submitted by " + who, meta: "Receipt and amount captured in the app" };
+      const mgr = {
+        draft:    { s: IDLE, title: "Line manager", meta: "Waiting for the employee to submit" },
+        pending:  { s: WAIT, title: "Lars Bruun · manager", meta: "You. Awaiting your decision" },
+        hold:     { s: WAIT, title: "Lars Bruun · manager", meta: "On hold — more information requested" },
+        approved: { s: DONE, title: "Lars Bruun · manager", meta: "Approved" },
+        rejected: { s: STOP, title: "Lars Bruun · manager", meta: "Rejected — reason sent to the employee" },
+        posted:   { s: DONE, title: "Lars Bruun · manager", meta: "Approved" }
+      }[key] || { s: IDLE, title: "Line manager", meta: "Not started" };
+      const ctrl = {
+        approved: { s: WAIT, title: "Henrik Dam · controller", meta: "In the posting run" },
+        posted:   { s: LOCK, title: "Posted to Business Central", meta: "Locked — reverse with a credit entry" }
+      }[key] || { s: IDLE, title: "Henrik Dam · controller", meta: "Not started" };
+      const steps = key === "draft" ? [{ s: IDLE, title: "Not submitted", meta: "Still a draft in the employee's app" }, mgr, ctrl]
+                  : key === "rejected" ? [submitted, mgr]
+                  : [submitted, mgr, ctrl];
+      return steps.map((x, i) => ({
+        title: x.title, meta: x.meta, icon: x.s.icon, dotStyle: x.s.style,
+        line: i < steps.length - 1, lineStyle: line(x.s.lc),
+        titleColor: x.s === WAIT ? "var(--c-tech-blue)" : "var(--c-slate-700)"
+      }));
+    };
+
+    // Handlinger følger status: kun det der giver mening er tilgængeligt.
+    const actionsFor = (key, what) => {
+      const done = (msg) => () => { this.setState({ screen: detKind === "list" ? "list" : detKind === "mile" ? "mileage" : "cards", detail: null }); this.flash(msg); };
+      if (key === "pending" || key === "hold") return {
+        primary: { label: key === "hold" ? "Release and approve" : "Approve", icon: "fa-light fa-check", go: done("Approved · " + what) },
+        second:  { label: "Hold", icon: "fa-light fa-circle-pause", go: done("On hold · " + what) },
+        third:   { label: "Reject", icon: "fa-light fa-xmark", go: done("Rejected · reason sent") },
+        note: "Rejecting asks for a reason — it is sent to the employee and stored on the entry."
+      };
+      if (key === "approved") return {
+        primary: { label: "Post to Business Central", icon: "fa-light fa-arrow-right-to-bracket", go: done("Queued for posting · " + what) },
+        second:  { label: "Reopen", icon: "fa-light fa-rotate-left", go: done("Reopened · back to pending") },
+        note: "Posting is irreversible from here — reverse with a credit entry in BC."
+      };
+      if (key === "rejected") return {
+        primary: { label: "Reopen for the employee", icon: "fa-light fa-rotate-left", go: done("Reopened · the employee can correct and resubmit") },
+        note: "The employee keeps the original receipt and entry number."
+      };
+      if (key === "posted") return {
+        primary: { label: "Open in Business Central", icon: "fa-light fa-arrow-up-right-from-square", go: () => this.flash("Opening the G/L entry in Business Central") },
+        second:  { label: "Download", icon: "fa-light fa-arrow-down-to-line", go: () => this.flash("Downloading receipt and entry as PDF") },
+        note: "Posted entries are read-only in Expense Management."
+      };
+      return {
+        primary: { label: "Remind the employee", icon: "fa-light fa-bell", go: done("Reminder sent") },
+        note: "The draft stays with the employee until they submit it."
+      };
+    };
+
+    // Fælles hoved for alle tre detaljeskærme.
+    const detHead = D ? {
+      pos: detPos + 1, count: detPool.length,
+      prevStyle: stepBtn(detPool.length > 1), nextStyle: stepBtn(detPool.length > 1),
+      prev: step(-1), next: step(1)
+    } : { pos: 0, count: 0, prevStyle: stepBtn(false), nextStyle: stepBtn(false), prev: () => {}, next: () => {} };
+
+    // ── Expense ──────────────────────────────────────────
+    const eD = detKind === "list" && D ? D : null;
+    const eVat = eD && eD.fx.indexOf("VAT") === 0 ? eD.fx.replace("VAT ", "") : null;
+    const eNoReceipt = eD ? eD.sub.toLowerCase().indexOf("receipt missing") >= 0 : false;
+    const eCard = eD ? eD.sub.indexOf("Card ·") === 0 : false;
+
+    // ── Mileage ──────────────────────────────────────────
+    const mD = detKind === "mile" && D ? D : null;
+    const mParts = mD ? mD.route.split("→").map(x => x.trim()) : ["", ""];
+
+    // ── Card transaction ─────────────────────────────────
+    const cD = detKind === "card" && D ? D : null;
+
+    const detTitle = eD ? eD.what + " \u00B7 " + eD.who
+                   : mD ? mD.route + " \u00B7 " + mD.who
+                   : cD ? cD.merchant + " \u00B7 " + cD.holder : null;
+    const detUrl = eD ? "expense.continia.com/expenses/EM-2026-0" + (4100 + detPos)
+                 : mD ? "expense.continia.com/mileage/MI-2026-0" + (220 + detPos)
+                 : cD ? "expense.continia.com/card-transactions/CT-2026-1" + (480 + detPos) : null;
+
+
     return {
-      winW: 1440, winH: 984, url: cur.url, tabs: [{ title: "Continia Expense" }, { title: "Business Central" }],
-      pageTitle: cur.title, screenNote: cur.note,
+      winW: 1440, winH: 984, url: detUrl || cur.url, tabs: [{ title: "Continia Expense" }, { title: "Business Central" }],
+      pageTitle: detTitle || cur.title, screenNote: cur.note,
 
       railScreens: screens.map(x => ({ label: x.label, icon: x.icon, badge: x.badge, style: railStyle(x.id === s.screen), go: this.go(x.id) })),
       nav: [
@@ -1151,7 +1689,79 @@ class Component extends DCLogic {
       signOut: () => this.setState({ screen: "login", sel: [], toast: null }),
       isQueue: s.screen === "queue", isApprove: s.screen === "approve", isList: s.screen === "list",
       isReports: s.screen === "reports", isSettings: s.screen === "settings",
-      isMileage: s.screen === "mileage", isCards: s.screen === "cards",
+      isMileage: s.screen === "mileage",
+      isExpense: s.screen === "expense",
+      isTrip: s.screen === "trip",
+      isCardTx: s.screen === "cardtx",
+
+      // Fælles for de tre detaljeskærme
+      detPos: detHead.pos, detCount: detHead.count,
+      detPrev: detHead.prev, detNext: detHead.next,
+      detPrevStyle: detHead.prevStyle, detNextStyle: detHead.nextStyle,
+      backList: this.go("list"), backMile: this.go("mileage"), backCards: this.go("cards"),
+
+      // Expense-detalje
+      eWhat: eD ? eD.what : "", eSub: eD ? eD.sub : "",
+      eWho: eD ? eD.who : "", eInitials: eD ? eD.initials : "",
+      eAmount: eD ? eD.amount : "", eStatus: eD ? eD.status : "",
+      eChipStyle: eD ? eD.chipStyle : "", eChipIcon: eD ? eD.chipIcon : "",
+      eAvStyle: "width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;",
+      eVat: eVat, eFx: eD && !eVat ? eD.fx : null,
+      eNoReceipt: eNoReceipt, eHasReceipt: !eNoReceipt,
+      eDate: eD ? eD.date : "", eEntry: eD && eD.entry !== "—" ? eD.entry : null,
+      eFields: eD ? [
+        { k: "Date", v: eD.date },
+        { k: "Category", v: eD.cat, icon: eD.catIcon },
+        { k: "Paid with", v: eCard ? eD.sub.replace("Card · ", "") + " · company card" : "Own card · reimbursed with salary", icon: cats.card },
+        { k: "Description", v: eD.sub },
+        { k: "Employee", v: eD.who },
+        { k: "Entry", v: eD.entry === "—" ? "Not posted yet" : eD.entry }
+      ] : [],
+      eChain: eD ? chainFor(eD.key, eD.who) : [],
+      eActions: eD ? actionsFor(eD.key, eD.what) : { primary: { label: "Back to the list", icon: "fa-light fa-arrow-left", go: this.go("list") }, note: "" },
+      eReceiptLines: eD ? [
+        { t: eD.what, v: eVat ? (parseFloat(eD.amount.replace(/\./g, "").replace(",", ".")) - parseFloat(eVat.replace(/\./g, "").replace(",", "."))).toLocaleString("da-DK", { minimumFractionDigits: 2 }) : eD.amount },
+        { t: "VAT 25%", v: eVat || "0,00" }
+      ] : [],
+
+      // Mileage-detalje
+      mRoute: mD ? mD.route : "", mFrom: mParts[0], mTo: mParts[1],
+      mWho: mD ? mD.who : "", mInitials: mD ? mD.initials : "",
+      mAmount: mD ? mD.amount : "", mKm: mD ? mD.km : "", mRate: mD ? mD.rate : "",
+      mStatus: mD ? mD.status : "", mPurpose: mD ? mD.purpose : "", mDate: mD ? mD.date : "",
+      mChipStyle: mD ? chipStyle(mD.key) : "", mChipIcon: mD ? chips[mD.key].icon : "",
+      mAvStyle: "width: 38px; height: 38px; border-radius: 999px; background: var(--c-light-blue); color: var(--c-tech-blue); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;",
+      mFields: mD ? [
+        { k: "Date", v: mD.date + "-2026" },
+        { k: "From", v: mParts[0], icon: "fa-light fa-circle-dot" },
+        { k: "To", v: mParts[1], icon: "fa-light fa-location-dot" },
+        { k: "Purpose", v: mD.purpose },
+        { k: "Driver", v: mD.who },
+        { k: "Vehicle", v: "Private car · state rate 2026", icon: cats.mileage }
+      ] : [],
+      mChain: mD ? chainFor(mD.key, mD.who) : [],
+      mActions: mD ? actionsFor(mD.key, mD.route) : { primary: { label: "Back to the list", icon: "fa-light fa-arrow-left", go: this.go("mileage") }, note: "" },
+
+      // Card transaction-detalje
+      cMerchant: cD ? cD.merchant : "", cIcon: cD ? cD.icon : "",
+      cHolder: cD ? cD.holder : "", cCard: cD ? cD.card : "",
+      cAmount: cD ? cD.amount : "", cFx: cD ? cD.fx : "",
+      cStatus: cD ? cD.status : "", cMatch: cD ? cD.match : "", cMatchSub: cD ? cD.matchSub : "",
+      cChipStyle: cD ? cD.chipStyle : "", cChipIcon: cD ? cD.chipIcon : "",
+      cUnmatched: cD ? cD.key === "noexp" : false,
+      cNoReceipt: cD ? cD.key === "norec" : false,
+      cSettled: cD ? !cD.action : false,
+      cFields: cD ? [
+        { k: "Posted", v: cD.date + "-2026" },
+        { k: "Merchant", v: cD.merchant, icon: cD.icon },
+        { k: "Card", v: cD.card, icon: cats.card },
+        { k: "Cardholder", v: cD.holder },
+        { k: "Amount", v: cD.amount + " DKK" },
+        { k: "VAT", v: cD.fx.replace("VAT ", "") }
+      ] : [],
+      cCreate: cD ? () => { this.setState({ screen: "cards", detail: null }); this.flash("Expense drafted from " + cD.merchant + " · sent to " + cD.holder); } : () => {},
+      cMatchGo: cD ? () => this.flash("Pick an existing expense to match · " + cD.amount + " DKK") : () => {},
+      cRemind: cD ? () => { this.setState({ screen: "cards", detail: null }); this.flash("Reminder sent to " + cD.holder); } : () => {}, isCards: s.screen === "cards",
 
       mileKpis: [
         { label: "Km logged, YTD", value: "74.280", note: "412 entries \u00B7 24 drivers" },
@@ -1159,13 +1769,14 @@ class Component extends DCLogic {
         { label: "On the high rate", value: "1", note: "of 24 drivers \u00B7 2 within 2.000 km" },
         { label: "Awaiting approval", value: "2", note: "712,52 + 560,92 DKK" }
       ],
-      mileRows: mileData.map(m => ({
+      mileRows: mileData.map((m, mi) => ({
+        open: this.openDetail("mile", mi),
         date: m.date, who: m.who, initials: m.initials, route: m.route, purpose: m.purpose,
         km: m.km, rate: m.rate, amount: m.amount, status: m.status,
         chipStyle: chipStyle(m.key), chipIcon: chips[m.key].icon,
         avStyle: av("var(--c-slate-100)", "var(--c-tech-blue)"),
         rateStyle: "font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; font-weight: " + (m.high ? "700" : "400") + "; color: " + (m.high ? "var(--c-tech-blue)" : "var(--c-slate-500)") + ";",
-        rowStyle: "display: grid; grid-template-columns: 76px 178px 1fr 78px 74px 116px 118px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border);"
+        rowStyle: "display: grid; grid-template-columns: 76px 178px 1fr 78px 74px 116px 118px 28px; align-items: center; gap: 12px; padding: " + padY + " 18px; border-bottom: 1px solid var(--color-border);"
       })),
       drivers: driverData.map(([name, km, tag, kind]) => ({
         name: name, km: km.toLocaleString("da-DK") + " km", tag: tag,

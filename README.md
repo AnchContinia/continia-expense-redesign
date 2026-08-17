@@ -32,17 +32,17 @@ Hashen afspejler altid den skærm der vises, og opdateres også når du
 navigerer med designets egen navigation. Browserens tilbage-knap virker.
 
 ```
-#/portal/sign-in            #/app/login
-#/portal/approval-queue     #/app/my-expenses
-#/portal/approval-view      #/app/history
-#/portal/all-expenses       #/app/per-diem
-#/portal/mileage            #/app/scan-receipt
-#/portal/card-transactions  #/app/scan-result
-#/portal/reporting          #/app/new-expense
-#/portal/setup              #/app/mileage
-                            #/app/expense-report
-                            #/app/expense-detail
-                            #/app/receipt-inbox
+#/portal/sign-in             #/app/login
+#/portal/approval-queue      #/app/my-expenses
+#/portal/approval-view       #/app/history
+#/portal/all-expenses        #/app/per-diem
+#/portal/expense-detail      #/app/scan-receipt
+#/portal/mileage             #/app/scan-result
+#/portal/mileage-detail      #/app/new-expense
+#/portal/card-transactions   #/app/mileage
+#/portal/card-transaction    #/app/expense-report
+#/portal/reporting           #/app/expense-detail
+#/portal/setup               #/app/receipt-inbox
 ```
 
 Deep links virker ved direkte indlæsning. Peger en hash på den anden flade
@@ -76,8 +76,22 @@ Skallen i `assets/shell.js` gør tre ting:
    `screen`; derefter styres skærmen med `logic.setState({screen})`, og
    `setState` ombrydes så designets egne navigationsklik opdaterer hashen.
 
-**Designfilerne er ikke ændret** ud over det tilbage-link til galleriet, der
-blev indsat i forrige omgang. Al tilpasning ligger i skallen.
+Designfilerne er kun ændret hvor det er bestilt: tile-styling i portalen,
+cloud-video i appens headere, og rækkedetaljerne nedenfor. Alt der handler om
+at få dem til at *opføre sig* som et produkt ligger i skallen.
+
+### Rækkedetaljer i portalen
+
+Expenses, Mileage og Card transactions åbner hver sin detaljeskærm når man
+klikker en række — `expense`, `trip` og `cardtx`. De er datadrevne:
+`state.detail` gemmer `{kind, i}`, hvor `i` er indekset i **kildelisten**, ikke
+i den filtrerede visning, så detaljen overlever at filteret skifter.
+
+Godkendelseskæden og handlingerne udledes af rækkens status: en post der venter
+tilbyder Approve / Hold / Reject, en godkendt tilbyder postering, og en
+posteret tilbyder Business Central og download frem for noget der kan ændre
+den. Alle tre skærme genbruger anatomien fra `approve` — toolbar med
+tilbage-pill og prev/næste, derefter `grid 1fr 468px`.
 
 ### Skalering
 
@@ -121,7 +135,7 @@ udgaver kan overtage. Designet reserverer allerede plads til dem.
 ├── design-system/
 │   └── expense-design-system.html
 ├── mobile/expense-mobile.html      11 skærme
-├── desktop/expense-portal.html     8 skærme
+├── desktop/expense-portal.html     11 skærme
 ├── support.js                      Claude Design-runtime
 ├── image-slot.js  ios-frame.jsx  browser-window.jsx
 ├── mileage-map.html                Leaflet-kort, iframe i appens Mileage
@@ -184,6 +198,7 @@ Skallen læner sig op ad tre ting i designfilerne. Ændrer eksporten dem, skal
 | Antagelse | Hvor | Symptom hvis den brydes |
 | --- | --- | --- |
 | `state.screen` findes med de kendte nøgler | `SURFACES[*].screens` | Ruter falder tilbage til forsiden |
+| `listData` / `mileData` / `cardData` findes med samme felter | detalje-afledningen i portalens logik | Detaljeskærmene står tomme |
 | DOM-strukturen `#dc-root > .sc-host > div > {aside, div}` | `chromelessCSS()` | Prototype-panel eller noter dukker op |
 | `[data-om-starter="ios-frame"]` / `"browser-window"` med chrome som 1., 2. og 4. barn | `chromelessCSS()` | Statuslinje eller browserramme bliver stående |
 
@@ -213,6 +228,15 @@ Opdatér desuden kortene i `gallery/index.html` og tabellerne her.
   ingen vej *tilbage* til login uden at redigere hashen.
 - **Portalens `approve`-skærm** har ingen post i sidebaren; i designet nås den
   ved at åbne en række i godkendelseskøen. Deep linket virker.
+- **Detaljeskærmene** nås ved at klikke en række. Et deep link uden valgt række
+  falder tilbage til den første i listen, og prev/næste går gennem den
+  *filtrerede* liste — ikke hele datasættet.
+- **Mileage-kortet** er den samme `mileage-map.html` som mobilappen bruger, med
+  en fast rute. Fra/til-felterne viser den rigtige strækning; selve stregen er
+  illustrativ, hvilket også står skrevet på skærmen.
+- **Detaljernes handlingsfelt** klippes ved viewporthøjder under ca. 950px. Det
+  gør den eksisterende `approve`-skærm også — og værre. Portalen er tegnet til
+  984px høj.
 - Font Awesome-kittet er verificeret ikke domænelåst — ikonerne renderer på
   `github.io`.
 
